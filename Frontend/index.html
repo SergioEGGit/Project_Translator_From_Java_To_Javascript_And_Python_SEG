@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+	<head>
+	
+		<!-- Meta Data -->	
+		<meta charset="utf-8">
+		<meta name="author" content="Sergio Alexander Echigoyen Gómez - 201801628">
+		<meta name="generator" content="WYSIWYG Web Builder 15 - http://www.wysiwygwebbuilder.com">
+		
+		<!-- Titulo -->	
+		<title>SEG: Proyecto 2</title>
+		
+		<!-- Icono --> 			
+		<link rel="icon" href="Style/Assets/icono.png" type="image/png"/>
+		
+		<!-- Css --> 
+		<link href="Style/base/jquery-ui.min.css" rel="stylesheet">
+		<link href="Style/font-awesome.min.css" rel="stylesheet">
+		<link href="Style/Pagina_Web.css" rel="stylesheet">
+		<link href="Style/index.css" rel="stylesheet">
+		
+		<!-- Scripts --> 
+		<script src="Scripts/jquery-1.12.4.min.js"></script>
+		<script src="Scripts/wb.overlay.min.js"></script>
+		<script src="Scripts/wb.drilldownmenu.min.js"></script>
+		<script src="Scripts/jquery-ui.min.js"></script>
+		<script src="Scripts/index.js"></script>
+	</head>
+
+	<body>
+	
+		<!-- Menú -->
+		<div id="wb_Menu" style="position:absolute;left:21px;top:17px;width:59px;height:53px;z-index:1;">
+			<a href="#" id="Menu">
+				<span class="line"></span>
+				<span class="line">
+				</span><span class="line"></span>
+			</a>
+		</div>
+		<div id="Menu-overlay">
+			<div class="Menu">
+				<ul class="drilldown-menu" role="menu">
+				
+					<!-- Sub Menu Archivo -->
+					<li>
+						<a role="menuitem" href="#"><i class="fa fa-folder overlay-icon"></i>Archivo</a>
+						<ul class="drilldown-submenu" role="menu">
+							<li><a role="menuitem" id="Agregar_Tabs"><i class="fa fa-plus-circle overlay-icon"></i>Nuevo&nbsp;Pesta&#241;a</a></li>
+							<li><a role="menuitem" id="Abrir_Archivo" onclick="AbrirArchivo()"><i class="fa fa-folder-open overlay-icon"></i>Abrir&nbsp;Archivo</a></li>
+							<li><a role="menuitem" id="Guardar_Como_Archivo" onclick="GuardarComoArchivo()"><i class="fa fa-save overlay-icon"></i>Guardar</a></li>
+						</ul>
+					</li>
+				
+					<!-- Sub Menu Herramientas -->		
+					<li>
+						<a role="menuitem" href="#"><i class="fa fa-gear overlay-icon"></i>Herramientas</a>
+						<ul class="drilldown-submenu" role="menu">
+							<li><a role="menuitem" href="#"><i class="fa fa-times overlay-icon"></i>Reporte&nbsp;De&nbsp;Errores</a></li>
+							<li><a role="menuitem" href="#"><i class="fa fa-list-ul overlay-icon"></i>Reporte&nbsp;De&nbsp;Tokens</a></li>
+							<li><a role="menuitem" href="#"><i class="fa fa-tree overlay-icon"></i>&#193;rbol&nbsp;De&nbsp;An&#225;lisis&nbsp;Sint&#225;ctico</a></li>
+						</ul>
+					</li>
+					
+					<!-- Sub Menu Reportes -->	
+					<li>
+						<a role="menuitem" href="#"><i class="fa fa-cloud-download overlay-icon"></i>Descargas</a>
+						<ul class="drilldown-submenu" role="menu">
+							<li><a role="menuitem" href="#"><i class="fa fa-terminal overlay-icon"></i>Archivo&nbsp;Python</a></li>
+							<li><a role="menuitem" href="#"><i class="fa fa-code overlay-icon"></i>Archivo&nbsp;Javascript</a></li>
+							<li><a role="menuitem" href="#"><i class="fa fa-copy overlay-icon"></i>Ambos&nbsp;Archivos</a></li>
+						</ul>
+					</li>
+					
+					<!-- Sub Menu Acerca De -->	
+					<li><a role="menuitem" onclick="AcercaDe()"><i class="fa fa-info-circle overlay-icon"></i>Acerca&nbsp;De..</a></li>
+				</ul>			
+			</div>
+			
+			<!-- Boton Cerrar -->	
+			<a class="close-button" id="Menu-close" href="#" role="button" aria-hidden="true"><span></span></a>
+			</div>
+
+			<!-- Tabs -->
+			<div id="Tabs" style="position:absolute;left:29px;top:179px;width:641px;height:418px;z-index:9;">
+				<ul>
+					<li><a href="#tabs-page-0"><span><i class="fa fa-file-code-o tabs-icon"></i>Pestaña 1</span></a><span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+				</ul>
+				<div style="height:392px;" id="tabs-page-0">
+					<textarea name="textarea_0" id="textarea_0" style="position:absolute;left:12px;top:13px;width:607px;height:337px;z-index:0;" rows="13" cols="45" spellcheck="false">Código Fuente Java</textarea>
+				</div>
+			</div>
+
+			<!-- Titulos -->
+			<div id="wb_TextArt1" style="position:absolute;left:232px;top:31px;width:309px;height:69px;z-index:2;">
+			<img src="Style/Assets/img0001.png" id="TextArt1" alt="Translator  In Docker" title="Translator  In Docker" style="width:309px;height:69px;"></div>
+			<textarea name="consolajs" id="consolapy" style="position:absolute;left:732px;top:87px;width:585px;height:214px;z-index:3;" rows="7" cols="47" readonly spellcheck="false" placeholder="Traducci&#243;n a c&#243;digo de python."></textarea>
+			<div id="wb_TextArt3" style="position:absolute;left:732px;top:52px;width:184px;height:27px;z-index:4;">
+			<img src="Style/Assets/img0002.png" id="TextArt3" alt="Python:" title="Python:" style="width:184px;height:27px;"></div>
+			<textarea name="consolajs" id="consolajs" style="position:absolute;left:732px;top:383px;width:585px;height:214px;z-index:5;" rows="7" cols="47" readonly spellcheck="false" placeholder="Traducci&#243;n a c&#243;digo de javascript."></textarea>
+			<div id="wb_TextArt2" style="position:absolute;left:732px;top:337px;width:184px;height:27px;z-index:6;">
+			<img src="Style/Assets/img0003.png" id="TextArt2" alt="Javascript:" title="Javascript:" style="width:184px;height:27px;"></div>
+			<div id="wb_TextArt4" style="position:absolute;left:1091px;top:17px;width:236px;height:33px;z-index:7;">
+			<img src="Style/Assets/img0004.png" id="TextArt4" alt="Carnet: 201801628" title="Carnet: 201801628" style="width:236px;height:33px;"></div>
+			<div id="wb_TextArt5" style="position:absolute;left:29px;top:130px;width:143px;height:24px;z-index:8;">
+			<img src="Style/Assets/img0005.png" id="TextArt5" alt="Java:" title="Java:" style="width:143px;height:24px;"></div>
+			
+			
+			<!-- Alert -->
+			<div class="alert" id="Alerta">
+			  <span class="closebtn" id="Boton_Cerrar" onclick="Cerrar()">&times;</span>
+			  SEG_P2: Proyecto No.2 Organizacion De Lenguajes Y Compiladores 1
+			  Sergio Alexander Echigoyen Gómez - 201801628
+			</div>
+						
+	</body>
+</html>
