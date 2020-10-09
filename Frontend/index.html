@@ -25,6 +25,7 @@
 		<script src="Scripts/wb.drilldownmenu.min.js"></script>
 		<script src="Scripts/jquery-ui.min.js"></script>
 		<script src="Scripts/index.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	</head>
 
 	<body>
@@ -55,7 +56,8 @@
 					<li>
 						<a role="menuitem" href="#"><i class="fa fa-gear overlay-icon"></i>Herramientas</a>
 						<ul class="drilldown-submenu" role="menu">
-							<li><a role="menuitem" href="#"><i class="fa fa-times overlay-icon"></i>Reporte&nbsp;De&nbsp;Errores</a></li>
+							<li><a role="menuitem" onclick="Analisis()"><i class="fa fa-file-code-o overlay-icon"></i>Análisis</a></li>
+							<li><a role="menuitem" ><i class="fa fa-times overlay-icon"></i>Reporte&nbsp;De&nbsp;Errores</a></li>
 							<li><a role="menuitem" href="#"><i class="fa fa-list-ul overlay-icon"></i>Reporte&nbsp;De&nbsp;Tokens</a></li>
 							<li><a role="menuitem" href="#"><i class="fa fa-tree overlay-icon"></i>&#193;rbol&nbsp;De&nbsp;An&#225;lisis&nbsp;Sint&#225;ctico</a></li>
 						</ul>
@@ -93,7 +95,7 @@
 			<!-- Titulos -->
 			<div id="wb_TextArt1" style="position:absolute;left:232px;top:31px;width:309px;height:69px;z-index:2;">
 			<img src="Style/Assets/img0001.png" id="TextArt1" alt="Translator  In Docker" title="Translator  In Docker" style="width:309px;height:69px;"></div>
-			<textarea name="consolajs" id="consolapy" style="position:absolute;left:732px;top:87px;width:585px;height:214px;z-index:3;" rows="7" cols="47" readonly spellcheck="false" placeholder="Traducci&#243;n a c&#243;digo de python."></textarea>
+			<textarea name="consolapy" id="consolapy" style="position:absolute;left:732px;top:87px;width:585px;height:214px;z-index:3;" rows="7" cols="47" readonly spellcheck="false" placeholder="Traducci&#243;n a c&#243;digo de python."></textarea>
 			<div id="wb_TextArt3" style="position:absolute;left:732px;top:52px;width:184px;height:27px;z-index:4;">
 			<img src="Style/Assets/img0002.png" id="TextArt3" alt="Python:" title="Python:" style="width:184px;height:27px;"></div>
 			<textarea name="consolajs" id="consolajs" style="position:absolute;left:732px;top:383px;width:585px;height:214px;z-index:5;" rows="7" cols="47" readonly spellcheck="false" placeholder="Traducci&#243;n a c&#243;digo de javascript."></textarea>

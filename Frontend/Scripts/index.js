@@ -1,3 +1,51 @@
+// Boton Analizar 
+function Analisis() {
+	
+	// Obtener Identificador Pestaña
+	var Tabs = $("#Tabs").tabs(
+			{
+				show: { effect: 'slide', direction: 'left', duration: 400 },
+				hide: { effect: 'fade', duration: 400 },
+				event: 'click',
+				collapsible: false
+			});
+			
+	
+	var PestañaActiva = Tabs.find(".ui-tabs-active").attr("aria-controls");
+
+	var Identificador = PestañaActiva.split("-");
+		
+	// Obtener TextArea
+	var TextArea = document.getElementById("textarea_" + Identificador[2]);
+	
+	// Obtener Texto
+	var CadenaAnalizar = TextArea.value;
+	
+	// Configuracion Json
+	var Configuracion = {
+		
+		Cadena: CadenaAnalizar		
+		
+	};
+	
+	// Peticion Analisis Servidor
+	axios.post('http://192.168.1.4:8887/Analisis', Configuracion)
+		
+		.then((response) => {
+			
+			// Response
+		
+		})
+		.catch((error) => {
+			
+			// Error Al Realizar La Solicitud
+			alert("Error Al Solicitar El Analisis!");
+			console.log(error);
+		
+		});
+	
+}
+
 // Utilitarios
 // Descargar Archivo
 function DescargarArchivo(Contenido, NombreArchivo, Tipo) {
