@@ -1,14 +1,14 @@
 // Imports
 import { Instruccion } from "./Instruccion";
-import * as G from './Globales'
+
 // Clase Principal
-export class Print extends Instruccion{
+export class Clase extends Instruccion 
 
     // Declaraciones
 	public AST = null;
 	
 	// Constructor
-    constructor(Linea: number, Columna: number, private Value: Instruccion) {
+    constructor(Linea: number, Columna: number, private Identificador: String, BloqueClase: Instruccion) {
         
 		// Super
 		super(Linea, Columna)
@@ -25,4 +25,3 @@ export class Print extends Instruccion{
 		return Traduccion;
     }
 }
-

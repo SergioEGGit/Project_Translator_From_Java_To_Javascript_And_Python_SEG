@@ -12,27 +12,50 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PRINT = void 0;
+exports.Print = void 0;
+// Imports
 var Instruccion_1 = require("./Instruccion");
-var PRINT = /** @class */ (function (_super) {
-    __extends(PRINT, _super);
-    function PRINT(linea, columna) {
-        var _this = _super.call(this, linea, columna) //super llama al constructor de la clase abstracta
-         || this;
-        //private value:Expresion
+var G = __importStar(require("./Globales"));
+// Clase Principal
+var Print = /** @class */ (function (_super) {
+    __extends(Print, _super);
+    // Constructor
+    function Print(Linea, Columna, Value) {
+        var _this = 
+        // Super
+        _super.call(this, Linea, Columna) || this;
+        _this.Value = Value;
+        // Declaraciones
         _this.AST = null;
         return _this;
-        //this.value=value// el valor que recibe el print System.out.print(value)
     }
-    PRINT.prototype.Traducir = function () {
-        console.log("ESTA SERA LA TRADUCCION DEL SOUT");
-        console.log("PRINT();");
-        console.log("console.log();");
-        console.log("PTO");
-        //Este metodo te va a hacer la traduccion del sout a donde vos lo querras 
-        //por eso los console log ya solo es que decidad cual es
+    // Metodo Traducir
+    Print.prototype.Traducir = function () {
+        // Declaraciones
+        var Value = this.Value.Traducir();
+        var Traduccion = G.Identacion() + "console.log(" + Value + ");";
+        return Traduccion;
     };
-    return PRINT;
+    return Print;
 }(Instruccion_1.Instruccion));
-exports.PRINT = PRINT;
+exports.Print = Print;

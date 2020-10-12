@@ -3,6 +3,7 @@
 // Variables Y Constantes
 const ExpressAuxiliar = require('express');
 const Parser = require('../AnalizadorLexicoSintactico/build/Parser/AnalizadorGramatica.js');
+
 // Inicializar Router
 const RouterAuxiliar = ExpressAuxiliar.Router();
 
@@ -10,12 +11,57 @@ const RouterAuxiliar = ExpressAuxiliar.Router();
 RouterAuxiliar.get('/', (req, res) => {
 	
 	// Enviar Response
-	const AST=Parser.parse("System.out.println();");
-	for (const element of AST){
-		console.log(element)
-		element.Traducir();
+	/*  
+		for (5 > 5; 5 <= 5 + 5; 5++) {
+		
+          System.out.println(5);
+		  System.out.print(5);
+      
+		}
+	
+		while (true) {
+			
+			System.out.println(-3);
+			
+		}		
+	
+		do {
+            System.out.println (6);
+		} while (5 < 10);
+		
+		
+		if ( 5 > 5 ){
+			System.out.print(5);
+		} else if (a < 5){
+			System.out.print(5);
+		}else{
+			System.out.print(5);
+		}
+	*/
+	
+	const AST = Parser.parse(`
+	
+		for (int i = 0; 5 <= 5 + 5; 5++) {
+		
+          System.out.println(5);
+		  System.out.print(5);
+      
+		}	
+		
+		String Variable = 5, Hola=1,Y;
+		String Hola, quehace, quetal; 
+
+	
+	`);
+	let Traduccion_Total=""
+	for(const element of AST){
+	
+		Traduccion_Total += element.Traducir() + "\n";
+		
 	}
-	res.send("Bienvenido Al Servidor De Javascript! Puerto: 7776")
+	console.log(Traduccion_Total);
+	res.send("Bienvenido Al Servidor De Javascript! Puerto: 7776");
+	
 });
 
 // Solicitar Análisis
@@ -29,4 +75,3 @@ RouterAuxiliar.post('/Analisis', (req, res) => {
 
 // Exportar Modulo
 module.exports = RouterAuxiliar;
-// ya maje XD almenos el print
