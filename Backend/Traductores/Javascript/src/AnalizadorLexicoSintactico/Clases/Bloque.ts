@@ -1,6 +1,7 @@
 // Imports
-import {Instruccion} from './Instruccion'
-import {CantidadIdentacion} from './Globales'
+import { Instruccion } from './Instruccion'
+import { Identacion } from './Variables_Metodos'
+
 // Clase Principal
 export class Bloque extends Instruccion{
 	
@@ -23,12 +24,18 @@ export class Bloque extends Instruccion{
 		let Ast: any = null
 		
 		// Traducir Instrucciones
-		CantidadIdentacion.push("ALGO");//sube 1
-		for(const Element of this.Instrucciones) {	
+		Identacion.push(" "); //sube 1
+		
+		for(const Element of this.Instrucciones) {
+			
 			let TraduccionElement = Element.Traducir();
-			Traduccion += TraduccionElement + "\n";	
+			
+			Traduccion += TraduccionElement;	
+	
 		}
-		CantidadIdentacion.pop();//cuando sale baja
+		
+		Identacion.pop(); //cuando sale baja
+		
 		return Traduccion;
 	}
 }

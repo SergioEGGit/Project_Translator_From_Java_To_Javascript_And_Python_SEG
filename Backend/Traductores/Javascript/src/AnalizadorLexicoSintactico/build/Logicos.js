@@ -78,6 +78,9 @@ var Logicos = /** @class */ (function (_super) {
         else if (this.Operacion == Operadores.OR) {
             ValRetornar = Izq + " || " + Der;
         }
+        else if (this.Operacion == Operadores.XOR) {
+            ValRetornar = Izq + " ^ " + Der;
+        }
         else {
             ValRetornar = undefined;
         }

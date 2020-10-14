@@ -1,6 +1,7 @@
 // Imports
 import { Instruccion } from "./Instruccion";
-import * as G from './Globales'
+import { AgregarIdentacion } from './Variables_Metodos'
+
 // Clase Principal
 export class Print extends Instruccion{
 
@@ -20,7 +21,8 @@ export class Print extends Instruccion{
 		
 		// Declaraciones
 		let Value = this.Value.Traducir();
-		let Traduccion = G.Identacion()+"console.log(" + Value + ");";
+		
+		let Traduccion = AgregarIdentacion() + "console.log(" + Value + "); \n\n";
 		
 		return Traduccion;
     }

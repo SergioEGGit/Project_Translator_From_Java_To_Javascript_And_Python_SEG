@@ -13,36 +13,47 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Clase = void 0;
+exports.Funciones = void 0;
 // Imports
 var Instruccion_1 = require("./Instruccion");
 var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
-var Clase = /** @class */ (function (_super) {
-    __extends(Clase, _super);
+var Funciones = /** @class */ (function (_super) {
+    __extends(Funciones, _super);
     // Constructor
-    function Clase(Linea, Columna, Identificador, BloqueClase) {
+    function Funciones(Linea, Columna, Tipos, Identificador, ListaParametros, BloqueFuncion) {
         var _this = 
         // Super
         _super.call(this, Linea, Columna) || this;
+        _this.Tipos = Tipos;
         _this.Identificador = Identificador;
-        _this.BloqueClase = BloqueClase;
+        _this.ListaParametros = ListaParametros;
+        _this.BloqueFuncion = BloqueFuncion;
         // Declaraciones
         _this.AST = null;
         return _this;
     }
     // Metodo Traducir
-    Clase.prototype.Traducir = function () {
+    Funciones.prototype.Traducir = function () {
         // Declaraciones
+        var Tipos = this.Tipos;
         var Identificador = this.Identificador;
-        var BloqueClase = this.BloqueClase.Traducir();
-        var Traduccion = Variables_Metodos_1.AgregarIdentacion() + "class " + Identificador + " { \n\n" +
-            Variables_Metodos_1.AgregarIdentacion() + "    constructor() { \n\n" +
-            Variables_Metodos_1.AgregarIdentacion() + "    } \n\n" +
-            BloqueClase + "\n" +
+        var BloqueFuncion = this.BloqueFuncion.Traducir();
+        var Traduccion = "";
+        var Parametros = "";
+        for (var key in this.ListaParametros) {
+            if (Number(key) + 1 == this.ListaParametros.length) {
+                Parametros += this.ListaParametros[Number(key)].Traducir();
+            }
+            else {
+                Parametros += this.ListaParametros[Number(key)].Traducir() + ", ";
+            }
+        }
+        Traduccion = Variables_Metodos_1.AgregarIdentacion() + "function " + Identificador + "(" + Parametros + ") {\n\n" +
+            BloqueFuncion + "\n" +
             Variables_Metodos_1.AgregarIdentacion() + "} \n\n";
         return Traduccion;
     };
-    return Clase;
+    return Funciones;
 }(Instruccion_1.Instruccion));
-exports.Clase = Clase;
+exports.Funciones = Funciones;

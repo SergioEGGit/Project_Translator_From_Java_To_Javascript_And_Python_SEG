@@ -16,6 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.For = void 0;
 // Imports
 var Instruccion_1 = require("./Instruccion");
+var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
 var For = /** @class */ (function (_super) {
     __extends(For, _super);
@@ -40,10 +41,10 @@ var For = /** @class */ (function (_super) {
         var Incremento = this.Incremento.Traducir();
         var BloqueFor = this.BloqueFor.Traducir();
         // Traducción
-        var Traduccion = "for(" + Declaracion + " " + Condicion + "; " + Incremento + ") " +
+        var Traduccion = Variables_Metodos_1.AgregarIdentacion() + "for(" + Declaracion + " " + Condicion + "; " + Incremento + ") " +
             "{ \n\n" +
             BloqueFor + "\n" +
-            "}\n\n";
+            Variables_Metodos_1.AgregarIdentacion() + "}\n\n";
         return Traduccion;
     };
     return For;

@@ -1,5 +1,6 @@
 // Imports
-import { Instruccion } from "./Instruccion" 
+import { Instruccion } from "./Instruccion";
+import { AgregarIdentacion } from "./Variables_Metodos"; 
 
 // Clase Principal
 export class While extends Instruccion {
@@ -23,10 +24,10 @@ export class While extends Instruccion {
 		let BloqueWhile = this.BloqueWhile.Traducir();
 		
 		// Traducción
-		let Traduccion = "while(" + Condicion + ") " +
+		let Traduccion = AgregarIdentacion() + "while(" + Condicion + ") " +
 						 "{ \n\n" +
 						 BloqueWhile + "\n" +
-						 "}\n\n";
+						 AgregarIdentacion() + "} \n\n";
 		
 		
 		return Traduccion;		

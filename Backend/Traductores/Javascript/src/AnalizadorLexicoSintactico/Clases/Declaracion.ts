@@ -8,7 +8,7 @@ export class Declaracion extends Instruccion {
 	public AST = null;
 	
 	// Constructor
-    constructor(Linea: number, Columna: number, private Tipo: String, private Variables: Instruccion[]) {
+    constructor(Linea: number, Columna: number, private Tipo: String, private Variables: Instruccion[]) { 
         
 		// Super
 		super(Linea, Columna)

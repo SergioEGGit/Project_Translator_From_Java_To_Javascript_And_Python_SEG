@@ -1,5 +1,6 @@
 // Imports
-import { Instruccion } from "./Instruccion" 
+import { Instruccion } from "./Instruccion";
+import { AgregarIdentacion } from "./Variables_Metodos"; 
 
 // Clase Principal
 export class DoWhile extends Instruccion {
@@ -23,10 +24,10 @@ export class DoWhile extends Instruccion {
 		let Condicion = this.Condicion.Traducir();
 		
 		// Traducción
-		let Traduccion = "do { \n\n" +
+		let Traduccion = AgregarIdentacion() + "do { \n\n" +
 						 BloqueDoWhile + "\n" + 
-						 "} " +
-						 "while(" + Condicion + "); \n";		
+						 AgregarIdentacion() + "} " +
+						 "while(" + Condicion + "); \n\n";		
 	
 		return Traduccion;		
 		 

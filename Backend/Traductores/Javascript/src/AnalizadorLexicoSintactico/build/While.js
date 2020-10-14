@@ -16,6 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.While = void 0;
 // Imports
 var Instruccion_1 = require("./Instruccion");
+var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
 var While = /** @class */ (function (_super) {
     __extends(While, _super);
@@ -36,10 +37,10 @@ var While = /** @class */ (function (_super) {
         var Condicion = this.Condicion.Traducir();
         var BloqueWhile = this.BloqueWhile.Traducir();
         // Traducción
-        var Traduccion = "while(" + Condicion + ") " +
+        var Traduccion = Variables_Metodos_1.AgregarIdentacion() + "while(" + Condicion + ") " +
             "{ \n\n" +
             BloqueWhile + "\n" +
-            "}\n\n";
+            Variables_Metodos_1.AgregarIdentacion() + "} \n\n";
         return Traduccion;
     };
     return While;

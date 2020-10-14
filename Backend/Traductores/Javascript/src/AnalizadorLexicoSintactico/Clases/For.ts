@@ -1,5 +1,6 @@
 // Imports
-import { Instruccion } from "./Instruccion" 
+import { Instruccion } from "./Instruccion"; 
+import { AgregarIdentacion } from "./Variables_Metodos"; 
 
 // Clase Principal
 export class For extends Instruccion {
@@ -25,10 +26,10 @@ export class For extends Instruccion {
 		let BloqueFor = this.BloqueFor.Traducir();
 		
 		// Traducción
-		let Traduccion = "for(" + Declaracion + " " + Condicion + "; " + Incremento + ") " +
+		let Traduccion = AgregarIdentacion() + "for(" + Declaracion + " " + Condicion + "; " + Incremento + ") " +
 						 "{ \n\n" +
 						 BloqueFor + "\n" +
-						 "}\n\n";
+						 AgregarIdentacion() + "}\n\n";
 		
 		
 		return Traduccion;		

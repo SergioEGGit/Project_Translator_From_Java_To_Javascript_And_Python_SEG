@@ -7,7 +7,10 @@ export enum Operaciones {
 	SUMA,
 	RESTA,
 	MULTIPLICACION,
-	DIVISION
+	DIVISION,
+	INCREMENTO,
+	DECREMENTO,
+	NEGATIVO	
 	
 }
 
@@ -48,6 +51,18 @@ export class Matematicos extends Instruccion {
 		} else if(this.Operacion == Operaciones.DIVISION) {
 		
 			ValRetornar = Izq + " / " + Der;
+		
+		} else if(this.Operacion == Operaciones.INCREMENTO) {
+		
+			ValRetornar = Izq + "++";
+		
+		} else if(this.Operacion == Operaciones.DECREMENTO) {
+		
+			ValRetornar = Izq + "--";
+		
+		} else if(this.Operacion == Operaciones.NEGATIVO) {
+		
+			ValRetornar = "-" + Der;
 		
 		} else {
 			

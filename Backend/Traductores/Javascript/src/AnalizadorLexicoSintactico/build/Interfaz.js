@@ -13,36 +13,34 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DoWhile = void 0;
+exports.Interfaz = void 0;
 // Imports
 var Instruccion_1 = require("./Instruccion");
 var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
-var DoWhile = /** @class */ (function (_super) {
-    __extends(DoWhile, _super);
-    // Constructor 
-    function DoWhile(Linea, Columna, BloqueDoWhile, Condicion) {
+var Interfaz = /** @class */ (function (_super) {
+    __extends(Interfaz, _super);
+    // Constructor
+    function Interfaz(Linea, Columna, Identificador, BloqueInterfaz) {
         var _this = 
         // Super
         _super.call(this, Linea, Columna) || this;
-        _this.BloqueDoWhile = BloqueDoWhile;
-        _this.Condicion = Condicion;
+        _this.Identificador = Identificador;
+        _this.BloqueInterfaz = BloqueInterfaz;
         // Declaraciones
         _this.AST = null;
         return _this;
     }
-    // Método Traducir	
-    DoWhile.prototype.Traducir = function () {
-        // Declaraciones
-        var BloqueDoWhile = this.BloqueDoWhile.Traducir();
-        var Condicion = this.Condicion.Traducir();
-        // Traducción
-        var Traduccion = Variables_Metodos_1.AgregarIdentacion() + "do { \n\n" +
-            BloqueDoWhile + "\n" +
-            Variables_Metodos_1.AgregarIdentacion() + "} " +
-            "while(" + Condicion + "); \n\n";
+    // Metodo Traducir
+    Interfaz.prototype.Traducir = function () {
+        var Identificador = this.Identificador;
+        var BloqueInterfaz = this.BloqueInterfaz.Traducir();
+        // Traduccion
+        var Traduccion = Variables_Metodos_1.AgregarIdentacion() + "interface " + Identificador + " { \n\n" +
+            BloqueInterfaz + "\n" +
+            Variables_Metodos_1.AgregarIdentacion() + "} \n\n";
         return Traduccion;
     };
-    return DoWhile;
+    return Interfaz;
 }(Instruccion_1.Instruccion));
-exports.DoWhile = DoWhile;
+exports.Interfaz = Interfaz;

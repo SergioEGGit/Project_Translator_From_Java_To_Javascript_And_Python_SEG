@@ -13,36 +13,31 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DoWhile = void 0;
+exports.Parametros = void 0;
 // Imports
 var Instruccion_1 = require("./Instruccion");
-var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
-var DoWhile = /** @class */ (function (_super) {
-    __extends(DoWhile, _super);
-    // Constructor 
-    function DoWhile(Linea, Columna, BloqueDoWhile, Condicion) {
+var Parametros = /** @class */ (function (_super) {
+    __extends(Parametros, _super);
+    // Constructor
+    function Parametros(Linea, Columna, Tipos, Identificador) {
         var _this = 
         // Super
         _super.call(this, Linea, Columna) || this;
-        _this.BloqueDoWhile = BloqueDoWhile;
-        _this.Condicion = Condicion;
+        _this.Tipos = Tipos;
+        _this.Identificador = Identificador;
         // Declaraciones
         _this.AST = null;
         return _this;
     }
-    // Método Traducir	
-    DoWhile.prototype.Traducir = function () {
+    // Metodo Traducir
+    Parametros.prototype.Traducir = function () {
         // Declaraciones
-        var BloqueDoWhile = this.BloqueDoWhile.Traducir();
-        var Condicion = this.Condicion.Traducir();
-        // Traducción
-        var Traduccion = Variables_Metodos_1.AgregarIdentacion() + "do { \n\n" +
-            BloqueDoWhile + "\n" +
-            Variables_Metodos_1.AgregarIdentacion() + "} " +
-            "while(" + Condicion + "); \n\n";
+        var Tipos = this.Tipos;
+        var Identificador = this.Identificador;
+        var Traduccion = Identificador;
         return Traduccion;
     };
-    return DoWhile;
+    return Parametros;
 }(Instruccion_1.Instruccion));
-exports.DoWhile = DoWhile;
+exports.Parametros = Parametros;

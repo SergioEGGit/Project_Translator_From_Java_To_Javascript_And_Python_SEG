@@ -5,7 +5,7 @@
 //export let VariablesAntesEjecucion:Array<any>=new Array();
 //export let TextoConsola:Array<String>=new Array();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Identacion = void 0;
+exports.AgregarIdentacion = exports.Identacion = void 0;
 // Array Identacion
 exports.Identacion = new Array();
 // Funcion Que Cuenta Los Espacios

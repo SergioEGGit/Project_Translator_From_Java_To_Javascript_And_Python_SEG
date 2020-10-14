@@ -1,5 +1,6 @@
 // Imports
-import { Instruccion } from "./Instruccion" 
+import { Instruccion } from "./Instruccion";
+import { AgregarIdentacion } from "./Variables_Metodos"; 
 
 // Clase Principal
 export class If extends Instruccion{
@@ -33,30 +34,30 @@ export class If extends Instruccion{
 			if (this.BloqueElse instanceof If) { 
 				
 				// Traduccion
-				let Traduccion_ElseIf = "if(" + Condicion + ") " +
+				let Traduccion_ElseIf = AgregarIdentacion() + "if(" + Condicion + ") " +
 										"{ \n\n" +
 										BloqueIf + "\n" + 
-										"} else " + 
-										BloqueElse;		 
+										AgregarIdentacion() + "} else " + 
+										BloqueElse.trim() + "\n\n";		 
 							 
 				return Traduccion_ElseIf;
 			
 			}
 			
-			let Traduccion_Else = "if(" + Condicion + ") " +
+			let Traduccion_Else = AgregarIdentacion() + "if(" + Condicion + ") " +
 								  "{ \n\n" + 
 								  BloqueIf + "\n" +		
-                                  "} else { \n\n" +
+                                  AgregarIdentacion() + "} else { \n\n" +
 								  BloqueElse + "\n" + 		
-								  "} ";
+								  AgregarIdentacion() + "} \n\n";
 			
 			return Traduccion_Else;		
 		}
 		
-		let Traduccion_If = "if(" + Condicion + ") " + 
+		let Traduccion_If = AgregarIdentacion() + "if(" + Condicion + ") " + 
 							"{ \n\n" + 
 							BloqueIf + "\n" +
-							"} ";
+							AgregarIdentacion() + "} \n\n";
 		
 		return Traduccion_If; 
 		

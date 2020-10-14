@@ -75,6 +75,10 @@ export class Logicos extends Instruccion {
 			
 			ValRetornar = Izq + " || " + Der;
 		
+		} else if(this.Operacion == Operadores.XOR) {
+			
+			ValRetornar = Izq + " ^ " + Der;
+		
 		} else {
 			
 			ValRetornar = undefined 

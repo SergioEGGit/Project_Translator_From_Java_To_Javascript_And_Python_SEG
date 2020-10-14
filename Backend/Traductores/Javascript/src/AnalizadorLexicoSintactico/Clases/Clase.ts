@@ -1,14 +1,15 @@
 // Imports
 import { Instruccion } from "./Instruccion";
+import { AgregarIdentacion } from './Variables_Metodos'
 
 // Clase Principal
-export class Clase extends Instruccion 
+export class Clase extends Instruccion {
 
     // Declaraciones
 	public AST = null;
 	
 	// Constructor
-    constructor(Linea: number, Columna: number, private Identificador: String, BloqueClase: Instruccion) {
+    constructor(Linea: number, Columna: number, private Identificador: String, private BloqueClase: Instruccion) {
         
 		// Super
 		super(Linea, Columna)
@@ -19,8 +20,14 @@ export class Clase extends Instruccion
     public Traducir() {
 		
 		// Declaraciones
-		let Value = this.Value.Traducir();
-		let Traduccion = G.Identacion()+"console.log(" + Value + ");";
+		let Identificador = this.Identificador;
+		let BloqueClase = this.BloqueClase.Traducir();
+				
+		let Traduccion = AgregarIdentacion() + "class " + Identificador + " { \n\n" + 
+						 AgregarIdentacion() + "    constructor() { \n\n" +
+						 AgregarIdentacion() + "    } \n\n" + 
+						 BloqueClase + "\n" +
+						 AgregarIdentacion() + "} \n\n";				
 		
 		return Traduccion;
     }

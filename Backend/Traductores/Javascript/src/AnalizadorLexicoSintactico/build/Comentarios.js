@@ -13,36 +13,29 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DoWhile = void 0;
+exports.Comentarios = void 0;
 // Imports
 var Instruccion_1 = require("./Instruccion");
 var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
-var DoWhile = /** @class */ (function (_super) {
-    __extends(DoWhile, _super);
+var Comentarios = /** @class */ (function (_super) {
+    __extends(Comentarios, _super);
     // Constructor 
-    function DoWhile(Linea, Columna, BloqueDoWhile, Condicion) {
+    function Comentarios(Linea, Columna, Comentario) {
         var _this = 
         // Super
         _super.call(this, Linea, Columna) || this;
-        _this.BloqueDoWhile = BloqueDoWhile;
-        _this.Condicion = Condicion;
+        _this.Comentario = Comentario;
         // Declaraciones
         _this.AST = null;
         return _this;
     }
     // Método Traducir	
-    DoWhile.prototype.Traducir = function () {
-        // Declaraciones
-        var BloqueDoWhile = this.BloqueDoWhile.Traducir();
-        var Condicion = this.Condicion.Traducir();
+    Comentarios.prototype.Traducir = function () {
         // Traducción
-        var Traduccion = Variables_Metodos_1.AgregarIdentacion() + "do { \n\n" +
-            BloqueDoWhile + "\n" +
-            Variables_Metodos_1.AgregarIdentacion() + "} " +
-            "while(" + Condicion + "); \n\n";
+        var Traduccion = Variables_Metodos_1.AgregarIdentacion() + this.Comentario + "\n\n";
         return Traduccion;
     };
-    return DoWhile;
+    return Comentarios;
 }(Instruccion_1.Instruccion));
-exports.DoWhile = DoWhile;
+exports.Comentarios = Comentarios;

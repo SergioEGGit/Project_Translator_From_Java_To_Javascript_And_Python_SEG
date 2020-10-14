@@ -13,30 +13,43 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Print = void 0;
+exports.DeclaracionFunciones = void 0;
 // Imports
 var Instruccion_1 = require("./Instruccion");
 var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
-var Print = /** @class */ (function (_super) {
-    __extends(Print, _super);
+var DeclaracionFunciones = /** @class */ (function (_super) {
+    __extends(DeclaracionFunciones, _super);
     // Constructor
-    function Print(Linea, Columna, Value) {
+    function DeclaracionFunciones(Linea, Columna, Tipos, Identificador, ListaParametros) {
         var _this = 
         // Super
         _super.call(this, Linea, Columna) || this;
-        _this.Value = Value;
+        _this.Tipos = Tipos;
+        _this.Identificador = Identificador;
+        _this.ListaParametros = ListaParametros;
         // Declaraciones
         _this.AST = null;
         return _this;
     }
     // Metodo Traducir
-    Print.prototype.Traducir = function () {
+    DeclaracionFunciones.prototype.Traducir = function () {
         // Declaraciones
-        var Value = this.Value.Traducir();
-        var Traduccion = Variables_Metodos_1.AgregarIdentacion() + "console.log(" + Value + "); \n\n";
+        var Tipos = this.Tipos;
+        var Identificador = this.Identificador;
+        var Traduccion = "";
+        var Parametros = "";
+        for (var key in this.ListaParametros) {
+            if (Number(key) + 1 == this.ListaParametros.length) {
+                Parametros += this.ListaParametros[Number(key)].Traducir();
+            }
+            else {
+                Parametros += this.ListaParametros[Number(key)].Traducir() + ", ";
+            }
+        }
+        Traduccion = Variables_Metodos_1.AgregarIdentacion() + "function " + Identificador + "(" + Parametros + "); \n\n";
         return Traduccion;
     };
-    return Print;
+    return DeclaracionFunciones;
 }(Instruccion_1.Instruccion));
-exports.Print = Print;
+exports.DeclaracionFunciones = DeclaracionFunciones;

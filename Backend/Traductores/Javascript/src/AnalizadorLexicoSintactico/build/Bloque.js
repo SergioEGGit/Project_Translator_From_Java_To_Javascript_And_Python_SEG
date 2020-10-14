@@ -16,7 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Bloque = void 0;
 // Imports
 var Instruccion_1 = require("./Instruccion");
-var Globales_1 = require("./Globales");
+var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
 var Bloque = /** @class */ (function (_super) {
     __extends(Bloque, _super);
@@ -36,13 +36,13 @@ var Bloque = /** @class */ (function (_super) {
         var Traduccion = "";
         var Ast = null;
         // Traducir Instrucciones
-        Globales_1.CantidadIdentacion.push("ALGO"); //sube 1
+        Variables_Metodos_1.Identacion.push(" "); //sube 1
         for (var _i = 0, _a = this.Instrucciones; _i < _a.length; _i++) {
             var Element_1 = _a[_i];
             var TraduccionElement = Element_1.Traducir();
-            Traduccion += TraduccionElement + "\n";
+            Traduccion += TraduccionElement;
         }
-        Globales_1.CantidadIdentacion.pop(); //cuando sale baja
+        Variables_Metodos_1.Identacion.pop(); //cuando sale baja
         return Traduccion;
     };
     return Bloque;

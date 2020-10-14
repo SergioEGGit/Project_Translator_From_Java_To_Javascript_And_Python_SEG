@@ -23,6 +23,9 @@ var Operaciones;
     Operaciones[Operaciones["RESTA"] = 1] = "RESTA";
     Operaciones[Operaciones["MULTIPLICACION"] = 2] = "MULTIPLICACION";
     Operaciones[Operaciones["DIVISION"] = 3] = "DIVISION";
+    Operaciones[Operaciones["INCREMENTO"] = 4] = "INCREMENTO";
+    Operaciones[Operaciones["DECREMENTO"] = 5] = "DECREMENTO";
+    Operaciones[Operaciones["NEGATIVO"] = 6] = "NEGATIVO";
 })(Operaciones = exports.Operaciones || (exports.Operaciones = {}));
 // Clase Principal
 var Matematicos = /** @class */ (function (_super) {
@@ -56,6 +59,15 @@ var Matematicos = /** @class */ (function (_super) {
         }
         else if (this.Operacion == Operaciones.DIVISION) {
             ValRetornar = Izq + " / " + Der;
+        }
+        else if (this.Operacion == Operaciones.INCREMENTO) {
+            ValRetornar = Izq + "++";
+        }
+        else if (this.Operacion == Operaciones.DECREMENTO) {
+            ValRetornar = Izq + "--";
+        }
+        else if (this.Operacion == Operaciones.NEGATIVO) {
+            ValRetornar = "-" + Der;
         }
         else {
             ValRetornar = undefined;
