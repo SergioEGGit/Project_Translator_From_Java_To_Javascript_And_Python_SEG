@@ -1,11 +1,10 @@
-//export let Errores:Array<InsError>=new Array();
-//export let AtBloqueGlobal:Array<AtBloque>=new Array();
-//export let AllAtBloques:Array<AtBloque>=new Array();
-//export let VariablesAntesEjecucion:Array<any>=new Array();
-//export let TextoConsola:Array<String>=new Array();
+// Imports
+import { Errores } from "./Errores";
 
 // Array Identacion
 export let Identacion: Array<any> = new Array();
+export let ArrayErrores: Array<Errores> = new Array();
+export let ArrayTokens: Array<Tokens> = new Array();
 
 // Funcion Que Cuenta Los Espacios
 export function AgregarIdentacion(): String {

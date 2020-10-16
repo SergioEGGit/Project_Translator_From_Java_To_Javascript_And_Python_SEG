@@ -13,15 +13,14 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Metodo = void 0;
+exports.MetodoDeclaracion = void 0;
 // Imports
 var Instruccion_1 = require("./Instruccion");
-var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
-var Metodo = /** @class */ (function (_super) {
-    __extends(Metodo, _super);
+var MetodoDeclaracion = /** @class */ (function (_super) {
+    __extends(MetodoDeclaracion, _super);
     // Constructor
-    function Metodo(Linea, Columna, Identificador, FuncionName, ListaParametros, PTC) {
+    function MetodoDeclaracion(Linea, Columna, Identificador, FuncionName, ListaParametros, PTC) {
         var _this = 
         // Super
         _super.call(this, Linea, Columna) || this;
@@ -34,19 +33,12 @@ var Metodo = /** @class */ (function (_super) {
         return _this;
     }
     // Metodo Traducir
-    Metodo.prototype.Traducir = function () {
+    MetodoDeclaracion.prototype.Traducir = function () {
         // Declaraciones
         var FuncionName = this.FuncionName;
         var Identificador = this.Identificador;
         var Traduccion = "";
         var Parametros = "";
-        var PuntoYComa = "";
-        if (this.PTC = true) {
-            PuntoYComa = ";";
-        }
-        else {
-            PuntoYComa = "";
-        }
         // Recuperar Parametros
         for (var key in this.ListaParametros) {
             if (Number(key) + 1 == this.ListaParametros.length) {
@@ -58,13 +50,13 @@ var Metodo = /** @class */ (function (_super) {
         }
         // Verificar Si Hay Identificador
         if (Identificador == "") {
-            Traduccion = Variables_Metodos_1.AgregarIdentacion() + FuncionName + "(" + Parametros + ")" + PuntoYComa;
+            Traduccion = FuncionName + "(" + Parametros + ")";
         }
         else {
-            Traduccion = Variables_Metodos_1.AgregarIdentacion() + Identificador + "." + FuncionName + "(" + Parametros + ")" + PuntoYComa;
+            Traduccion = Identificador + "." + FuncionName + "(" + Parametros + ")";
         }
-        return Traduccion + "\n\n";
+        return Traduccion;
     };
-    return Metodo;
+    return MetodoDeclaracion;
 }(Instruccion_1.Instruccion));
-exports.Metodo = Metodo;
+exports.MetodoDeclaracion = MetodoDeclaracion;

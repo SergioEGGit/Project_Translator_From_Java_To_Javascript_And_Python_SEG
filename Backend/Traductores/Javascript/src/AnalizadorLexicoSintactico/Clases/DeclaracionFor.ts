@@ -3,7 +3,7 @@ import { Instruccion } from "./Instruccion";
 import { AgregarIdentacion } from "./Variables_Metodos";
 
 // Clase Principal
-export class Declaracion extends Instruccion {
+export class DeclaracionFor extends Instruccion {
 
     // Declaraciones
 	public AST = null;
@@ -36,7 +36,7 @@ export class Declaracion extends Instruccion {
 		}
 		
 		
-		Traduccion = AgregarIdentacion() + "var " + Traduccion + "; \n\n";
+		Traduccion = "var " + Traduccion + ";";
 	
 		return Traduccion;
     }

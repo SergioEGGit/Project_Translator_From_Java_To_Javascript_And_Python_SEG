@@ -13,36 +13,38 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Subdeclaracion = void 0;
+exports.DeclaracionFor = void 0;
 // Imports
 var Instruccion_1 = require("./Instruccion");
 // Clase Principal
-var Subdeclaracion = /** @class */ (function (_super) {
-    __extends(Subdeclaracion, _super);
+var DeclaracionFor = /** @class */ (function (_super) {
+    __extends(DeclaracionFor, _super);
     // Constructor
-    function Subdeclaracion(Linea, Columna, Identificador, Expresion) {
+    function DeclaracionFor(Linea, Columna, Tipo, Variables) {
         var _this = 
         // Super
         _super.call(this, Linea, Columna) || this;
-        _this.Identificador = Identificador;
-        _this.Expresion = Expresion;
+        _this.Tipo = Tipo;
+        _this.Variables = Variables;
         // Declaraciones
         _this.AST = null;
         return _this;
     }
     // Metodo Traducir
-    Subdeclaracion.prototype.Traducir = function () {
+    DeclaracionFor.prototype.Traducir = function () {
         // Declaraciones
-        var Identificador = this.Identificador;
-        var Expresion;
         var Traduccion = "";
-        if (this.Expresion != null) {
-            Expresion = this.Expresion.Traducir();
-            Traduccion = Identificador + " = " + Expresion;
-            return Traduccion;
+        for (var key in this.Variables) {
+            if (Number(key) + 1 == this.Variables.length) {
+                Traduccion += this.Variables[Number(key)].Traducir();
+            }
+            else {
+                Traduccion += this.Variables[Number(key)].Traducir() + ", ";
+            }
         }
-        return Identificador;
+        Traduccion = "var " + Traduccion + ";";
+        return Traduccion;
     };
-    return Subdeclaracion;
+    return DeclaracionFor;
 }(Instruccion_1.Instruccion));
-exports.Subdeclaracion = Subdeclaracion;
+exports.DeclaracionFor = DeclaracionFor;

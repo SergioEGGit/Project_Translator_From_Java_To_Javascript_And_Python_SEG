@@ -13,36 +13,29 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Subdeclaracion = void 0;
+exports.Tokens = void 0;
 // Imports
 var Instruccion_1 = require("./Instruccion");
+var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
-var Subdeclaracion = /** @class */ (function (_super) {
-    __extends(Subdeclaracion, _super);
+var Tokens = /** @class */ (function (_super) {
+    __extends(Tokens, _super);
     // Constructor
-    function Subdeclaracion(Linea, Columna, Identificador, Expresion) {
+    function Tokens(Linea, Columna, Tipo, Lexema) {
         var _this = 
         // Super
         _super.call(this, Linea, Columna) || this;
-        _this.Identificador = Identificador;
-        _this.Expresion = Expresion;
         // Declaraciones
         _this.AST = null;
+        Variables_Metodos_1.ArrayTokens.push(_this);
         return _this;
     }
     // Metodo Traducir
-    Subdeclaracion.prototype.Traducir = function () {
+    Tokens.prototype.Traducir = function () {
         // Declaraciones
-        var Identificador = this.Identificador;
-        var Expresion;
-        var Traduccion = "";
-        if (this.Expresion != null) {
-            Expresion = this.Expresion.Traducir();
-            Traduccion = Identificador + " = " + Expresion;
-            return Traduccion;
-        }
-        return Identificador;
+        var Traduccion = "\n";
+        return Traduccion;
     };
-    return Subdeclaracion;
+    return Tokens;
 }(Instruccion_1.Instruccion));
-exports.Subdeclaracion = Subdeclaracion;
+exports.Tokens = Tokens;

@@ -13,14 +13,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Subdeclaracion = void 0;
+exports.Asignacion = void 0;
 // Imports
 var Instruccion_1 = require("./Instruccion");
+var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
-var Subdeclaracion = /** @class */ (function (_super) {
-    __extends(Subdeclaracion, _super);
+var Asignacion = /** @class */ (function (_super) {
+    __extends(Asignacion, _super);
     // Constructor
-    function Subdeclaracion(Linea, Columna, Identificador, Expresion) {
+    function Asignacion(Linea, Columna, Identificador, Expresion) {
         var _this = 
         // Super
         _super.call(this, Linea, Columna) || this;
@@ -31,18 +32,19 @@ var Subdeclaracion = /** @class */ (function (_super) {
         return _this;
     }
     // Metodo Traducir
-    Subdeclaracion.prototype.Traducir = function () {
+    Asignacion.prototype.Traducir = function () {
         // Declaraciones
         var Identificador = this.Identificador;
         var Expresion;
         var Traduccion = "";
         if (this.Expresion != null) {
             Expresion = this.Expresion.Traducir();
-            Traduccion = Identificador + " = " + Expresion;
+            Traduccion = Variables_Metodos_1.AgregarIdentacion() + Identificador + " = " + Expresion + "; \n\n";
             return Traduccion;
         }
-        return Identificador;
+        Traduccion = Variables_Metodos_1.AgregarIdentacion() + Identificador + "; \n\n";
+        return Traduccion;
     };
-    return Subdeclaracion;
+    return Asignacion;
 }(Instruccion_1.Instruccion));
-exports.Subdeclaracion = Subdeclaracion;
+exports.Asignacion = Asignacion;

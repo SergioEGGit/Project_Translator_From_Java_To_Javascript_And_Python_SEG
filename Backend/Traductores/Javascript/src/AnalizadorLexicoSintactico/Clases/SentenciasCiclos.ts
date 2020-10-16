@@ -18,7 +18,7 @@ export class SentenciasCiclos extends Instruccion {
 	public AST = null;
 	
 	// Constructor
-    constructor(Linea: number, Columna: number, private Valor: String, private Sentencia: Sentencias, private Expresion: Instruccion | null) {
+    constructor(Linea: number, Columna: number, private Valor: string, private Sentencia: Sentencias, private Expresion: Instruccion | null) {
 
 		// Super
 		super(Linea, Columna)

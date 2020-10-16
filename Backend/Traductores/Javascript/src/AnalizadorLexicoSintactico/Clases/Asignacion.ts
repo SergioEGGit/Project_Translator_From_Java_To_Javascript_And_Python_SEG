@@ -3,13 +3,13 @@ import { Instruccion } from "./Instruccion";
 import { AgregarIdentacion } from "./Variables_Metodos";
 
 // Clase Principal
-export class Subdeclaracion extends Instruccion {
+export class Asignacion extends Instruccion {
 
     // Declaraciones
 	public AST = null;
 	
 	// Constructor
-    constructor(Linea: number, Columna: number, private Identificador: String, private Expresion: Instruccion | null) {
+    constructor(Linea: number, Columna: number, private Identificador: string, private Expresion: Instruccion | null) {
         
 		// Super
 		super(Linea, Columna)
@@ -28,12 +28,14 @@ export class Subdeclaracion extends Instruccion {
 			
 			Expresion = this.Expresion.Traducir();
 			
-			Traduccion = Identificador + " = " + Expresion;
+			Traduccion = AgregarIdentacion() + Identificador + " = " + Expresion + "; \n\n";
 			
 			return Traduccion;
 		
 		}
+		
+		Traduccion = AgregarIdentacion() + Identificador + "; \n\n";
 	
-		return Identificador;
+		return Traduccion;
     }
 }

@@ -9,7 +9,7 @@ export class Comentarios extends Instruccion {
 	public AST = null;
 	
 	// Constructor 
-    constructor(Linea: number, Columna: number,private Comentario: String) {
+    constructor(Linea: number, Columna: number,private Comentario: string) {
     
 		// Super
 		super(Linea, Columna)

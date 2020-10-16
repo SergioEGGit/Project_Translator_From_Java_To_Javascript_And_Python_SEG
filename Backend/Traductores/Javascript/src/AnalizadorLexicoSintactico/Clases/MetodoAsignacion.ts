@@ -1,14 +1,15 @@
 // Imports
 import { Instruccion } from "./Instruccion";
+import { AgregarIdentacion } from "./Variables_Metodos";
 
 // Clase Principal
-export class Metodo extends Instruccion {
+export class MetodoAsignacion extends Instruccion {
 
     // Declaraciones
 	public AST = null;
 	
 	// Constructor
-    constructor(Linea: number, Columna: number, private Identificador: String, private FuncionName: String, private ListaParametros: Instruccion[],private PTC:Boolean) {
+    constructor(Linea: number, Columna: number, private Identificador: string, private FuncionName: string, private ListaParametros: Instruccion[], private PTC: Boolean) {
         
 		// Super
 		super(Linea, Columna)
@@ -23,8 +24,17 @@ export class Metodo extends Instruccion {
 		let Identificador = this.Identificador;
 		let Traduccion: string = "";
         let Parametros: string = "";
-		let PtoComa = "";	
-		this.PTC == true ? PtoComa = ";" : PtoComa = "";		
+		let PuntoYComa = "";	
+		
+		if(this.PTC = true) {
+			
+			PuntoYComa = ";";
+			
+		} else {
+			
+			PuntoYComa = "";
+			
+		}		
 		
 		// Recuperar Parametros
 		for(let key in this.ListaParametros) {
@@ -43,14 +53,14 @@ export class Metodo extends Instruccion {
 		// Verificar Si Hay Identificador
 		if(Identificador == "") {
 			
-			Traduccion = FuncionName + "(" + Parametros + ")" + PtoComa; 
+			Traduccion = AgregarIdentacion() + FuncionName + "(" + Parametros + ")" + PuntoYComa; 
 		
 		} else {
 			
-			Traduccion = Identificador + "." + FuncionName + "(" + Parametros + ")" + PtoComa; 
+			Traduccion = AgregarIdentacion() + Identificador + "." + FuncionName + "(" + Parametros + ")" + PuntoYComa; 
 		
 		}
 		
-		return Traduccion;
+		return Traduccion + "\n\n";
     }
 }

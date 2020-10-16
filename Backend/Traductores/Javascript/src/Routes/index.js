@@ -3,6 +3,8 @@
 // Variables Y Constantes
 const ExpressAuxiliar = require('express');
 const Parser = require('../AnalizadorLexicoSintactico/build/Parser/AnalizadorGramatica.js');
+const { ArrayErrores } = require('../AnalizadorLexicoSintactico/build/Variables_Metodos.js');
+const { ArrayTokens } = require('../AnalizadorLexicoSintactico/build/Variables_Metodos.js');
 
 // Inicializar Router
 const RouterAuxiliar = ExpressAuxiliar.Router();
@@ -106,72 +108,40 @@ RouterAuxiliar.get('/', (req, res) => {
 	
 	const AST = Parser.parse(`
 	
-		public class Ejemplo {
-			
-			if(5 + 10 && 5 - 1) {
-				
-				return true;
-				
-			}	
-
-			if(x * 5 || y / 5) {
-				
-				return true;
-				
-			}
-
-			if(!(-6)) {
-				
-				return true;
-				
-			}	
-
-			if(-4 ^ number) {
-				
-				return true;
-				
-			}
-
-			for (int i = 0; 5 <= 5 + 5; 5++) {
-		
-				System.out.println(5);
-				System.out.print(5);
-      
-			}	
-			
-			for (int i = 0; 5 <= 5 + 5; 5--) {
-		
-				// Soy Un Comentario 
-				// Soy Otro
-				
-				// Soy Otro Pero Tengo Espacio
-				
-				
-				/* 
-				*
-				*  Comentario Mamalon
-				*
-				*/
-			}	
-			
-			// Estoy En Una Clase 
-
-				/* 
-				*
-				*  Comentario Mamalon
-				*
-				*/			
+	public class AddTwoIntegers {
+		@@@@@
+		public class Nueva{
 			
 		}
+			
+			public void Ejemplo() {
+				System.out.println("hola mundo");
+			}
 
-		// Estoy Fuera De La Clase
+    public static void main(String[] args) {
+        
+        int first = 10;
+        int second = 20;
 
-		/* 
-		*
-		*  Comentario Mamalon
-		*
-		*/		
+        int time = 22;
+        if (time < 10) {
+        System.out.println("Good morning.");
+        } else if (time < 20) {
+        System.out.println("Good day.");
+        } else {
+        System.out.println("Good evening.");
+        }
+
+    }
 	
+	
+	// Hola
+
+    
+    
+}
+    
+
 	`);
 	
 	let Traduccion_Total="";
@@ -182,6 +152,19 @@ RouterAuxiliar.get('/', (req, res) => {
 		
 	}
 	console.log(Traduccion_Total);
+	
+	for (const element of ArrayErrores) {
+		
+		console.log(element);
+		
+	}
+	
+	for (const element of ArrayTokens) {
+		
+		console.log(element);
+		
+	}
+	
 	res.send("Bienvenido Al Servidor De Javascript! Puerto: 7776");
 	
 });

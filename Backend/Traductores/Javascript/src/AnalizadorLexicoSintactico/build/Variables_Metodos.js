@@ -1,13 +1,10 @@
 "use strict";
-//export let Errores:Array<InsError>=new Array();
-//export let AtBloqueGlobal:Array<AtBloque>=new Array();
-//export let AllAtBloques:Array<AtBloque>=new Array();
-//export let VariablesAntesEjecucion:Array<any>=new Array();
-//export let TextoConsola:Array<String>=new Array();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AgregarIdentacion = exports.Identacion = void 0;
+exports.AgregarIdentacion = exports.ArrayTokens = exports.ArrayErrores = exports.Identacion = void 0;
 // Array Identacion
 exports.Identacion = new Array();
+exports.ArrayErrores = new Array();
+exports.ArrayTokens = new Array();
 // Funcion Que Cuenta Los Espacios
 function AgregarIdentacion() {
     // Declaraciones

@@ -13,15 +13,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Metodo = void 0;
+exports.MetodoAsignacion = void 0;
 // Imports
 var Instruccion_1 = require("./Instruccion");
 var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
-var Metodo = /** @class */ (function (_super) {
-    __extends(Metodo, _super);
+var MetodoAsignacion = /** @class */ (function (_super) {
+    __extends(MetodoAsignacion, _super);
     // Constructor
-    function Metodo(Linea, Columna, Identificador, FuncionName, ListaParametros, PTC) {
+    function MetodoAsignacion(Linea, Columna, Identificador, FuncionName, ListaParametros, PTC) {
         var _this = 
         // Super
         _super.call(this, Linea, Columna) || this;
@@ -34,7 +34,7 @@ var Metodo = /** @class */ (function (_super) {
         return _this;
     }
     // Metodo Traducir
-    Metodo.prototype.Traducir = function () {
+    MetodoAsignacion.prototype.Traducir = function () {
         // Declaraciones
         var FuncionName = this.FuncionName;
         var Identificador = this.Identificador;
@@ -65,6 +65,6 @@ var Metodo = /** @class */ (function (_super) {
         }
         return Traduccion + "\n\n";
     };
-    return Metodo;
+    return MetodoAsignacion;
 }(Instruccion_1.Instruccion));
-exports.Metodo = Metodo;
+exports.MetodoAsignacion = MetodoAsignacion;

@@ -27,4 +27,3 @@ export class Print extends Instruccion{
 		return Traduccion;
     }
 }
-

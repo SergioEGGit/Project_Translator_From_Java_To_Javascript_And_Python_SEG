@@ -1,15 +1,15 @@
 // Imports
 import { Instruccion } from "./Instruccion";
-import { AgregarIdentacion } from "./Variables_Metodos"; 
+import { AgregarIdentacion } from "./Variables_Metodos";
 
 // Clase Principal
-export class Funciones extends Instruccion {
+export class MetodoDeclaracion extends Instruccion {
 
     // Declaraciones
 	public AST = null;
 	
 	// Constructor
-    constructor(Linea: number, Columna: number, private Tipos: String, private Identificador: String, private ListaParametros: Instruccion[] | null, private BloqueFuncion: Instruccion) {
+    constructor(Linea: number, Columna: number, private Identificador: string, private FuncionName: string, private ListaParametros: Instruccion[], private PTC: Boolean) {
         
 		// Super
 		super(Linea, Columna)
@@ -20,16 +20,16 @@ export class Funciones extends Instruccion {
     public Traducir() {
 		
 		// Declaraciones
-		let Tipos = this.Tipos;
+		let FuncionName = this.FuncionName;
 		let Identificador = this.Identificador;
-		let BloqueFuncion = this.BloqueFuncion.Traducir();
 		let Traduccion: string = "";
-        let Parametros: string = "";
-
+        let Parametros: string = "";	
+		
+		// Recuperar Parametros
 		for(let key in this.ListaParametros) {
 			
 			if(Number(key) + 1 == this.ListaParametros.length) { 
-	
+
 				Parametros += this.ListaParametros[Number(key)].Traducir();
 			
 			} else {
@@ -39,10 +39,17 @@ export class Funciones extends Instruccion {
 			}
 		}
 		
-		Traduccion = AgregarIdentacion() + "function " + Identificador + "(" + Parametros + ") {\n\n" +
-					 BloqueFuncion + "\n" +
-					 AgregarIdentacion() + "} \n\n";
-					 
+		// Verificar Si Hay Identificador
+		if(Identificador == "") {
+			
+			Traduccion = FuncionName + "(" + Parametros + ")"; 
+		
+		} else {
+			
+			Traduccion = Identificador + "." + FuncionName + "(" + Parametros + ")"; 
+		
+		}
+		
 		return Traduccion;
     }
 }
