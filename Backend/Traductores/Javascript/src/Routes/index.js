@@ -108,38 +108,24 @@ RouterAuxiliar.get('/', (req, res) => {
 	
 	const AST = Parser.parse(`
 	
-	public class AddTwoIntegers {
-		@@@@@
-		public class Nueva{
+		public class hola {
 			
-		}
+			hola
 			
-			public void Ejemplo() {
-				System.out.println("hola mundo");
+			int a = o;
+			
+			
+			public class hola { 
+				
+				
+				console.log(""
+			
+					
+			
 			}
-
-    public static void main(String[] args) {
-        
-        int first = 10;
-        int second = 20;
-
-        int time = 22;
-        if (time < 10) {
-        System.out.println("Good morning.");
-        } else if (time < 20) {
-        System.out.println("Good day.");
-        } else {
-        System.out.println("Good evening.");
-        }
-
-    }
-	
-	
-	// Hola
-
-    
-    
-}
+		}
+		
+		
     
 
 	`);
@@ -153,9 +139,9 @@ RouterAuxiliar.get('/', (req, res) => {
 	}
 	console.log(Traduccion_Total);
 	
-	for (const element of ArrayErrores) {
+	for (var i = 0; i < ArrayErrores.length; i ++) {
 		
-		console.log(element);
+		console.log(ArrayErrores[i]);
 		
 	}
 	

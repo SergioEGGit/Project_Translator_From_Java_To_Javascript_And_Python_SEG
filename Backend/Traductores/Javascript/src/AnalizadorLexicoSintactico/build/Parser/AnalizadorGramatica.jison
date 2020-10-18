@@ -421,6 +421,8 @@ Asignacion	: 'Identificador' '=' Expr ';' 									{ $$ = new Asignacion(@1.firs
 			| 'Identificador' '.' 'Identificador' '(' LstValores ')' ';' 	{ $$ = new MetodoAsignacion(@1.first_line, @1.first_column, $1, $3, $5, true); } 
 			| 'Identificador' '(' ')' ';' 									{ $$ = new MetodoAsignacion(@1.first_line, @1.first_column, "", $1, [], true); }
 			| 'Identificador' '(' LstValores ')' ';' 						{ $$ = new MetodoAsignacion(@1.first_line, @1.first_column, "", $1, $3, true); }
+			| 'Identificador' '+''+' 										{ $$ = new Matematicos(@1.first_line, @1.first_column, new Primitivo(@1.first_line, @1.first_column, $1), new Primitivo(@1.first_line, @1.first_column, 1), Operaciones.INCREMENTO); }
+			| 'Identificador' '-' '-'										{ $$ = new Matematicos(@1.first_line, @1.first_column, new Primitivo(@1.first_line, @1.first_column, $1), new Primitivo(@1.first_line, @1.first_column, 1), Operaciones.DECREMENTO); } 
 			; 
 			
 // Print			
@@ -431,10 +433,7 @@ Print	: 'Sout' '(' Expr ')' ';'   { $$ = new Print(@1.first_line, @1.first_colum
 
 // Produccion De Errores
 
-ErroresSintacticos	: error Delimitadores { $$ = new Errores(@1.first_line, @1.first_column, "Error Sintactico", $1); } 
-					;
-
-Delimitadores		: ';'	{ }
-					| '}'   { }
-					| ')'	{ }					
+ErroresSintacticos	: error { $$ = new Errores(@1.first_line, @1.first_column, $1); } 
+					| ';'
+					| ')'
 					;
