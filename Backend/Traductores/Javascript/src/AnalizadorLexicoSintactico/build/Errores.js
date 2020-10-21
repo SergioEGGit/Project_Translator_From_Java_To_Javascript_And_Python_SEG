@@ -25,6 +25,10 @@ var Errores = /** @class */ (function (_super) {
         var _this = 
         // Super
         _super.call(this, Linea, Columna) || this;
+        _this.Linea = Linea;
+        _this.Columna = Columna;
+        _this.Tipo = Tipo;
+        _this.Lexema = Lexema;
         // Declaraciones
         _this.AST = null;
         Variables_Metodos_1.ArrayErrores.push(_this);

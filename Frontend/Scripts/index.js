@@ -28,12 +28,28 @@ function Analisis() {
 		
 	};
 	
-	// Peticion Analisis Servidor
-	axios.post('http://192.168.1.4:8887/Analisis', Configuracion)
+	// Obtener Consola JS
+	var ConsolaJS = document.getElementById("consolajs");
+	
+	// Vaciar Consola 
+	ConsolaJS.textContent = "";
+	
+	// Peticion Analisis Javascript Servidor
+	axios.post('http://192.168.1.4:7776/Analisis', Configuracion)
 		
 		.then((response) => {
 			
-			// Response
+			// Verificar Si Hay Error
+			if(response.data.Error == true) {
+				
+				ConsolaJS.textContent = response.data.Errores;				
+				
+			} else {
+				
+				ConsolaJS.textContent = response.data.Traduccion;
+				
+			}			
+			
 		
 		})
 		.catch((error) => {
@@ -42,7 +58,79 @@ function Analisis() {
 			alert("Error Al Solicitar El Analisis!");
 			console.log(error);
 		
-		});
+		});	
+	
+}
+
+// Boton Reporte De Tokens
+function ReporteDeTokens() {
+	
+	// Solicitud Reporte
+	
+	// Peticion Reporte Javascript Servidor
+	axios.get('http://192.168.1.4:7776/Tokens')
+		
+		.then((response) => {
+			
+			// Verificar Si Hay Error
+			DescargarArchivo(response.data, "ReporteDeTokensJS.pdf", "text/pdf");
+			
+		})
+		.catch((error) => {
+			
+			// Error Al Realizar La Solicitud
+			alert("Error Al Solicitar El Reporte!");
+			console.log(error);
+		
+		});	
+	
+}
+
+// Boton Reporte De Errores
+function ReporteDeErrores() {
+	
+	// Solicitud Reporte
+	
+	// Peticion Reporte Javascript Servidor
+	axios.get('http://192.168.1.4:7776/Errores')
+		
+		.then((response) => {
+			
+			// Verificar Si Hay Error
+			DescargarArchivo(response.data, "ReporteDeErroresJS.pdf", "text/pdf");
+			
+		})
+		.catch((error) => {
+			
+			// Error Al Realizar La Solicitud
+			alert("Error Al Solicitar El Reporte!");
+			console.log(error);
+		
+		});	
+		
+}
+
+// Boton Reporte De Arbol Sintactico
+function ReporteArbolSintactico() {
+	
+	// Solicitud Reporte
+	
+	// Peticion Reporte Javascript Servidor
+	axios.get('http://192.168.1.4:7776/AST')
+		
+		.then((response) => {
+			
+			// Verificar Si Hay Error
+			DescargarArchivo(response.data, "ReporteDeArbolJS.pdf", "text/pdf");
+			
+		})
+		.catch((error) => {
+			
+			// Error Al Realizar La Solicitud
+			alert("Error Al Solicitar El Reporte!");
+			console.log(error);
+		
+		});	
 	
 }
 
@@ -50,7 +138,7 @@ function Analisis() {
 // Descargar Archivo
 function DescargarArchivo(Contenido, NombreArchivo, Tipo) {
     
-	// Varaibles
+	// Variables
 	var Archivo = new Blob([Contenido], {type: Tipo});
 	
 	// Verificar Si Ya Esiste 
@@ -92,7 +180,6 @@ function DescargarArchivo(Contenido, NombreArchivo, Tipo) {
 // Cargar Contenido A Text Area
 function CargarTextArea(Contenido) {
 	
-
 	// Obtener Identificador Pestaña
 	var Tabs = $("#Tabs").tabs(
 			{
@@ -340,6 +427,9 @@ $(document).ready(
 					Tabs.tabs( "refresh" );
 			
 				}
-			);				   
-		   
+			);	
+
+			// Code Mirror
+			
+		
 	});

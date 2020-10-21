@@ -1,10 +1,18 @@
 // Creación De Rutas
 
 // Variables Y Constantes
+
+// Módulo Express
 const ExpressAuxiliar = require('express');
-const Parser = require('../AnalizadorLexicoSintactico/build/Parser/AnalizadorGramatica.js');
-const { ArrayErrores } = require('../AnalizadorLexicoSintactico/build/Variables_Metodos.js');
-const { ArrayTokens } = require('../AnalizadorLexicoSintactico/build/Variables_Metodos.js');
+
+// Analizador Jison
+const Analizador = require('../AnalizadorLexicoSintactico/AnalizadorJison/AnalizadorGramatica.js');
+
+// Arreglo De Tokens Y Errores, Lista De Tokens Y Lista De Errores
+const { ArrayTokens, ArrayErrores, ListaDeTokens, ListaDeErrores } = require('../AnalizadorLexicoSintactico/build/Variables_Metodos.js');
+
+// Vaciar Tokens Y Errores
+const { VaciarTokens, VaciarErrores } = require('../AnalizadorLexicoSintactico/build/Variables_Metodos.js');
 
 // Inicializar Router
 const RouterAuxiliar = ExpressAuxiliar.Router();
@@ -12,145 +20,7 @@ const RouterAuxiliar = ExpressAuxiliar.Router();
 // Pagina Principal
 RouterAuxiliar.get('/', (req, res) => {
 	
-	// Enviar Response
-	/*  
-		for (5 > 5; 5 <= 5 + 5; 5++) {
-		
-          System.out.println(5);
-		  System.out.print(5);
-      
-		}
-	
-		while (true) {
-			
-			System.out.println(-3);
-			
-		}		
-	
-		do {
-            System.out.println (6);
-		} while (5 < 10);
-		
-		
-		if ( 5 > 5 ){
-			System.out.print(5);
-		} else if (a < 5){
-			System.out.print(5);
-		}else{
-			System.out.print(5);
-		}
-		
-		
-		
-		for (int i = 0; 5 <= 5 + 5; 5++) {
-		
-          System.out.println(5);
-		  System.out.print(5);
-      
-		}	
-		
-		String Variable = 5, Hola=1,Y;
-		String Hola, quehace, quetal;
-		
-		
-		public class Prueba {
-			
-			public void Mimetodo() {
-				
-				System.out.println("puta madre");
-				
-				
-			}
-			
-			public class Hola {
-				
-				
-				
-			}
-			
-			public int Mimetodo(int a, int b, int c) {
-				System.out.println("puta madre");
-				
-				a = this:MeCagoEnLaPuta("TengoMiedo",5,62.5,true,'a');
-				
-				funcion(a, b);
-				
-				mimetodo();
-				
-				a = metodo(5, 6);
-				a=Function(Funcion(1,5,6),OtraFun(adios,Fot("ss",F())),"F","Ojala no Muera"); 
-				// Ojala no muera XD
-				// murio desde mas antes XD jaja poruqe lo esta probando tan complejo XD 
-				// te caste XD nel pq no tiene punto y coma XD jajaj tu madre XD ahorita lo arreglo si queres XD el macho xd 
-				
-			}
-			
-			
-		} 
-	*/
-	
-	
-	/*
-	public interface Intefaz {
-			
-			public void Mimetodo();
-			
-			public void Otra(int a, int b);
-			
-			public int OtraCosa();
-			
-			public double Precio(int a, int b);
-			
-			public string Nombre(string nombre);
-			
-		}	
-	*/
-	
-	const AST = Parser.parse(`
-	
-		public class hola {
-			
-			hola
-			
-			int a = o;
-			
-			
-			public class hola { 
-				
-				
-				console.log(""
-			
-					
-			
-			}
-		}
-		
-		
-    
-
-	`);
-	
-	let Traduccion_Total="";
-
-	for(const element of AST){
-	
-		Traduccion_Total += element.Traducir() + "\n";
-		
-	}
-	console.log(Traduccion_Total);
-	
-	for (var i = 0; i < ArrayErrores.length; i ++) {
-		
-		console.log(ArrayErrores[i]);
-		
-	}
-	
-	for (const element of ArrayTokens) {
-		
-		console.log(element);
-		
-	}
-	
+	// Enviar Response	
 	res.send("Bienvenido Al Servidor De Javascript! Puerto: 7776");
 	
 });
@@ -158,10 +28,93 @@ RouterAuxiliar.get('/', (req, res) => {
 // Solicitar Análisis
 RouterAuxiliar.post('/Analisis', (req, res) => {
 	
-	//console.log(req.body.Cadena.toString());
+	//Declaraciones
 	
-	// Response
-	res.send("Conectado Al Servidor En Puerto: 7776");
+	// Traduccion Completa
+	let TraduccionTotal = "";
+	
+	// Analizador
+	let AnalizadorLexicoSintactico;
+	
+	// Texto Del Cliente
+	let CadenaTexto = "";
+	
+	// Hay Error
+	let BanderaError = false;
+	
+	// Lista De Errores
+	let ErroresLista = "";
+	
+	// Metodos Principales
+	
+	// Limpiar La Lista De Tokens
+	VaciarTokens();
+	
+	// Limpiar La Lista De Errores
+	VaciarErrores();	
+	
+	// Obtener Cadena De Texto
+	CadenaTexto = req.body.Cadena.toString();
+		
+	// Obtener Traduccion 
+	try {
+			
+		// Solicitar Analisis
+		AnalizadorLexicoSintactico = Analizador.parse(CadenaTexto);
+		
+		// Obtener Tokens
+		ListaDeTokens();
+		
+		// Obtener Errores
+		[ErroresLista, BanderaError] = ListaDeErrores();		
+		
+		// Mostrar Errores
+		console.log(ErroresLista);
+		
+		// Obtener AST	
+		
+		// Obtener Traduccion	
+		for(const Traduccion of AnalizadorLexicoSintactico) {
+			
+			// Agregar Traduccion Individual
+			TraduccionTotal += Traduccion.Traducir() + "\n";				
+			
+		}						
+		
+	} catch(Ex) {
+		
+		// Traduccion, Tokens, Errores Y Arbol
+		TraduccionTotal = "Error Al Analizar, No Se Logro Recuperar Del Analisis";
+		console.log(Ex);
+	}	
+
+	// Enviar Response
+	res.send( { Traduccion: TraduccionTotal, Error: BanderaError, Errores: ErroresLista } );
+	
+});
+
+// Solicitar Reporte De Tokens
+RouterAuxiliar.get('/Tokens', (req, res) => { 
+
+	// Descargar Archivo
+    res.download('src/Reportes/TablaDeTokensJS.pdf');
+
+});
+
+// Solicitar Reporte De Errores
+RouterAuxiliar.get('/Errores', (req, res) => { 
+
+	// Descargar Archivo
+	res.download("src/Reportes/TablaDeErroresJS.pdf");	
+
+});
+
+// Solicitar Reporte De AST
+RouterAuxiliar.get('/AST', (req, res) => {
+
+	// Descargar Archivo
+	res.download("src/Reportes/ArbolAnalisisSintacticoJS.pdf");
+
 });
 
 // Exportar Modulo

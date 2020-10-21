@@ -1,7 +1,11 @@
 // Creación Servidor
 
 // Variables Y Constantes
+
+// Módulo Express
 const ExpressAuxiliar = require('express');
+
+// Módulo Morgan
 const MorganAuxiliar = require('morgan');
 
 // Inicializar Aplicacion
@@ -11,15 +15,23 @@ const MainAplication = ExpressAuxiliar();
 MainAplication.set('port', process.env.PORT || 7776);
 
 // Mostrar Peticiones En Consola
+
+// Usar Dev
 MainAplication.use(MorganAuxiliar('dev'));
-MainAplication.use(ExpressAuxiliar.urlencoded({extended: false}));
+
+// Usar Urlencoded
+MainAplication.use(ExpressAuxiliar.urlencoded( { extended: false } ));
+
+// Usar Json
 MainAplication.use(ExpressAuxiliar.json());
+
+// Set Espaciado Json
 MainAplication.set('json spaces', 2);
 
 // Permisos Peticiones HTTP
 MainAplication.use( (req, res, next) => {
 	
-    //res.header('Access-Control-Allow-Origin', '*');
+    // Habilitar Permisos Peticiones HTTP
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Credentials", "true");
 	res.setHeader("Access-Control-Max-Age", "1800");

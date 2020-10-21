@@ -26,6 +26,8 @@
 		<script src="Scripts/jquery-ui.min.js"></script>
 		<script src="Scripts/index.js"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="http://cheunghy.github.io/jquery.colorfy/jquery.colorfy.js"></script>
+		
 	</head>
 
 	<body>
@@ -57,9 +59,9 @@
 						<a role="menuitem" href="#"><i class="fa fa-gear overlay-icon"></i>Herramientas</a>
 						<ul class="drilldown-submenu" role="menu">
 							<li><a role="menuitem" onclick="Analisis()"><i class="fa fa-file-code-o overlay-icon"></i>Análisis</a></li>
-							<li><a role="menuitem" ><i class="fa fa-times overlay-icon"></i>Reporte&nbsp;De&nbsp;Errores</a></li>
-							<li><a role="menuitem" href="#"><i class="fa fa-list-ul overlay-icon"></i>Reporte&nbsp;De&nbsp;Tokens</a></li>
-							<li><a role="menuitem" href="#"><i class="fa fa-tree overlay-icon"></i>&#193;rbol&nbsp;De&nbsp;An&#225;lisis&nbsp;Sint&#225;ctico</a></li>
+							<li><a role="menuitem" onclick="ReporteDeErrores()"><i class="fa fa-times overlay-icon"></i>Reporte&nbsp;De&nbsp;Errores</a></li>
+							<li><a role="menuitem" onclick="ReporteDeTokens()"><i class="fa fa-list-ul overlay-icon"></i>Reporte&nbsp;De&nbsp;Tokens</a></li>
+							<li><a role="menuitem" onclick="ReporteArbolSintactico()"><i class="fa fa-tree overlay-icon"></i>&#193;rbol&nbsp;De&nbsp;An&#225;lisis&nbsp;Sint&#225;ctico</a></li>
 						</ul>
 					</li>
 					
