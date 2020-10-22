@@ -1,5 +1,9 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion"; 
+
+// Metodo Identacion
 import { AgregarIdentacion } from "./Variables_Metodos"; 
 
 // Clase Principal
@@ -30,8 +34,7 @@ export class For extends Instruccion {
 						 "{ \n\n" +
 						 BloqueFor + "\n" +
 						 AgregarIdentacion() + "}\n\n";
-		
-		
+				
 		return Traduccion;		
 		 
     }

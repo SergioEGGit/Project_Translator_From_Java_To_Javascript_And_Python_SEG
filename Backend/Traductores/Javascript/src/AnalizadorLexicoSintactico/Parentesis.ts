@@ -1,4 +1,6 @@
 // Imports
+
+// Clase Abstracta
 import { Instruccion } from "./Instruccion"; 
 
 // Clase Principal
@@ -21,6 +23,7 @@ export class Parentesis extends Instruccion{
 		// Declaraciones
 		let Expresion = this.Expresion.Traducir();
 		
+		// Traduccion
 		let Traduccion = "(" + Expresion + ")";			
 		
 		return Traduccion; 

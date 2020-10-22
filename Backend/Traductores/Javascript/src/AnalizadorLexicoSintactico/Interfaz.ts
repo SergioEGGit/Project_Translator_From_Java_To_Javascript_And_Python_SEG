@@ -1,5 +1,9 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
+
+// Metodo Identacion
 import { AgregarIdentacion } from "./Variables_Metodos";
 
 // Clase Principal
@@ -19,13 +23,12 @@ export class Interfaz extends Instruccion {
 	// Metodo Traducir
     public Traducir() {
 		
+		// Declaraciones
 		let Identificador = this.Identificador;
 		let BloqueInterfaz = this.BloqueInterfaz.Traducir();
 		
 		// Traduccion
-		let Traduccion = AgregarIdentacion() + "interface " + Identificador + " { \n\n" + 
-						 BloqueInterfaz + "\n" +
-						 AgregarIdentacion() + "} \n\n";
+		let Traduccion = "\n";
 		
 		return Traduccion;
 		

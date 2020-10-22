@@ -22,20 +22,22 @@ export class Declaracion extends Instruccion {
 		// Declaraciones
 		let Traduccion: string = "";
 		
-		for(let key in this.Variables) { 
+		// Verificar Cada Valor
+		for(let Key in this.Variables) { 
 		
-			if(Number(key) + 1 == this.Variables.length) { 
+			// Traduccion De Varias Variables
+			if(Number(Key) + 1 == this.Variables.length) { 
 			
-				Traduccion += this.Variables[Number(key)].Traducir();
+				Traduccion += this.Variables[Number(Key)].Traducir();
 		
 			} else {
 				
-				Traduccion += this.Variables[Number(key)].Traducir() + ", ";
+				Traduccion += this.Variables[Number(Key)].Traducir() + ", ";
 			
 			}
 		}
 		
-		
+		// Traduccion Una Sola Variables
 		Traduccion = AgregarIdentacion() + "var " + Traduccion + "; \n\n";
 	
 		return Traduccion;

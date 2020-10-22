@@ -1,4 +1,5 @@
 "use strict";
+// Imports
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -14,8 +15,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Print = void 0;
-// Imports
+// Clase Abstracta 
 var Instruccion_1 = require("./Instruccion");
+// Metodo Identacion
 var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
 var Print = /** @class */ (function (_super) {
@@ -34,6 +36,7 @@ var Print = /** @class */ (function (_super) {
     Print.prototype.Traducir = function () {
         // Declaraciones
         var Value = this.Value.Traducir();
+        // Traduccion
         var Traduccion = Variables_Metodos_1.AgregarIdentacion() + "console.log(" + Value + "); \n\n";
         return Traduccion;
     };

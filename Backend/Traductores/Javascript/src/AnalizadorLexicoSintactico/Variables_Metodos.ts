@@ -1,12 +1,24 @@
 // Imports
+
+// Objeto Token 
 import { Tokens } from "./Tokens"; 
+
+// Objeto Error
 import { Errores } from "./Errores";
+
+// Crer PDF
 import { jsPDF } from 'jspdf';
+
+// Generar Tablas PDF
 import autoTable from 'jspdf-autotable';
 
 // Array Identacion
 export let Identacion: Array<any> = new Array();
+
+// Array De Errores
 export let ArrayErrores: Array<Errores> = new Array();
+
+// Array De Tokens
 export let ArrayTokens: Array<Tokens> = new Array();
 
 // Funcion Que Cuenta Los Espacios
@@ -28,7 +40,7 @@ export function AgregarIdentacion(): String {
 // Vaciar Lista De Tokens
 export function VaciarTokens() {
 	
-	// Recorrer Lista De Tokens
+	// Nueva Lista De Tokens
 	ArrayTokens = new Array();
 	
 }
@@ -36,7 +48,7 @@ export function VaciarTokens() {
 // Vaciar Lista De Errores
 export function VaciarErrores() {
 	
-	// Recorrer Lista De Errores
+	// Nueva Lista De Errores
 	ArrayErrores = new Array();
 	
 }
@@ -95,7 +107,7 @@ export function ListaDeErrores() {
 	// Declaraciones
 	
 	// Filas Tabla
-	var Filas = [];	
+	var Filas = [{}];	
 	var DescripcionError = "";
     var ErroresLista: String = "";
 	var Error = false;
@@ -106,7 +118,7 @@ export function ListaDeErrores() {
 		// Agregar Token A Array
 		if(ArrayErrores[Contador].Tipo == "Error Lexico") {
 			
-			DescripcionError = "El Carácter '" + ArrayErrores[Contador].Lexema + "' No Pertenece Al Lenguaje";
+			DescripcionError = "El Caracter '" + ArrayErrores[Contador].Lexema + "' No Pertenece Al Lenguaje";
 			
 			Filas.push( 
 		
@@ -189,4 +201,3 @@ export function ListaDeErrores() {
 	return [ErroresLista, Error];
 	
 }
-

@@ -26,7 +26,6 @@
 		<script src="Scripts/jquery-ui.min.js"></script>
 		<script src="Scripts/index.js"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-		<script src="http://cheunghy.github.io/jquery.colorfy/jquery.colorfy.js"></script>
 		
 	</head>
 
@@ -69,9 +68,9 @@
 					<li>
 						<a role="menuitem" href="#"><i class="fa fa-cloud-download overlay-icon"></i>Descargas</a>
 						<ul class="drilldown-submenu" role="menu">
-							<li><a role="menuitem" href="#"><i class="fa fa-terminal overlay-icon"></i>Archivo&nbsp;Python</a></li>
-							<li><a role="menuitem" href="#"><i class="fa fa-code overlay-icon"></i>Archivo&nbsp;Javascript</a></li>
-							<li><a role="menuitem" href="#"><i class="fa fa-copy overlay-icon"></i>Ambos&nbsp;Archivos</a></li>
+							<li><a role="menuitem" onclick="DescargarArchivoPY()"><i class="fa fa-terminal overlay-icon"></i>Archivo&nbsp;Python</a></li>
+							<li><a role="menuitem" onclick="DescargarArchivoJS()"><i class="fa fa-code overlay-icon"></i>Archivo&nbsp;Javascript</a></li>
+							<li><a role="menuitem" onclick="DescargarAmbosArchivos()"><i class="fa fa-copy overlay-icon"></i>Ambos&nbsp;Archivos</a></li>
 						</ul>
 					</li>
 					

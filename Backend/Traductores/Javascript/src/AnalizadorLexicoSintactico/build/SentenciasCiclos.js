@@ -1,4 +1,5 @@
 "use strict";
+// Imports
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -14,8 +15,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SentenciasCiclos = exports.Sentencias = void 0;
-// Imports
+// Clase Abstracta 
 var Instruccion_1 = require("./Instruccion");
+// Metodo Identacion
 var Variables_Metodos_1 = require("./Variables_Metodos");
 // Enum
 var Sentencias;
@@ -44,6 +46,7 @@ var SentenciasCiclos = /** @class */ (function (_super) {
         // Declaraciones
         var Valor = this.Valor;
         var ValRetornar;
+        // Verificar Enum
         if (this.Sentencia == Sentencias.BREAK) {
             ValRetornar = Variables_Metodos_1.AgregarIdentacion() + Valor + "; \n\n";
         }

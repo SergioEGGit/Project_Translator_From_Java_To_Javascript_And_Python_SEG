@@ -1,4 +1,5 @@
 "use strict";
+// Imports
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -14,8 +15,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclaracionFunciones = void 0;
-// Imports
+// Clase Abstracta
 var Instruccion_1 = require("./Instruccion");
+// Metodo Identacion
 var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
 var DeclaracionFunciones = /** @class */ (function (_super) {
@@ -39,14 +41,17 @@ var DeclaracionFunciones = /** @class */ (function (_super) {
         var Identificador = this.Identificador;
         var Traduccion = "";
         var Parametros = "";
-        for (var key in this.ListaParametros) {
-            if (Number(key) + 1 == this.ListaParametros.length) {
-                Parametros += this.ListaParametros[Number(key)].Traducir();
+        // Verificar Si Hay Parametros
+        for (var Key in this.ListaParametros) {
+            // Varios Parametros
+            if (Number(Key) + 1 == this.ListaParametros.length) {
+                Parametros += this.ListaParametros[Number(Key)].Traducir();
             }
             else {
-                Parametros += this.ListaParametros[Number(key)].Traducir() + ", ";
+                Parametros += this.ListaParametros[Number(Key)].Traducir() + ", ";
             }
         }
+        // Un Solo Parametro
         Traduccion = Variables_Metodos_1.AgregarIdentacion() + "function " + Identificador + "(" + Parametros + "); \n\n";
         return Traduccion;
     };

@@ -1,14 +1,19 @@
 "use strict";
+// Imports
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListaDeErrores = exports.ListaDeTokens = exports.VaciarErrores = exports.VaciarTokens = exports.AgregarIdentacion = exports.ArrayTokens = exports.ArrayErrores = exports.Identacion = void 0;
+// Crer PDF
 var jspdf_1 = require("jspdf");
+// Generar Tablas PDF
 var jspdf_autotable_1 = __importDefault(require("jspdf-autotable"));
 // Array Identacion
 exports.Identacion = new Array();
+// Array De Errores
 exports.ArrayErrores = new Array();
+// Array De Tokens
 exports.ArrayTokens = new Array();
 // Funcion Que Cuenta Los Espacios
 function AgregarIdentacion() {
@@ -23,13 +28,13 @@ function AgregarIdentacion() {
 exports.AgregarIdentacion = AgregarIdentacion;
 // Vaciar Lista De Tokens
 function VaciarTokens() {
-    // Recorrer Lista De Tokens
+    // Nueva Lista De Tokens
     exports.ArrayTokens = new Array();
 }
 exports.VaciarTokens = VaciarTokens;
 // Vaciar Lista De Errores
 function VaciarErrores() {
-    // Recorrer Lista De Errores
+    // Nueva Lista De Errores
     exports.ArrayErrores = new Array();
 }
 exports.VaciarErrores = VaciarErrores;
@@ -70,7 +75,7 @@ exports.ListaDeTokens = ListaDeTokens;
 function ListaDeErrores() {
     // Declaraciones
     // Filas Tabla
-    var Filas = [];
+    var Filas = [{}];
     var DescripcionError = "";
     var ErroresLista = "";
     var Error = false;
@@ -78,7 +83,7 @@ function ListaDeErrores() {
     for (var Contador = 0; Contador < exports.ArrayErrores.length; Contador++) {
         // Agregar Token A Array
         if (exports.ArrayErrores[Contador].Tipo == "Error Lexico") {
-            DescripcionError = "El Carácter '" + exports.ArrayErrores[Contador].Lexema + "' No Pertenece Al Lenguaje";
+            DescripcionError = "El Caracter '" + exports.ArrayErrores[Contador].Lexema + "' No Pertenece Al Lenguaje";
             Filas.push([
                 (Contador + 1).toString(),
                 exports.ArrayErrores[Contador].Tipo,

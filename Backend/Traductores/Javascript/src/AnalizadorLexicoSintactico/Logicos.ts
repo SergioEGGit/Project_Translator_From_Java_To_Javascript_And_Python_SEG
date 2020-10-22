@@ -1,4 +1,6 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
 
 // Enum
@@ -39,6 +41,7 @@ export class Logicos extends Instruccion {
 		let Der = this.Der.Traducir();
 		let ValRetornar;
 
+		// Verificar Valor Enum Para Traducir
 		if(this.Operacion == Operadores.NOT) {
 			
 			ValRetornar = "!" + Izq;

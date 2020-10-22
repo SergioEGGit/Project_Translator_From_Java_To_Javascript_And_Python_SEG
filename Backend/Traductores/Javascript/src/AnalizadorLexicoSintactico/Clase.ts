@@ -1,6 +1,10 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
-import { AgregarIdentacion } from './Variables_Metodos'
+
+// Metodo Identacion
+import { AgregarIdentacion } from './Variables_Metodos';
 
 // Clase Principal
 export class Clase extends Instruccion {
@@ -23,6 +27,7 @@ export class Clase extends Instruccion {
 		let Identificador = this.Identificador;
 		let BloqueClase = this.BloqueClase.Traducir();
 				
+		// Traduccion		
 		let Traduccion = AgregarIdentacion() + "class " + Identificador + " { \n\n" + 
 						 AgregarIdentacion() + "    constructor() { \n\n" +
 						 AgregarIdentacion() + "    } \n\n" + 

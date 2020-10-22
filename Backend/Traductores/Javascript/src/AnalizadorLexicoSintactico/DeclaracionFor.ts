@@ -1,5 +1,9 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
+
+// Metodo Identacion
 import { AgregarIdentacion } from "./Variables_Metodos";
 
 // Clase Principal
@@ -22,20 +26,22 @@ export class DeclaracionFor extends Instruccion {
 		// Declaraciones
 		let Traduccion: string = "";
 		
-		for(let key in this.Variables) { 
+		// Verificar Variables
+		for(let Key in this.Variables) { 
 		
-			if(Number(key) + 1 == this.Variables.length) { 
+			// Varias Variables
+			if(Number(Key) + 1 == this.Variables.length) { 
 			
-				Traduccion += this.Variables[Number(key)].Traducir();
+				Traduccion += this.Variables[Number(Key)].Traducir();
 		
 			} else {
 				
-				Traduccion += this.Variables[Number(key)].Traducir() + ", ";
+				Traduccion += this.Variables[Number(Key)].Traducir() + ", ";
 			
 			}
 		}
 		
-		
+		// Una Sola Variable
 		Traduccion = "var " + Traduccion + ";";
 	
 		return Traduccion;

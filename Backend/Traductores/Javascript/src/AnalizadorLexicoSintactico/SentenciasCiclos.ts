@@ -1,5 +1,9 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
+
+// Metodo Identacion
 import { AgregarIdentacion } from "./Variables_Metodos"; 
 
 // Enum
@@ -31,7 +35,8 @@ export class SentenciasCiclos extends Instruccion {
 		// Declaraciones
 		let Valor = this.Valor;
 		let ValRetornar;
-
+		
+		// Verificar Enum
 		if(this.Sentencia == Sentencias.BREAK) {
 			
 			ValRetornar = AgregarIdentacion() + Valor + "; \n\n";

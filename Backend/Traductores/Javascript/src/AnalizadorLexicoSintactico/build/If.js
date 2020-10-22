@@ -1,4 +1,5 @@
 "use strict";
+// Imports
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -14,8 +15,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.If = void 0;
-// Imports
+// Clase Abstracta 
 var Instruccion_1 = require("./Instruccion");
+// Metodo Identacion
 var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
 var If = /** @class */ (function (_super) {
@@ -44,7 +46,7 @@ var If = /** @class */ (function (_super) {
             BloqueElse = this.BloqueElse.Traducir();
             // Verificar Si Es Clase Heredada De If
             if (this.BloqueElse instanceof If) {
-                // Traduccion
+                // Traduccion Else If
                 var Traduccion_ElseIf = Variables_Metodos_1.AgregarIdentacion() + "if(" + Condicion + ") " +
                     "{ \n\n" +
                     BloqueIf + "\n" +
@@ -52,6 +54,7 @@ var If = /** @class */ (function (_super) {
                     BloqueElse.trim() + "\n\n";
                 return Traduccion_ElseIf;
             }
+            // Traduccion Else
             var Traduccion_Else = Variables_Metodos_1.AgregarIdentacion() + "if(" + Condicion + ") " +
                 "{ \n\n" +
                 BloqueIf + "\n" +
@@ -60,6 +63,7 @@ var If = /** @class */ (function (_super) {
                 Variables_Metodos_1.AgregarIdentacion() + "} \n\n";
             return Traduccion_Else;
         }
+        // Traduccion If 
         var Traduccion_If = Variables_Metodos_1.AgregarIdentacion() + "if(" + Condicion + ") " +
             "{ \n\n" +
             BloqueIf + "\n" +

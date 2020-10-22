@@ -1,6 +1,10 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
-import { AgregarIdentacion } from './Variables_Metodos'
+
+// Metodo Identacion
+import { AgregarIdentacion } from './Variables_Metodos';
 
 // Clase Principal
 export class Print extends Instruccion{
@@ -22,6 +26,7 @@ export class Print extends Instruccion{
 		// Declaraciones
 		let Value = this.Value.Traducir();
 		
+		// Traduccion
 		let Traduccion = AgregarIdentacion() + "console.log(" + Value + "); \n\n";
 		
 		return Traduccion;

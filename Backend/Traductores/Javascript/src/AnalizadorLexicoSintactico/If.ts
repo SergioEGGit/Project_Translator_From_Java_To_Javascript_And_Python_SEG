@@ -1,15 +1,19 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
+
+// Metodo Identacion
 import { AgregarIdentacion } from "./Variables_Metodos"; 
 
 // Clase Principal
-export class If extends Instruccion{
+export class If extends Instruccion {
 
     // Declaraciones
 	public AST = null;
 	
 	// Constructor 
-    constructor(Linea: number, Columna: number, private Condicion: Instruccion, private BloqueIf: Instruccion, private BloqueElse: Instruccion|null) {
+    constructor(Linea: number, Columna: number, private Condicion: Instruccion, private BloqueIf: Instruccion, private BloqueElse: Instruccion | null) {
     
 		// Super
 		super(Linea, Columna)
@@ -33,7 +37,7 @@ export class If extends Instruccion{
 			// Verificar Si Es Clase Heredada De If
 			if (this.BloqueElse instanceof If) { 
 				
-				// Traduccion
+				// Traduccion Else If
 				let Traduccion_ElseIf = AgregarIdentacion() + "if(" + Condicion + ") " +
 										"{ \n\n" +
 										BloqueIf + "\n" + 
@@ -44,6 +48,7 @@ export class If extends Instruccion{
 			
 			}
 			
+			// Traduccion Else
 			let Traduccion_Else = AgregarIdentacion() + "if(" + Condicion + ") " +
 								  "{ \n\n" + 
 								  BloqueIf + "\n" +		
@@ -54,6 +59,7 @@ export class If extends Instruccion{
 			return Traduccion_Else;		
 		}
 		
+		// Traduccion If 
 		let Traduccion_If = AgregarIdentacion() + "if(" + Condicion + ") " + 
 							"{ \n\n" + 
 							BloqueIf + "\n" +

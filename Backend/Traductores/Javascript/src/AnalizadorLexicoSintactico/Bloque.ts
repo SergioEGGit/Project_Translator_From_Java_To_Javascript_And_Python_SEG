@@ -1,9 +1,13 @@
 // Imports
-import { Instruccion } from './Instruccion'
-import { Identacion } from './Variables_Metodos'
+
+// Clase Abstracta 
+import { Instruccion } from './Instruccion';
+
+// Metodo Identacion
+import { Identacion } from './Variables_Metodos';
 
 // Clase Principal
-export class Bloque extends Instruccion{
+export class Bloque extends Instruccion {
 	
 	// Declaraciones
 	public AST = null;
@@ -26,6 +30,7 @@ export class Bloque extends Instruccion{
 		// Traducir Instrucciones
 		Identacion.push(" "); //sube 1
 		
+		// Recorrer Elementos
 		for(const Element of this.Instrucciones) {
 			
 			let TraduccionElement = Element.Traducir();

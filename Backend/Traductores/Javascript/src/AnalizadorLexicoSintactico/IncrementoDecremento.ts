@@ -1,5 +1,9 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
+
+// Metodo Identacion
 import { AgregarIdentacion } from "./Variables_Metodos";
 
 // Clase Principal
@@ -24,6 +28,7 @@ export class IncrementoDecremento extends Instruccion {
 		let Signo = this.Signo
 		let Traduccion = " ";
 		
+		// Verificar Si Es Incremento O Decremento
 		if(Signo == "+") {
 			
 			Traduccion = AgregarIdentacion() + Identificador + "++; \n\n";

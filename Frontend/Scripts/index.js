@@ -1,3 +1,11 @@
+// Variables Globales
+
+// Traduccion De JS 
+let TraduccionJS = "";
+
+// Traduccion De Python 
+let TraduccionPY = "";
+
 // Boton Analizar 
 function Analisis() {
 	
@@ -47,6 +55,7 @@ function Analisis() {
 			} else {
 				
 				ConsolaJS.textContent = response.data.Traduccion;
+				TraduccionJS = response.data.Traduccion;
 				
 			}			
 			
@@ -131,6 +140,35 @@ function ReporteArbolSintactico() {
 			console.log(error);
 		
 		});	
+	
+}
+
+// Boton Descargar Traduccion De Javascript
+function DescargarArchivoJS() {
+	
+	// Metodo Descargar Archivo
+	DescargarArchivo(TraduccionJS, "TraduccionJS.js", "text/plain");
+	
+}
+
+// Boton Descargar Traduccion De Python
+function DescargarArchivoPY() {
+	
+	// Metodo Descargar Archivo
+	DescargarArchivo(TraduccionPY, "TraduccionPY.py", "text/plain");
+	
+}
+
+// Boton Descargar Ambas Traducciones
+function DescargarAmbosArchivos() {
+	
+	// Metodo Descargar Archivo
+	
+	// JS
+	DescargarArchivo(TraduccionJS, "TraduccionJS.js", "text/plain");
+	
+	// PY
+	DescargarArchivo(TraduccionPY, "TraduccionPY.py", "text/plain");
 	
 }
 
@@ -290,7 +328,7 @@ function GuardarComoArchivo() {
 		// Obtener TextArea
 		var TextArea = document.getElementById("textarea_" + Identificador[2]);	
 		
-		DescargarArchivo(TextArea.value, "CodigoFuente.java", "text/plain");
+	    DescargarArchivo(TextArea.value, "CodigoFuente.java", "text/plain");
 		
 	} else {
 		
@@ -428,8 +466,6 @@ $(document).ready(
 			
 				}
 			);	
-
-			// Code Mirror
 			
-		
+						
 	});

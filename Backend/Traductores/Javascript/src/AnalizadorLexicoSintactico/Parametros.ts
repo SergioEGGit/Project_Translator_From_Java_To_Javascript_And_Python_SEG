@@ -1,4 +1,6 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
 
 // Clase Principal
@@ -22,6 +24,7 @@ export class Parametros extends Instruccion {
 		let Tipos = this.Tipos;
 		let Identificador = this.Identificador;
 		
+		// Traduccion
 		let Traduccion = Identificador;		
 		
 		return Traduccion;

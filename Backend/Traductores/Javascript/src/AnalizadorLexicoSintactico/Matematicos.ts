@@ -1,4 +1,6 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
 
 // Enum
@@ -36,6 +38,7 @@ export class Matematicos extends Instruccion {
 		let Der = this.Der.Traducir();
 		let ValRetornar;
 
+	    // Verificar Valor Enum
 		if(this.Operacion == Operaciones.SUMA) {
 			
 			ValRetornar = Izq + " + " + Der;

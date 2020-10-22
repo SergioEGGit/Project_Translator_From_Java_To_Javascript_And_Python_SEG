@@ -1,5 +1,9 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
+
+// Metodo Identacion
 import { AgregarIdentacion } from "./Variables_Metodos"; 
 
 // Clase Principal
@@ -26,8 +30,10 @@ export class Funciones extends Instruccion {
 		let Traduccion: string = "";
         let Parametros: string = "";
 
+		// Verificar Si Hay Parametros
 		for(let key in this.ListaParametros) {
 			
+			// Varios Parametros
 			if(Number(key) + 1 == this.ListaParametros.length) { 
 	
 				Parametros += this.ListaParametros[Number(key)].Traducir();
@@ -39,6 +45,7 @@ export class Funciones extends Instruccion {
 			}
 		}
 		
+		// Un Solo Parametro
 		Traduccion = AgregarIdentacion() + "function " + Identificador + "(" + Parametros + ") {\n\n" +
 					 BloqueFuncion + "\n" +
 					 AgregarIdentacion() + "} \n\n";

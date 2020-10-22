@@ -64,7 +64,7 @@ Identificador ([a-zA-Z_])[a-zA-Z0-9_ñÑ]*
 							
 // Comentarios 
 [/][/].*            					{ $$ = new Tokens(yylloc.first_line, yylloc.first_column, "Comentario_UniLinea", yytext); return 'Comentario_UniLinea'; }
-[/][*][^*]*[*]+([^/\*][^*]*[*]+)*[/]   	{ $$ = new Tokens(yylloc.first_line, yylloc.first_column, "Comentario_UniLinea", yytext); return 'Comentario_MultiLinea'; }
+[/][*][^*]*[*]+([^/\*][^*]*[*]+)*[/]   	{ $$ = new Tokens(yylloc.first_line, yylloc.first_column, "Comentario_MultiLinea", yytext); return 'Comentario_MultiLinea'; }
 
 // Instrucciones
 {System_Print}			    { $$ = new Tokens(yylloc.first_line, yylloc.first_column, "Palabra_Reservada", yytext); return 'Sout'; }
@@ -170,6 +170,7 @@ Instrucciones   : Instrucciones Instruccion { $1.push($2); $$ = $1; }
 				
 Instruccion     : Clase					{ $$ = $1; } 
 				| Interfaz				{ $$ = $1; }
+				| Declaracion			{ $$ = $1; }
 				| Comentarios			{ $$ = $1; }
 				| ErroresSintacticos	{ $$ = $1; }        
 				;	

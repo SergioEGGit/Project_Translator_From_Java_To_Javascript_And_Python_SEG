@@ -1,4 +1,5 @@
 "use strict";
+// Imports
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -14,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Logicos = exports.Operadores = void 0;
-// Imports
+// Clase Abstracta 
 var Instruccion_1 = require("./Instruccion");
 // Enum
 var Operadores;
@@ -51,6 +52,7 @@ var Logicos = /** @class */ (function (_super) {
         var Izq = this.Izq.Traducir();
         var Der = this.Der.Traducir();
         var ValRetornar;
+        // Verificar Valor Enum Para Traducir
         if (this.Operacion == Operadores.NOT) {
             ValRetornar = "!" + Izq;
         }

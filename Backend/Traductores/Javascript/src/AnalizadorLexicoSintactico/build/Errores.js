@@ -1,4 +1,5 @@
 "use strict";
+// Imports
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -14,8 +15,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Errores = void 0;
-// Imports
+// Clase Abstracta 
 var Instruccion_1 = require("./Instruccion");
+// Array Errores
 var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
 var Errores = /** @class */ (function (_super) {
@@ -31,12 +33,13 @@ var Errores = /** @class */ (function (_super) {
         _this.Lexema = Lexema;
         // Declaraciones
         _this.AST = null;
+        // Agregar Error Al Arreglo
         Variables_Metodos_1.ArrayErrores.push(_this);
         return _this;
     }
     // Metodo Traducir
     Errores.prototype.Traducir = function () {
-        // Declaraciones
+        // Traduccion Vacia
         var Traduccion = "\n";
         return Traduccion;
     };

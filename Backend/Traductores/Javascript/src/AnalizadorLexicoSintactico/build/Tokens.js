@@ -1,7 +1,8 @@
 "use strict";
+// Imports
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tokens = void 0;
-// Imports
+// Array De Tokens
 var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
 var Tokens = /** @class */ (function () {

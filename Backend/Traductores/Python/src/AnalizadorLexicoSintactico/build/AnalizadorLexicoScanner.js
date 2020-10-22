@@ -33,6 +33,7 @@ function AnalizadorLexicoScanner(CadenaTexto) {
         // Obtener Caracter Actual Texto Y CodigoAscii
         CaracterActual = CadenaTexto.charAt(Contador);
         CaracterActualAscii = CadenaTexto.charCodeAt(Contador);
+        console.log("Caracter: " + CaracterActual);
         // Switch De Caracters 
         switch (EstadoActualLexer) {
             // Verificar Caracter Inicial
@@ -97,6 +98,30 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                     AuxiliarLexico += CaracterActual;
                     ColumnaTokenError++;
                     EstadoActualLexer = 10;
+                }
+                else if (CaracterActual == "(") {
+                    // Verificar Simbolo (
+                    AuxiliarLexico += CaracterActual;
+                    ColumnaTokenError++;
+                    EstadoActualLexer = 11;
+                }
+                else if (CaracterActual == ")") {
+                    // Verificar Simbolo )
+                    AuxiliarLexico += CaracterActual;
+                    ColumnaTokenError++;
+                    EstadoActualLexer = 12;
+                }
+                else if (CaracterActual == "[") {
+                    // Verificar Simbolo )
+                    AuxiliarLexico += CaracterActual;
+                    ColumnaTokenError++;
+                    EstadoActualLexer = 13;
+                }
+                else if (CaracterActual == "]") {
+                    // Verificar Simbolo )
+                    AuxiliarLexico += CaracterActual;
+                    ColumnaTokenError++;
+                    EstadoActualLexer = 14;
                 }
                 else {
                     console.log("Error: ", CaracterActual);
@@ -187,6 +212,7 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                     ContadorTokens++;
                     ColumnaTokenError++;
                     EstadoActualLexer = 0;
+                    Contador--;
                 }
                 else {
                     // Obtener Cualquier Cosa
@@ -205,6 +231,7 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                     ContadorTokens++;
                     ColumnaTokenError++;
                     EstadoActualLexer = 0;
+                    Contador--;
                 }
                 else {
                     // Obtener Cualquier Cosa
@@ -235,8 +262,10 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                     ContadorTokens++;
                     ColumnaTokenError++;
                     EstadoActualLexer = 0;
+                    Contador--;
                 }
                 break;
+            // Verificar Comentario Unilinea
             case 7:
                 if (CaracterActual == "\n" || CaracterActual == "\r") {
                     // Aceptar Token
@@ -245,6 +274,7 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                     ContadorTokens++;
                     ColumnaTokenError++;
                     EstadoActualLexer = 0;
+                    Contador--;
                 }
                 else if (CaracterActual == "#" && Contador == CadenaTexto.length - 1) {
                     // Aceptar Token
@@ -253,6 +283,7 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                     ContadorTokens++;
                     ColumnaTokenError++;
                     EstadoActualLexer = 0;
+                    Contador--;
                 }
                 else {
                     // Obtener Cualquier Cosa
@@ -261,6 +292,7 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                     EstadoActualLexer = 7;
                 }
                 break;
+            // Verificar Comentario Multilinea				
             case 8:
                 if (CaracterActual == "*") {
                     if (CadenaTexto.charAt(Contador + 1) == "/") {
@@ -287,6 +319,7 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                     ContadorTokens++;
                     ColumnaTokenError++;
                     EstadoActualLexer = 0;
+                    Contador--;
                 }
                 else {
                     // Obtener Cualquier Cosa
@@ -295,6 +328,7 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                     EstadoActualLexer = 8;
                 }
                 break;
+            // Aceptar Simbolo {
             case 9:
                 // Aceptar Token
                 Variables_1.ArrayTokens.push(new ObjetoToken_1.NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Llave_Apertura", AuxiliarLexico));
@@ -302,7 +336,9 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                 ContadorTokens++;
                 ColumnaTokenError++;
                 EstadoActualLexer = 0;
+                Contador--;
                 break;
+            // Aceptar Simbolo }		
             case 10:
                 // Aceptar Token
                 Variables_1.ArrayTokens.push(new ObjetoToken_1.NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Llave_Cierre", AuxiliarLexico));
@@ -310,6 +346,47 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                 ContadorTokens++;
                 ColumnaTokenError++;
                 EstadoActualLexer = 0;
+                Contador--;
+                break;
+            // Aceptar Simbolo (		
+            case 11:
+                // Aceptar Token
+                Variables_1.ArrayTokens.push(new ObjetoToken_1.NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Parentesis_Apertura", AuxiliarLexico));
+                AuxiliarLexico = "";
+                ContadorTokens++;
+                ColumnaTokenError++;
+                EstadoActualLexer = 0;
+                Contador--;
+                break;
+            // Aceptar Simbolo )				
+            case 12:
+                // Aceptar Token
+                Variables_1.ArrayTokens.push(new ObjetoToken_1.NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Parentesis_Cierre", AuxiliarLexico));
+                AuxiliarLexico = "";
+                ContadorTokens++;
+                ColumnaTokenError++;
+                EstadoActualLexer = 0;
+                Contador--;
+                break;
+            // Aceptar Simbolo [
+            case 13:
+                // Aceptar Token
+                Variables_1.ArrayTokens.push(new ObjetoToken_1.NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Corchete_Apertura", AuxiliarLexico));
+                AuxiliarLexico = "";
+                ContadorTokens++;
+                ColumnaTokenError++;
+                EstadoActualLexer = 0;
+                Contador--;
+                break;
+            // Aceptar Simbolo ]	
+            case 14:
+                // Aceptar Token
+                Variables_1.ArrayTokens.push(new ObjetoToken_1.NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Corchete_Cierre", AuxiliarLexico));
+                AuxiliarLexico = "";
+                ContadorTokens++;
+                ColumnaTokenError++;
+                EstadoActualLexer = 0;
+                Contador--;
                 break;
         }
     }

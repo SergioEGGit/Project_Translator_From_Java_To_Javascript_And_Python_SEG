@@ -1,5 +1,9 @@
 // Imports
+
+// Clase Abstracta
 import { Instruccion } from "./Instruccion";
+
+// Metodo Identacion
 import { AgregarIdentacion } from "./Variables_Metodos"; 
 
 // Clase Principal

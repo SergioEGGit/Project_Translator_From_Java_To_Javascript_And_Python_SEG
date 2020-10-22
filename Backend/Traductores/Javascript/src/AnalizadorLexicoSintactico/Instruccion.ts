@@ -15,7 +15,6 @@ export abstract class Instruccion {
 
 	// Metodos Abstractos
     public abstract Traducir(): any;
-	public abstract AST: any;
-	
+	public abstract AST: any;	
 	
 }

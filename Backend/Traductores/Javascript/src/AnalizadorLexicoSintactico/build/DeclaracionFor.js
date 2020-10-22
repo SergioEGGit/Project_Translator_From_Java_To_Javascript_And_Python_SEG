@@ -1,4 +1,5 @@
 "use strict";
+// Imports
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -14,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeclaracionFor = void 0;
-// Imports
+// Clase Abstracta 
 var Instruccion_1 = require("./Instruccion");
 // Clase Principal
 var DeclaracionFor = /** @class */ (function (_super) {
@@ -34,14 +35,17 @@ var DeclaracionFor = /** @class */ (function (_super) {
     DeclaracionFor.prototype.Traducir = function () {
         // Declaraciones
         var Traduccion = "";
-        for (var key in this.Variables) {
-            if (Number(key) + 1 == this.Variables.length) {
-                Traduccion += this.Variables[Number(key)].Traducir();
+        // Verificar Variables
+        for (var Key in this.Variables) {
+            // Varias Variables
+            if (Number(Key) + 1 == this.Variables.length) {
+                Traduccion += this.Variables[Number(Key)].Traducir();
             }
             else {
-                Traduccion += this.Variables[Number(key)].Traducir() + ", ";
+                Traduccion += this.Variables[Number(Key)].Traducir() + ", ";
             }
         }
+        // Una Sola Variable
         Traduccion = "var " + Traduccion + ";";
         return Traduccion;
     };

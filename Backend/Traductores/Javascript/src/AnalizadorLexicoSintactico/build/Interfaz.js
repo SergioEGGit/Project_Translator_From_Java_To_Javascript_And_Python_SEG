@@ -1,4 +1,5 @@
 "use strict";
+// Imports
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -14,9 +15,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Interfaz = void 0;
-// Imports
+// Clase Abstracta 
 var Instruccion_1 = require("./Instruccion");
-var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
 var Interfaz = /** @class */ (function (_super) {
     __extends(Interfaz, _super);
@@ -33,12 +33,11 @@ var Interfaz = /** @class */ (function (_super) {
     }
     // Metodo Traducir
     Interfaz.prototype.Traducir = function () {
+        // Declaraciones
         var Identificador = this.Identificador;
         var BloqueInterfaz = this.BloqueInterfaz.Traducir();
         // Traduccion
-        var Traduccion = Variables_Metodos_1.AgregarIdentacion() + "interface " + Identificador + " { \n\n" +
-            BloqueInterfaz + "\n" +
-            Variables_Metodos_1.AgregarIdentacion() + "} \n\n";
+        var Traduccion = "\n";
         return Traduccion;
     };
     return Interfaz;

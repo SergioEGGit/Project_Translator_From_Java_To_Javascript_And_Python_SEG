@@ -1,4 +1,6 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
 
 // Clase Principal
@@ -13,6 +15,8 @@ export class Primitivo extends Instruccion {
 		
 		// Super Llamar Constructor Clase Abstracta
         super(Linea, Columna)
+		
+		// Retornar Valor
 		this.Value = Value
 		
 	}
@@ -23,6 +27,6 @@ export class Primitivo extends Instruccion {
 		// Retonar Valor
 		return this.Value;
 
-    }
-    
+    } 
+	
 }

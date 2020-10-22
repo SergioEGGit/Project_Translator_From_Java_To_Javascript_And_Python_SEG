@@ -1,4 +1,5 @@
 "use strict";
+// Imports
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -14,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Primitivo = void 0;
-// Imports
+// Clase Abstracta 
 var Instruccion_1 = require("./Instruccion");
 // Clase Principal
 var Primitivo = /** @class */ (function (_super) {
@@ -26,6 +27,7 @@ var Primitivo = /** @class */ (function (_super) {
         _super.call(this, Linea, Columna) || this;
         // Declaraciones
         _this.AST = null;
+        // Retornar Valor
         _this.Value = Value;
         return _this;
     }

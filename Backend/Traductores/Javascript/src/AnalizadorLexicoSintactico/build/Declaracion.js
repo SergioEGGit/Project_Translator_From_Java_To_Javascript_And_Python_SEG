@@ -35,14 +35,17 @@ var Declaracion = /** @class */ (function (_super) {
     Declaracion.prototype.Traducir = function () {
         // Declaraciones
         var Traduccion = "";
-        for (var key in this.Variables) {
-            if (Number(key) + 1 == this.Variables.length) {
-                Traduccion += this.Variables[Number(key)].Traducir();
+        // Verificar Cada Valor
+        for (var Key in this.Variables) {
+            // Traduccion De Varias Variables
+            if (Number(Key) + 1 == this.Variables.length) {
+                Traduccion += this.Variables[Number(Key)].Traducir();
             }
             else {
-                Traduccion += this.Variables[Number(key)].Traducir() + ", ";
+                Traduccion += this.Variables[Number(Key)].Traducir() + ", ";
             }
         }
+        // Traduccion Una Sola Variables
         Traduccion = Variables_Metodos_1.AgregarIdentacion() + "var " + Traduccion + "; \n\n";
         return Traduccion;
     };

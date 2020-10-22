@@ -1,5 +1,9 @@
 // Imports
+
+// Clase Abstracta
 import { Instruccion } from "./Instruccion";
+
+// Metodo Identacion
 import { AgregarIdentacion } from "./Variables_Metodos";
 
 // Clase Principal
@@ -25,16 +29,16 @@ export class MetodoDeclaracion extends Instruccion {
 		let Traduccion: string = "";
         let Parametros: string = "";	
 		
-		// Recuperar Parametros
-		for(let key in this.ListaParametros) {
+		// Verificar Si Hay Parametros
+		for(let Key in this.ListaParametros) {
 			
-			if(Number(key) + 1 == this.ListaParametros.length) { 
+			if(Number(Key) + 1 == this.ListaParametros.length) { 
 
-				Parametros += this.ListaParametros[Number(key)].Traducir();
+				Parametros += this.ListaParametros[Number(Key)].Traducir();
 			
 			} else {
 				
-				Parametros += this.ListaParametros[Number(key)].Traducir() + ", ";
+				Parametros += this.ListaParametros[Number(Key)].Traducir() + ", ";
 			
 			}
 		}

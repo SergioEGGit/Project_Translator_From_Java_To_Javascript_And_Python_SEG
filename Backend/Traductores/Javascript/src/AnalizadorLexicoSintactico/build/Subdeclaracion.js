@@ -1,4 +1,5 @@
 "use strict";
+// Imports
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -14,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Subdeclaracion = void 0;
-// Imports
+// Clase Abstracta 
 var Instruccion_1 = require("./Instruccion");
 // Clase Principal
 var Subdeclaracion = /** @class */ (function (_super) {
@@ -36,6 +37,7 @@ var Subdeclaracion = /** @class */ (function (_super) {
         var Identificador = this.Identificador;
         var Expresion;
         var Traduccion = "";
+        // Verificar Si Hay Expresion
         if (this.Expresion != null) {
             Expresion = this.Expresion.Traducir();
             Traduccion = Identificador + " = " + Expresion;

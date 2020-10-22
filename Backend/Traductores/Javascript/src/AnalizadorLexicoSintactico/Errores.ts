@@ -1,5 +1,9 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
+
+// Array Errores
 import { ArrayErrores } from "./Variables_Metodos";
 
 // Clase Principal
@@ -13,6 +17,8 @@ export class Errores extends Instruccion {
         
 		// Super
 		super(Linea, Columna);
+		
+		// Agregar Error Al Arreglo
 		ArrayErrores.push(this);
 		
     }
@@ -20,10 +26,9 @@ export class Errores extends Instruccion {
 	// Metodo Traducir
     public Traducir() {
 		
-		// Declaraciones
+		// Traduccion Vacia
 		let Traduccion = "\n";
 		
 		return Traduccion;
-    }
-	
+    }	
 }

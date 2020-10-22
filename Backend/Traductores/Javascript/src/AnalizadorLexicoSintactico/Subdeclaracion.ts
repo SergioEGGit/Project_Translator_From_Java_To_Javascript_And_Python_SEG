@@ -1,5 +1,9 @@
 // Imports
+
+// Clase Abstracta 
 import { Instruccion } from "./Instruccion";
+
+// Metodo Identacion
 import { AgregarIdentacion } from "./Variables_Metodos";
 
 // Clase Principal
@@ -24,10 +28,11 @@ export class Subdeclaracion extends Instruccion {
 		let Expresion;
 		let Traduccion = "";
 		
+		// Verificar Si Hay Expresion
 		if(this.Expresion != null) {
 			
 			Expresion = this.Expresion.Traducir();
-			
+				
 			Traduccion = Identificador + " = " + Expresion;
 			
 			return Traduccion;

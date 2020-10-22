@@ -1,4 +1,5 @@
 "use strict";
+// Imports
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -14,8 +15,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Asignacion = void 0;
-// Imports
+// Clase Abstracta 
 var Instruccion_1 = require("./Instruccion");
+// Metodo Identacion
 var Variables_Metodos_1 = require("./Variables_Metodos");
 // Clase Principal
 var Asignacion = /** @class */ (function (_super) {
@@ -37,11 +39,14 @@ var Asignacion = /** @class */ (function (_super) {
         var Identificador = this.Identificador;
         var Expresion;
         var Traduccion = "";
+        // Verificar Si Hay Una Expresion
         if (this.Expresion != null) {
             Expresion = this.Expresion.Traducir();
+            // Con Expresion		
             Traduccion = Variables_Metodos_1.AgregarIdentacion() + Identificador + " = " + Expresion + "; \n\n";
             return Traduccion;
         }
+        // Sin Expresion
         Traduccion = Variables_Metodos_1.AgregarIdentacion() + Identificador + "; \n\n";
         return Traduccion;
     };
