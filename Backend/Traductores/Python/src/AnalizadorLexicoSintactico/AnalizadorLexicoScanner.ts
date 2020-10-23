@@ -15,6 +15,9 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 	// Contador De Tokens
 	var ContadorTokens = 1;
 	
+	// Contador De Errores
+	var ContadorErrores = 1;
+	
 	// Fila Donde Se Encuentra El Token O Error
 	var FilaTokenError = 1;
 	
@@ -46,9 +49,7 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 		// Obtener Caracter Actual Texto Y CodigoAscii
 		CaracterActual = CadenaTexto.charAt(Contador);	
 		CaracterActualAscii = CadenaTexto.charCodeAt(Contador);
-		
-		console.log("Caracter: " + CaracterActual);
-		
+	
 		// Switch De Caracters 
 		switch(EstadoActualLexer) {
 			
@@ -101,7 +102,7 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 								
 				} else if(CaracterActual == "'") { 
 				
-					// Verificar Si Es Cadena String
+					// Verificar Si Es Cadena Char
 					AuxiliarLexico += CaracterActual;
 					ColumnaTokenError++;
 					EstadoActualLexer = 5;				
@@ -155,10 +156,118 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 					ColumnaTokenError++;
 					EstadoActualLexer = 14;
 				
+				} else if(CaracterActual == ",") { 
+				
+					// Verificar Simbolo )
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 15;
+				
+				} else if(CaracterActual == ".") { 
+				
+					// Verificar Simbolo )
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 16;
+				
+				} else if(CaracterActual == ";") { 
+				
+					// Verificar Simbolo )
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 17;
+				
+				} else if(CaracterActual == ":") { 
+				
+					// Verificar Simbolo )
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 18;
+				
+				}  else if(CaracterActual == "<") { 
+				
+					// Verificar Simbolo <
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 19;
+				
+				}  else if(CaracterActual == ">") { 
+				
+					// Verificar Simbolo >
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 20;
+				
+				} else if(CaracterActual == "=") { 
+				
+					// Verificar Simbolo >
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 21;
+				
+				} else if(CaracterActual == "!") { 
+				
+					// Verificar Simbolo >
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 22;
+				
+				} else if(CaracterActual == "&") { 
+				
+					// Verificar Simbolo &
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 23;
+				
+				} else if(CaracterActual == "|") { 
+				
+					// Verificar Simbolo &
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 24;
+				
+				} else if(CaracterActual == "^") { 
+				
+					// Verificar Simbolo &
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 25;
+				
+				} else if(CaracterActual == "+") { 
+				
+					// Verificar Simbolo &
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 26;
+				
+				} else if(CaracterActual == "-") { 
+				
+					// Verificar Simbolo &
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 27;
+				
+				} else if(CaracterActual == "*") { 
+				
+					// Verificar Simbolo &
+					AuxiliarLexico += CaracterActual;
+					ColumnaTokenError++;
+					EstadoActualLexer = 28;
+				
+				} else if(CaracterActual == "#" && Contador == CadenaTexto.length - 1) { 
+				
+					// Final De Cadena	
+				
 				} else {
 					
-					console.log("Error: ", CaracterActual);
-					
+					// Aceptar Error   
+					AuxiliarLexico += CaracterActual;
+					ArrayErrores.push(new NuevoError(ContadorErrores, FilaTokenError, ColumnaTokenError, "Error_Lexico", AuxiliarLexico, "El Caracter '" + AuxiliarLexico + "' No Pertenece Al Lenguaje"));
+					AuxiliarLexico = "";
+					ContadorErrores++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
+								
 				}				
 			
 				break;
@@ -224,7 +333,7 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 					} else {
 						
 						// Aceptar Token
-						ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Numero_Entero", AuxiliarLexico));
+						ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Numero", AuxiliarLexico));
 						AuxiliarLexico = "";
 						ContadorTokens++;
 						ColumnaTokenError++;
@@ -251,7 +360,7 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 				} else {
 					
 					// Aceptar Token
-					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Numero_Decimal", AuxiliarLexico));
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Numero", AuxiliarLexico));
 					AuxiliarLexico = "";
 					ContadorTokens++;
 					ColumnaTokenError++;
@@ -269,12 +378,12 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 					
 					// Verificar Letras
 					AuxiliarLexico += CaracterActual;
-					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Cadena_De_Texto_String", AuxiliarLexico));
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Cadena_De_Texto", AuxiliarLexico));
 					AuxiliarLexico = "";
 					ContadorTokens++;
 					ColumnaTokenError++;
 					EstadoActualLexer = 0;
-					Contador--;
+					//Contador--;
 								
 				} else {
 					
@@ -294,12 +403,12 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 					
 					// Aceptar Token
 					AuxiliarLexico += CaracterActual;
-					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Cadena_De_Texto_Char", AuxiliarLexico));
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Cadena_De_Texto", AuxiliarLexico));
 					AuxiliarLexico = "";
 					ContadorTokens++;
 					ColumnaTokenError++;
 					EstadoActualLexer = 0;
-					Contador--;
+					//Contador--;
 								
 				} else {
 					
@@ -332,8 +441,7 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 				} else {
 					
 					// Aceptar Token
-					AuxiliarLexico += CaracterActual;
-					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Operador_Dividido", AuxiliarLexico));
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Dividido", AuxiliarLexico));
 					AuxiliarLexico = "";
 					ContadorTokens++;
 					ColumnaTokenError++;
@@ -392,7 +500,7 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 						ContadorTokens++;
 						ColumnaTokenError++;
 						EstadoActualLexer = 0;	
-						Contador += 2;
+						Contador += 1;
 						
 					} else {
 						
@@ -500,7 +608,267 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 				EstadoActualLexer = 0;
 				Contador--;
 
+				break;	
+				
+			// Aceptar Simbolo ,	
+			case 15:
+			
+				// Aceptar Token
+				ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Coma", AuxiliarLexico));
+				AuxiliarLexico = "";
+				ContadorTokens++;
+				ColumnaTokenError++;
+				EstadoActualLexer = 0;
+				Contador--;
+
+				break;	
+
+			// Aceptar Simbolo .	
+			case 16:
+			
+				// Aceptar Token
+				ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Punto", AuxiliarLexico));
+				AuxiliarLexico = "";
+				ContadorTokens++;
+				ColumnaTokenError++;
+				EstadoActualLexer = 0;
+				Contador--;
+
+				break;
+
+			// Aceptar Simbolo ;	
+			case 17:
+			
+				// Aceptar Token
+				ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_PuntoYComa", AuxiliarLexico));
+				AuxiliarLexico = "";
+				ContadorTokens++;
+				ColumnaTokenError++;
+				EstadoActualLexer = 0;
+				Contador--;
+
+				break;
+
+			// Aceptar Simbolo :	
+			case 18:
+			
+				// Aceptar Token
+				ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_DosPuntos", AuxiliarLexico));
+				AuxiliarLexico = "";
+				ContadorTokens++;
+				ColumnaTokenError++;
+				EstadoActualLexer = 0;
+				Contador--;
+
+				break;	
+
+			// Verificar Si Es <= O Aceptar Simbolo <	
+			case 19:
+			
+				if(CaracterActual == "=") {
+					
+					AuxiliarLexico += CaracterActual;
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_MenorIgualQue", AuxiliarLexico));
+					AuxiliarLexico = "";
+					ContadorTokens++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
+					
+				} else {
+					
+					// Aceptar Token
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_MenorQue", AuxiliarLexico));
+					AuxiliarLexico = "";
+					ContadorTokens++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
+					Contador--;
+					
+				}
+
+				break;	
+
+			// Verificar Si Es >= O Aceptar Simbolo >	
+			case 20:
+			
+				if(CaracterActual == "=") {
+					
+					AuxiliarLexico += CaracterActual;
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_MayorIgualQue", AuxiliarLexico));
+					AuxiliarLexico = "";
+					ContadorTokens++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
+					
+				} else {
+					
+					// Aceptar Token
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_MayorQue", AuxiliarLexico));
+					AuxiliarLexico = "";
+					ContadorTokens++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
+					Contador--;
+					
+				}
+
+				break;	
+
+			// Verificar Si Es == O Aceptar Simbolo =	
+			case 21:
+			
+				if(CaracterActual == "=") {
+					
+					AuxiliarLexico += CaracterActual;
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_DobleIgual", AuxiliarLexico));
+					AuxiliarLexico = "";
+					ContadorTokens++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
+					
+				} else {
+					
+					// Aceptar Token
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Igual", AuxiliarLexico));
+					AuxiliarLexico = "";
+					ContadorTokens++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
+					Contador--;
+					
+				}
+
+				break;	
+
+			// Verificar Si Es != O Aceptar Simbolo !	
+			case 22:
+			
+				if(CaracterActual == "=") {
+					
+					AuxiliarLexico += CaracterActual;
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Diferente", AuxiliarLexico));
+					AuxiliarLexico = "";
+					ContadorTokens++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
+					
+				} else {
+					
+					// Aceptar Token
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Negacion", AuxiliarLexico));
+					AuxiliarLexico = "";
+					ContadorTokens++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
+					Contador--;
+					
+				}
+
+				break;	
+
+			// Verificar Si Es && O Marcar Como Error	
+			case 23:
+			
+				if(CaracterActual == "&") {
+					
+					AuxiliarLexico += CaracterActual;
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_And", AuxiliarLexico));
+					AuxiliarLexico = "";
+					ContadorTokens++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
+					
+				} else {
+					
+					// Aceptar Token
+					ArrayErrores.push(new NuevoError(ContadorErrores, FilaTokenError, ColumnaTokenError, "Error_Lexico", AuxiliarLexico, "El Caracter '" + AuxiliarLexico + "' No Pertenece Al Lenguaje"));
+					AuxiliarLexico = "";
+					ContadorErrores++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
+					Contador--;
+					
+				}
+
+				break;	
+
+			// Verificar Si Es || O Marcar Como Error	
+			case 24:
+			
+				if(CaracterActual == "|") {
+					
+					AuxiliarLexico += CaracterActual;
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Or", AuxiliarLexico));
+					AuxiliarLexico = "";
+					ContadorTokens++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
+					
+				} else {
+					
+					// Aceptar Token
+					ArrayErrores.push(new NuevoError(ContadorErrores, FilaTokenError, ColumnaTokenError, "Error_Lexico", AuxiliarLexico, "El Caracter '" + AuxiliarLexico + "' No Pertenece Al Lenguaje"));
+					AuxiliarLexico = "";
+					ContadorErrores++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
+					Contador--;
+					
+				}
+
+				break;
+
+			// Aceptar Simbolo ^	
+			case 25:
+			
+				// Aceptar Token
+				ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Xor", AuxiliarLexico));
+				AuxiliarLexico = "";
+				ContadorTokens++;
+				ColumnaTokenError++;
+				EstadoActualLexer = 0;
+				Contador--;
+
 				break;		
+
+			// Aceptar Simbolo +	
+			case 26:
+			
+				// Aceptar Token
+				ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Mas", AuxiliarLexico));
+				AuxiliarLexico = "";
+				ContadorTokens++;
+				ColumnaTokenError++;
+				EstadoActualLexer = 0;
+				Contador--;
+
+				break;	
+
+			// Aceptar Simbolo -	
+			case 27:
+			
+				// Aceptar Token
+				ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Menos", AuxiliarLexico));
+				AuxiliarLexico = "";
+				ContadorTokens++;
+				ColumnaTokenError++;
+				EstadoActualLexer = 0;
+				Contador--;
+
+				break;	
+
+			// Aceptar Simbolo *	
+			case 28:
+			
+				// Aceptar Token
+				ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Simbolo_Por", AuxiliarLexico));
+				AuxiliarLexico = "";
+				ContadorTokens++;
+				ColumnaTokenError++;
+				EstadoActualLexer = 0;
+				Contador--;
+
+				break;			
 		}
 		
 	}	
@@ -515,9 +883,10 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 			
 			let PalabraReservada = DiccionarioJava[SubContador].toString();
 			
+	        // Verificar Si Es Palabra Reservada
 			if(Palabra == PalabraReservada) {
 				
-				ArrayTokens[Contador].SetTipo("Palabra_Reservada");			
+				ArrayTokens[Contador].SetTipo("Palabra_Reservada_" + PalabraReservada);			
 				
 			}
 			
