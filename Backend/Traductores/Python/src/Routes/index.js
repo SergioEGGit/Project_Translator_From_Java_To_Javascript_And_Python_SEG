@@ -20,10 +20,9 @@ const RouterAuxiliar = ExpressAuxiliar.Router();
 // Pagina Principal
 RouterAuxiliar.get('/', (req, res) => {
 	
-	var string = "public class hola";
+	var string = "/* Hola */ \n /* hola */";   
 	
 	AnalizadorLexicoScanner(string);
-	AnalizadorSintacticoParser();
 	
 	for(var i = 0; i < ArrayTokens.length; i++) {
 		
@@ -31,11 +30,7 @@ RouterAuxiliar.get('/', (req, res) => {
 		
 	}
 	
-	for (var i = 0; i < ArrayErrores.length; i++) {
-		
-		console.log(ArrayErrores[i]);
-		
-	}
+	AnalizadorSintacticoParser();
 	
 	// Enviar Response
 	res.send("Bienvenido Al Servidor De Python! Puerto: 8887");	

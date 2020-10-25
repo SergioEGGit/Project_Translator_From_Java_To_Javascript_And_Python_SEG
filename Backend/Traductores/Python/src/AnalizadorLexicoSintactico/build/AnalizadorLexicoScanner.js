@@ -210,7 +210,7 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                     EstadoActualLexer = 28;
                 }
                 else if (CaracterActual == "#" && Contador == CadenaTexto.length - 1) {
-                    // Final De Cadena	
+                    // Final De Cadena									
                 }
                 else {
                     // Aceptar Error   

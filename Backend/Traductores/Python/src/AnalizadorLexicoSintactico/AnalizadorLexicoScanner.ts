@@ -256,7 +256,7 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 				
 				} else if(CaracterActual == "#" && Contador == CadenaTexto.length - 1) { 
 				
-					// Final De Cadena	
+					// Final De Cadena									
 				
 				} else {
 					
@@ -266,7 +266,7 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 					AuxiliarLexico = "";
 					ContadorErrores++;
 					ColumnaTokenError++;
-					EstadoActualLexer = 0;
+					EstadoActualLexer = 0;	
 								
 				}				
 			

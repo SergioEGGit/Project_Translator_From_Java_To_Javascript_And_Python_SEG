@@ -41,8 +41,10 @@ exports.DiccionarioJava = {
 // Metodos / Funciones
 // Vaciar Array Tokens
 function VaciarArrayTokens() {
-    // Recorrer Array
-    for (var Contador = 0; Contador <= exports.ArrayTokens.length + 1; Contador++) {
+    // Declaracion 
+    var SizeArray = exports.ArrayTokens.length;
+    // Recorrer Array	
+    for (var Contador = 0; Contador <= SizeArray; Contador++) {
         // Pop Array
         exports.ArrayTokens.pop();
     }
@@ -50,8 +52,10 @@ function VaciarArrayTokens() {
 exports.VaciarArrayTokens = VaciarArrayTokens;
 // Vaciar Array Errores
 function VaciarArrayErrores() {
+    // Declaracion
+    var SizeErrores = exports.ArrayErrores.length;
     // Recorrer Array
-    for (var Contador = 0; Contador <= exports.ArrayErrores.length + 1; Contador++) {
+    for (var Contador = 0; Contador <= SizeErrores; Contador++) {
         // Pop Array
         exports.ArrayErrores.pop();
     }

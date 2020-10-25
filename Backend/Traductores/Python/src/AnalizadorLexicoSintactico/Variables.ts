@@ -59,8 +59,11 @@ export const DiccionarioJava: Diccionario = {
 // Vaciar Array Tokens
 export function VaciarArrayTokens() {
 	
-	// Recorrer Array
-	for(var Contador = 0; Contador <= ArrayTokens.length + 1; Contador++) {
+	// Declaracion 
+	var SizeArray = ArrayTokens.length;
+	
+	// Recorrer Array	
+	for(var Contador = 0; Contador <= SizeArray; Contador++) {
 		
 		// Pop Array
 		ArrayTokens.pop();			
@@ -72,8 +75,11 @@ export function VaciarArrayTokens() {
 // Vaciar Array Errores
 export function VaciarArrayErrores() {
 	
+	// Declaracion
+	var SizeErrores = ArrayErrores.length;
+	
 	// Recorrer Array
-	for(var Contador = 0; Contador <= ArrayErrores.length + 1; Contador++) {
+	for(var Contador = 0; Contador <= SizeErrores; Contador++) {
 		
 		// Pop Array
 		ArrayErrores.pop();			
