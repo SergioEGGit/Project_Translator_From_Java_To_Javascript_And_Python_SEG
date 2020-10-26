@@ -20,14 +20,13 @@ const RouterAuxiliar = ExpressAuxiliar.Router();
 // Pagina Principal
 RouterAuxiliar.get('/', (req, res) => {
 	
-	var string = "/* Hola */ \n /* hola */";   
+	var string = "public class hola {  hola = Hola++;  }";   
 	
 	AnalizadorLexicoScanner(string);
 	
-	for(var i = 0; i < ArrayTokens.length; i++) {
+	for(var i = 0; i < ArrayTokens.length; i ++) {
 		
 		console.log(ArrayTokens[i]);
-		
 	}
 	
 	AnalizadorSintacticoParser();

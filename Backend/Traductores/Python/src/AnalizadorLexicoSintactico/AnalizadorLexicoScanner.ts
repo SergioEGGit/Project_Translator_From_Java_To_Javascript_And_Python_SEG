@@ -374,7 +374,7 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 			// Verificar Cadena De Texto String
 			case 4:
 			
-				if(CaracterActual == "\"") {
+				if(CaracterActual == "\"" || (CaracterActual == "#" && Contador == CadenaTexto.length - 1)) {
 					
 					// Verificar Letras
 					AuxiliarLexico += CaracterActual;
@@ -399,7 +399,7 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 			// Verificar Cadena De Texto Char
 			case 5:
 			
-				if(CaracterActual == "'") {
+				if(CaracterActual == "'" || (CaracterActual == "#" && Contador == CadenaTexto.length - 1)) {
 					
 					// Aceptar Token
 					AuxiliarLexico += CaracterActual;

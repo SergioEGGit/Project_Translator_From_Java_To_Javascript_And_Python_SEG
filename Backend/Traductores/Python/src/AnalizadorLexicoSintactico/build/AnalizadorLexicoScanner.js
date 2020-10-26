@@ -299,7 +299,7 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                 break;
             // Verificar Cadena De Texto String
             case 4:
-                if (CaracterActual == "\"") {
+                if (CaracterActual == "\"" || (CaracterActual == "#" && Contador == CadenaTexto.length - 1)) {
                     // Verificar Letras
                     AuxiliarLexico += CaracterActual;
                     Variables_1.ArrayTokens.push(new ObjetoToken_1.NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Cadena_De_Texto", AuxiliarLexico));
@@ -318,7 +318,7 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                 break;
             // Verificar Cadena De Texto Char
             case 5:
-                if (CaracterActual == "'") {
+                if (CaracterActual == "'" || (CaracterActual == "#" && Contador == CadenaTexto.length - 1)) {
                     // Aceptar Token
                     AuxiliarLexico += CaracterActual;
                     Variables_1.ArrayTokens.push(new ObjetoToken_1.NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Cadena_De_Texto", AuxiliarLexico));
