@@ -17,6 +17,10 @@ var Recuperacion = true;
 var Traduccion_Total = "";
 // Bandera Voy A Traducir
 var Traducir = false;
+// Tipo Print
+var PrintEnd = false;
+// Tipo Else 
+var ElseIf = false;
 // Tengo Main
 var Main = false;
 // Array De Identacion 
@@ -194,13 +198,13 @@ function TipoDeDatos() {
 function DeclaracionVariables() {
     // Estructura Sintactica
     TipoDeDatos();
-    Traduccion_Total += AgregarIdentacion() + "var ";
+    Traduccion_Total += AgregarIdentacion();
     Traducir = true;
     PrincipalParea("Identificador");
     AsignacionDeclaracion();
     ListaDeDeclaraciones();
     PrincipalParea("Simbolo_PuntoYComa");
-    Traduccion_Total += "; \n\n";
+    Traduccion_Total += "\n\n";
 }
 // Lista De Declaraciones
 function ListaDeDeclaraciones() {
@@ -259,8 +263,8 @@ function Comentarios() {
     else if (TokenActual.GetTipo() == "Comentario_Multilinea") {
         // Comentario Multilinea
         // Comentario 
-        Comentario = TokenActual.GetLexema().replace("/*", "...");
-        Comentario = Comentario.replace("*/", "...");
+        Comentario = TokenActual.GetLexema().replace("/*", "\"\"\"");
+        Comentario = Comentario.replace("*/", "\"\"\"");
         // Metodo Parea
         PrincipalParea("Comentario_Multilinea");
         Traduccion_Total += AgregarIdentacion() + Comentario + "\n\n";
@@ -334,11 +338,29 @@ function Asignacion() {
     Traducir = true;
     Traduccion_Total += AgregarIdentacion();
     PrincipalParea("Identificador");
-    PrincipalParea("Simbolo_Igual");
-    Traduccion_Total += " = ";
-    Expr();
-    PrincipalParea("Simbolo_PuntoYComa");
-    Traduccion_Total += "\n\n";
+    // Verificar Si Es Asignacion Normal O ++ O --
+    if (TokenActual.GetTipo() == "Simbolo_Igual") {
+        // Asignacion
+        PrincipalParea("Simbolo_Igual");
+        Traduccion_Total += " = ";
+        Expr();
+        PrincipalParea("Simbolo_PuntoYComa");
+        Traduccion_Total += "\n\n";
+    }
+    else if (TokenActual.GetTipo() == "Simbolo_Mas") {
+        PrincipalParea("Simbolo_Mas");
+        PrincipalParea("Simbolo_Mas");
+        Traduccion_Total += " += 1";
+        PrincipalParea("Simbolo_PuntoYComa");
+        Traduccion_Total += "\n\n";
+    }
+    else if (TokenActual.GetTipo() == "Simbolo_Menos") {
+        PrincipalParea("Simbolo_Menos");
+        PrincipalParea("Simbolo_Menos");
+        Traduccion_Total += " -= 1";
+        PrincipalParea("Simbolo_PuntoYComa");
+        Traduccion_Total += "\n\n";
+    }
 }
 // Lista De Instrucciones Interfaz
 function ListaInstruccionesInterfaz() {
@@ -504,10 +526,12 @@ function FuncionTipoDeDato() {
     PrincipalParea("Simbolo_Parentesis_Cierre");
     Traduccion_Total += ")";
     PrincipalParea("Simbolo_Llave_Apertura");
-    Traduccion_Total += ": ";
-    // Bloque Funcion
+    Traduccion_Total += ": \n\n";
+    ArrayIdentacion.push(" ");
+    ListaInstruccionesFuncion();
     PrincipalParea("Simbolo_Llave_Cierre");
     Traduccion_Total += "\n\n";
+    ArrayIdentacion.pop();
 }
 // Funcion Void 
 function FuncionVoid() {
@@ -522,10 +546,12 @@ function FuncionVoid() {
     PrincipalParea("Simbolo_Parentesis_Cierre");
     Traduccion_Total += ")";
     PrincipalParea("Simbolo_Llave_Apertura");
-    Traduccion_Total += ": ";
-    // Bloque Funcion
+    Traduccion_Total += ":\n\n ";
+    ArrayIdentacion.push(" ");
+    ListaInstruccionesFuncion();
     PrincipalParea("Simbolo_Llave_Cierre");
     Traduccion_Total += "\n\n";
+    ArrayIdentacion.pop();
 }
 // Parametros
 function Parametro() {
@@ -587,11 +613,13 @@ function FuncionMain() {
     PrincipalParea("Simbolo_Corchete_Cierre");
     PrincipalParea("Palabra_Reservada_args");
     PrincipalParea("Simbolo_Parentesis_Cierre");
-    PrincipalParea("Simbolo_Llave_Apertura");
-    // Lista De Instrucciones
-    PrincipalParea("Simbolo_Llave_Cierre");
     Traduccion_Total += AgregarIdentacion() + "def main(): \n\n";
     Main = true;
+    PrincipalParea("Simbolo_Llave_Apertura");
+    ArrayIdentacion.push(" ");
+    ListaInstruccionesFuncion();
+    PrincipalParea("Simbolo_Llave_Cierre");
+    ArrayIdentacion.pop();
 }
 // Lista De Instrucciones Funcion
 function ListaInstruccionesFuncion() {
@@ -623,8 +651,18 @@ function ListaInstruccionesFuncion() {
 function InstruccionFuncion() {
     // Verificar Tipo Instruccion
     if (TokenActual.GetTipo() == "Palabra_Reservada_System") {
-        // Clase O Interfaz
-        DefinicionFunciones();
+        // Print
+        Print();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_if") {
+        // If
+        If();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_for") {
+        // For
+        For();
         Recuperacion = true;
     }
     else if (TokenActual.GetTipo() == "Comentario_Unilinea" || TokenActual.GetTipo() == "Comentario_Multilinea") {
@@ -637,6 +675,103 @@ function InstruccionFuncion() {
         ErroresSintactico("public O Comentario");
         Recuperacion = true;
     }
+}
+// Print
+function Print() {
+    PrincipalParea("Palabra_Reservada_System");
+    PrincipalParea("Simbolo_Punto");
+    PrincipalParea("Palabra_Reservada_out");
+    PrincipalParea("Simbolo_Punto");
+    TipoPrint();
+    PrincipalParea("Simbolo_Parentesis_Apertura");
+    Traduccion_Total += AgregarIdentacion() + "print(";
+    Expr();
+    // Tipo De Print
+    if (PrintEnd) {
+        Traduccion_Total += " , end=\"\"";
+    }
+    PrincipalParea("Simbolo_Parentesis_Cierre");
+    Traduccion_Total += ") \n\n";
+    PrincipalParea("Simbolo_PuntoYComa");
+}
+// Tipo Print
+function TipoPrint() {
+    // Verificar Tipo De Print
+    if (TokenActual.GetTipo() == "Palabra_Reservada_println") {
+        PrincipalParea("Palabra_Reservada_println");
+        PrintEnd = false;
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_print") {
+        PrincipalParea("Palabra_Reservada_print");
+        PrintEnd = true;
+    }
+}
+// If 
+function If() {
+    // Estructura Sintactica
+    PrincipalParea("Palabra_Reservada_if");
+    // Verficar Si Es If O Else If
+    if (ElseIf) {
+        Traduccion_Total += AgregarIdentacion() + "elif ";
+    }
+    else {
+        Traduccion_Total += AgregarIdentacion() + "if ";
+    }
+    PrincipalParea("Simbolo_Parentesis_Apertura");
+    Expr();
+    PrincipalParea("Simbolo_Parentesis_Cierre");
+    PrincipalParea("Simbolo_Llave_Apertura");
+    Traduccion_Total += " : \n\n";
+    ArrayIdentacion.push(" ");
+    // Instrucciones ciclos	
+    PrincipalParea("Simbolo_Llave_Cierre");
+    Traduccion_Total += "\n\n";
+    ArrayIdentacion.pop();
+    ElseIf = false;
+    Else();
+}
+// Else 
+function Else() {
+    if (TokenActual.GetTipo() == "Palabra_Reservada_else") {
+        // Estructura Sintactica
+        PrincipalParea("Palabra_Reservada_else");
+        TipoElse();
+        Recuperacion = true;
+    }
+    else {
+        // Vacios / Epsilon
+    }
+}
+// Tipo De Else 
+function TipoElse() {
+    // Verificar Si Es Else If O Else
+    if (TokenActual.GetTipo() == "Simbolo_Llave_Apertura") {
+        // Estructura Sintactica
+        PrincipalParea("Simbolo_Llave_Apertura");
+        Traduccion_Total += AgregarIdentacion() + "else: \n\n";
+        ArrayIdentacion.push(" ");
+        // Instruccionse Ciclos If 
+        PrincipalParea("Simbolo_Llave_Cierre");
+        Traduccion_Total += "\n\n";
+        ArrayIdentacion.pop();
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_if") {
+        // Estructura Sintactica
+        ElseIf = true;
+        If();
+    }
+}
+// For 
+function For() {
+    // Estructura Sintactica
+    PrincipalParea("Palabra_Reservada_for");
+    Traduccion_Total += "for ";
+    PrincipalParea("Simbolo_Parentesis_Apertura");
+    DeclaracionVariables();
+    Expr();
+    PrincipalParea("Simbolo_PuntoYComa");
+    Expr();
+    PrincipalParea("Simbolo_Parentesis_Apertura");
 }
 // Expresiones
 function Expr() {
@@ -670,6 +805,70 @@ function SumaResta() {
         SumaResta();
         Recuperacion = true;
     }
+    else if (TokenActual.GetTipo() == "Simbolo_Or") {
+        PrincipalParea("Simbolo_Or");
+        Traduccion_Total += " || ";
+        ExprR();
+        Recuperacion = true;
+        SumaResta();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Simbolo_Xor") {
+        PrincipalParea("Simbolo_Xor");
+        Traduccion_Total += " ^ ";
+        ExprR();
+        Recuperacion = true;
+        SumaResta();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Simbolo_MayorIgualQue") {
+        PrincipalParea("Simbolo_MayorIgualQue");
+        Traduccion_Total += " >= ";
+        ExprR();
+        Recuperacion = true;
+        SumaResta();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Simbolo_MenorIgualQue") {
+        PrincipalParea("Simbolo_MenorIgualQue");
+        Traduccion_Total += " <= ";
+        ExprR();
+        Recuperacion = true;
+        SumaResta();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Simbolo_MenorQue") {
+        PrincipalParea("Simbolo_MenorQue");
+        Traduccion_Total += " < ";
+        ExprR();
+        Recuperacion = true;
+        SumaResta();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Simbolo_MayorQue") {
+        PrincipalParea("Simbolo_MayorQue");
+        Traduccion_Total += " > ";
+        ExprR();
+        Recuperacion = true;
+        SumaResta();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Simbolo_DobleIgual") {
+        PrincipalParea("Simbolo_DobleIgual");
+        Traduccion_Total += " == ";
+        ExprR();
+        Recuperacion = true;
+        SumaResta();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Simbolo_Diferente") {
+        PrincipalParea("Simbolo_Diferente");
+        Traduccion_Total += " != ";
+        ExprR();
+        Recuperacion = true;
+        SumaResta();
+        Recuperacion = true;
+    }
     else {
         // Vacios / Epsilon
     }
@@ -692,11 +891,20 @@ function MultiplicacionDivision() {
         MultiplicacionDivision();
         Recuperacion = true;
     }
+    else if (TokenActual.GetTipo() == "Simbolo_And") {
+        PrincipalParea("Simbolo_And");
+        Traduccion_Total += " && ";
+        Valores();
+        Recuperacion = true;
+        MultiplicacionDivision();
+        Recuperacion = true;
+    }
     else {
         // Vacios / Epsilon
     }
 }
 function Valores() {
+    // Verificar Tipo De Valor
     if (TokenActual.GetTipo() == "Numero") {
         Traducir = true;
         PrincipalParea("Numero");
@@ -731,6 +939,11 @@ function Valores() {
         Traduccion_Total += "-";
         Expr();
     }
+    else if (TokenActual.GetTipo() == "Simbolo_Negacion") {
+        PrincipalParea("Simbolo_Negacion");
+        Traduccion_Total += "not ";
+        Expr();
+    }
     else {
         // Erroers Sintacticos
         ErroresSintactico("Valores");
@@ -758,16 +971,23 @@ function ValoresIdentificador() {
         Traduccion_Total += ")";
     }
     else if (TokenActual.GetTipo() == "Simbolo_Mas") {
-        PrincipalParea("Simbolo_Mas");
-        Traduccion_Total += "+";
-        PrincipalParea("Simbolo_Mas");
-        Traduccion_Total += "+";
+        console.log("Entre Aqui");
+        if (IndexToken < Variables_1.ArrayTokens.length - 1) {
+            if (Variables_1.ArrayTokens[IndexToken + 1].GetTipo() == "Simbolo_Mas") {
+                PrincipalParea("Simbolo_Mas");
+                PrincipalParea("Simbolo_Mas");
+                Traduccion_Total += " += 1";
+            }
+        }
     }
     else if (TokenActual.GetTipo() == "Simbolo_Menos") {
-        PrincipalParea("Simbolo_Menos");
-        Traduccion_Total += "-";
-        PrincipalParea("Simbolo_Menos");
-        Traduccion_Total += "-";
+        if (IndexToken < Variables_1.ArrayTokens.length - 1) {
+            if (Variables_1.ArrayTokens[IndexToken + 1].GetTipo() == "Simbolo_Menos") {
+                PrincipalParea("Simbolo_Menos");
+                PrincipalParea("Simbolo_Menos");
+                Traduccion_Total += " -= 1";
+            }
+        }
     }
     else {
         // Vacios / Epsilon

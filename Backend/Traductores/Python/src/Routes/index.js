@@ -20,8 +20,8 @@ const RouterAuxiliar = ExpressAuxiliar.Router();
 // Pagina Principal
 RouterAuxiliar.get('/', (req, res) => {
 	
-	var string = "public class hola {  hola = Hola++;  }";   
-	
+	var string = "public class hola {   public int Metodo() {  if((((a < 5) && (b < 10)) || ((a > 5) && (b > 10))) || !hola) { }  }   }  public int hola() {  }";   
+
 	AnalizadorLexicoScanner(string);
 	
 	for(var i = 0; i < ArrayTokens.length; i ++) {
