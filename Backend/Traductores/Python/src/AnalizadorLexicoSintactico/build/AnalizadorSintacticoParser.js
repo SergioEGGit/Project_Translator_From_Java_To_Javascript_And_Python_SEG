@@ -2,6 +2,8 @@
 // imports
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnalizadorSintacticoParser = void 0;
+// Objeto Token
+var ObjetoToken_1 = require("./ObjetoToken");
 // Lista De Tokens
 var Variables_1 = require("./Variables");
 // Declaraciones
@@ -23,14 +25,36 @@ var PrintEnd = false;
 var ElseIf = false;
 // Tengo Main
 var Main = false;
+// Estoy En For 
+var EsFor = false;
+// Contador Identificadores 
+var ContadorFor = 0;
 // Array De Identacion 
 var ArrayIdentacion = new Array();
 // Comienzo Analisis Sintactico 
 function AnalizadorSintacticoParser() {
     // Indicar Inicio Analizador
     IndexToken = 0;
-    // Traduccion
+    // Token Pre Analisis
+    TokenActual: ObjetoToken_1.NuevoToken;
+    // Existe Error Sintactico
+    ErrorSintactico = false;
+    // Bandera Errores Parea
+    Recuperacion = true;
+    // String Que Contiene String
     Traduccion_Total = "";
+    // Bandera Voy A Traducir
+    Traducir = false;
+    // Tipo Print
+    PrintEnd = false;
+    // Tipo Else 
+    ElseIf = false;
+    // Tengo Main
+    Main = false;
+    // Estoy En For 
+    EsFor = false;
+    // Contador Identificadores 
+    ContadorFor = 0;
     // Pre Analisis Analizador
     TokenActual = Variables_1.ArrayTokens[IndexToken];
     // Inicio Analisis
@@ -338,6 +362,10 @@ function Asignacion() {
     Traducir = true;
     Traduccion_Total += AgregarIdentacion();
     PrincipalParea("Identificador");
+    TipoAsignacion();
+}
+// Tipo Asigancion
+function TipoAsignacion() {
     // Verificar Si Es Asignacion Normal O ++ O --
     if (TokenActual.GetTipo() == "Simbolo_Igual") {
         // Asignacion
@@ -360,6 +388,14 @@ function Asignacion() {
         Traduccion_Total += " -= 1";
         PrincipalParea("Simbolo_PuntoYComa");
         Traduccion_Total += "\n\n";
+    }
+    else if (TokenActual.GetTipo() == "Simbolo_Parentesis_Apertura") {
+        PrincipalParea("Simbolo_Parentesis_Apertura");
+        Traduccion_Total += "(";
+        ValorFuncion();
+        PrincipalParea("Simbolo_Parentesis_Cierre");
+        Traduccion_Total += ") \n\n";
+        PrincipalParea("Simbolo_PuntoYComa");
     }
 }
 // Lista De Instrucciones Interfaz
@@ -636,8 +672,10 @@ function ListaInstruccionesFuncion() {
         TokenActual.GetTipo() == "Palabra_Reservada_String" ||
         TokenActual.GetTipo() == "Palabra_Reservada_double" ||
         TokenActual.GetTipo() == "Palabra_Reservada_char" ||
+        TokenActual.GetTipo() == "Identificador" ||
         TokenActual.GetTipo() == "Comentario_Unilinea" ||
-        TokenActual.GetTipo() == "Comentario_Multilinea") {
+        TokenActual.GetTipo() == "Comentario_Multilinea" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_return") {
         // Instruccion
         InstruccionFuncion();
         // Instrucciones Iniciales
@@ -665,9 +703,40 @@ function InstruccionFuncion() {
         For();
         Recuperacion = true;
     }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_do") {
+        // Do While
+        DoWhile();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_while") {
+        // While
+        While();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_int" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_boolean" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_Boolean" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_string" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_String" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_double" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_char") {
+        // While
+        DeclaracionVariables();
+        Recuperacion = true;
+    }
     else if (TokenActual.GetTipo() == "Comentario_Unilinea" || TokenActual.GetTipo() == "Comentario_Multilinea") {
         // Comentarios Unilinea O Multilinea
         Comentarios();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Identificador") {
+        // Asignacion
+        Asignacion();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_return") {
+        // Comentarios Unilinea O Multilinea
+        Return();
         Recuperacion = true;
     }
     else {
@@ -723,7 +792,7 @@ function If() {
     PrincipalParea("Simbolo_Llave_Apertura");
     Traduccion_Total += " : \n\n";
     ArrayIdentacion.push(" ");
-    // Instrucciones ciclos	
+    ListaInstruccionesCiclosIf();
     PrincipalParea("Simbolo_Llave_Cierre");
     Traduccion_Total += "\n\n";
     ArrayIdentacion.pop();
@@ -750,7 +819,7 @@ function TipoElse() {
         PrincipalParea("Simbolo_Llave_Apertura");
         Traduccion_Total += AgregarIdentacion() + "else: \n\n";
         ArrayIdentacion.push(" ");
-        // Instruccionse Ciclos If 
+        ListaInstruccionesCiclosIf();
         PrincipalParea("Simbolo_Llave_Cierre");
         Traduccion_Total += "\n\n";
         ArrayIdentacion.pop();
@@ -765,13 +834,244 @@ function TipoElse() {
 function For() {
     // Estructura Sintactica
     PrincipalParea("Palabra_Reservada_for");
-    Traduccion_Total += "for ";
+    Traduccion_Total += AgregarIdentacion() + "for ";
     PrincipalParea("Simbolo_Parentesis_Apertura");
-    DeclaracionVariables();
+    DeclaracionFor();
+    Traduccion_Total += ", ";
     Expr();
     PrincipalParea("Simbolo_PuntoYComa");
+    EsFor = true;
     Expr();
+    Traduccion_Total += "): \n\n";
+    EsFor = false;
+    ContadorFor = 0;
+    PrincipalParea("Simbolo_Parentesis_Cierre");
+    PrincipalParea("Simbolo_Llave_Apertura");
+    ArrayIdentacion.push(" ");
+    ListaInstruccionesCiclosIf();
+    PrincipalParea("Simbolo_Llave_Cierre");
+    ArrayIdentacion.pop();
+}
+// Declaracion For
+function DeclaracionFor() {
+    // Estructura Sintactica
+    TipoDeDatos();
+    Traducir = true;
+    PrincipalParea("Identificador");
+    Traduccion_Total += " in range(";
+    AsignacionDeclaracionFor();
+    ListaDeDeclaracionesFor();
+    PrincipalParea("Simbolo_PuntoYComa");
+}
+// Lista De Declaraciones
+function ListaDeDeclaracionesFor() {
+    // Verificar Si Hay Coma
+    if (TokenActual.GetTipo() == "Simbolo_Coma") {
+        // Lista De Declaraciones
+        ListaDeDeclaracionesSintaxisFor();
+        Recuperacion = true;
+    }
+    else {
+        // Vacio / Epsilon
+    }
+}
+// Lista De Declaraciones Sintaxis
+function ListaDeDeclaracionesSintaxisFor() {
+    // Estructura Sintactica
+    PrincipalParea("Simbolo_Coma");
+    PrincipalParea("Identificador");
+    AsignacionDeclaracionFor();
+    ListaDeDeclaracionesFor();
+}
+// Asingacion De Declaraciones For
+function AsignacionDeclaracionFor() {
+    // Verificar Si Hay Signo Igual
+    if (TokenActual.GetTipo() == "Simbolo_Igual") {
+        // Asignacion
+        AsignacionDeclaracionSintaxisFor();
+        Recuperacion = true;
+    }
+    else {
+        // Vacio / Epsilon
+    }
+}
+// Asignacion Declaracion Sintaxis For
+function AsignacionDeclaracionSintaxisFor() {
+    // Estructura Sintactica
+    PrincipalParea("Simbolo_Igual");
+    if (ContadorFor >= 1) {
+        EsFor = true;
+    }
+    Expr();
+    ContadorFor++;
+    EsFor = false;
+}
+// Do While 
+function DoWhile() {
+    // Estructura Sintactica 
+    PrincipalParea("Palabra_Reservada_do");
+    Traduccion_Total += AgregarIdentacion() + "while True: \n\n";
+    PrincipalParea("Simbolo_Llave_Apertura");
+    ArrayIdentacion.push(" ");
+    ListaInstruccionesCiclosIf();
+    PrincipalParea("Simbolo_Llave_Cierre");
+    Traduccion_Total += AgregarIdentacion() + "if ";
+    ArrayIdentacion.pop();
+    PrincipalParea("Palabra_Reservada_while");
     PrincipalParea("Simbolo_Parentesis_Apertura");
+    Expr();
+    PrincipalParea("Simbolo_Parentesis_Cierre");
+    Traduccion_Total += ": \n\n";
+    ArrayIdentacion.push(" ");
+    ArrayIdentacion.push(" ");
+    PrincipalParea("Simbolo_PuntoYComa");
+    Traduccion_Total += AgregarIdentacion() + "break";
+    ArrayIdentacion.pop();
+    ArrayIdentacion.pop();
+}
+// While 
+function While() {
+    // Estructura Sintactica 
+    PrincipalParea("Palabra_Reservada_while");
+    Traduccion_Total += AgregarIdentacion() + "while ";
+    PrincipalParea("Simbolo_Parentesis_Apertura");
+    Expr();
+    PrincipalParea("Simbolo_Parentesis_Cierre");
+    Traduccion_Total += ": \n\n";
+    PrincipalParea("Simbolo_Llave_Apertura");
+    ListaInstruccionesCiclosIf();
+    PrincipalParea("Simbolo_Llave_Cierre");
+}
+// Return 
+function Return() {
+    // Estructura Sintactica
+    PrincipalParea("Palabra_Reservada_return");
+    Traduccion_Total += AgregarIdentacion() + "return ";
+    TipoReturn();
+}
+// Tipo Return 
+function TipoReturn() {
+    // Estructura Sintactica 
+    if (TokenActual.GetTipo() == "Simbolo_PuntoYComa") {
+        PrincipalParea("Simbolo_PuntoYComa");
+        Traduccion_Total += "\n\n";
+    }
+    else {
+        Expr();
+        PrincipalParea("Simbolo_PuntoYComa");
+        Traduccion_Total += "\n\n";
+    }
+}
+// Lista De Instrucciones Ciclos If 
+function ListaInstruccionesCiclosIf() {
+    // Verificar Si Hay Mas Instrucciones
+    if (TokenActual.GetTipo() == "Palabra_Reservada_System" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_if" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_for" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_do" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_while" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_int" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_boolean" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_Boolean" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_string" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_String" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_double" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_char" ||
+        TokenActual.GetTipo() == "Identificador" ||
+        TokenActual.GetTipo() == "Comentario_Unilinea" ||
+        TokenActual.GetTipo() == "Comentario_Multilinea" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_return" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_break" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_continue") {
+        // Instruccion
+        InstruccionCiclosIf();
+        // Instrucciones Iniciales
+        ListaInstruccionesCiclosIf();
+    }
+    else {
+        // Vacios / Epsilon
+    }
+}
+// Instrucciones Funcion 
+function InstruccionCiclosIf() {
+    // Verificar Tipo Instruccion
+    if (TokenActual.GetTipo() == "Palabra_Reservada_System") {
+        // Print
+        Print();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_if") {
+        // If
+        If();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_for") {
+        // For
+        For();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_do") {
+        // Do While
+        DoWhile();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_while") {
+        // While
+        While();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_int" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_boolean" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_Boolean" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_string" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_String" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_double" ||
+        TokenActual.GetTipo() == "Palabra_Reservada_char") {
+        // While
+        DeclaracionVariables();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Comentario_Unilinea" || TokenActual.GetTipo() == "Comentario_Multilinea") {
+        // Comentarios Unilinea O Multilinea
+        Comentarios();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Identificador") {
+        // Asignacion
+        Asignacion();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_return") {
+        // Return
+        Return();
+        Recuperacion = true;
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_break" || TokenActual.GetTipo() == "Palabra_Reservada_continue") {
+        // Sentencias Ciclos
+        SenteciasCiclos();
+        Recuperacion = true;
+    }
+    else {
+        // Errores Sintacticos
+        ErroresSintactico("public O Comentario");
+        Recuperacion = true;
+    }
+}
+// Sentencias Ciclos
+function SenteciasCiclos() {
+    // Estructura Sintactica 
+    if (TokenActual.GetTipo() == "Palabra_Reservada_break") {
+        // Estructura Sintactica
+        PrincipalParea("Palabra_Reservada_break");
+        Traduccion_Total += AgregarIdentacion() + "break \n\n";
+        PrincipalParea("Simbolo_PuntoYComa");
+    }
+    else if (TokenActual.GetTipo() == "Palabra_Reservada_continue") {
+        // Estructura Sintactica
+        PrincipalParea("Palabra_Reservada_continue");
+        Traduccion_Total += AgregarIdentacion() + "continue \n\n";
+        PrincipalParea("Simbolo_PuntoYComa");
+    }
 }
 // Expresiones
 function Expr() {
@@ -791,7 +1091,9 @@ function SumaResta() {
     // Verificar Si Es Mas O Menos
     if (TokenActual.GetTipo() == "Simbolo_Mas") {
         PrincipalParea("Simbolo_Mas");
-        Traduccion_Total += " + ";
+        if (!EsFor) {
+            Traduccion_Total += " + ";
+        }
         ExprR();
         Recuperacion = true;
         SumaResta();
@@ -799,7 +1101,9 @@ function SumaResta() {
     }
     else if (TokenActual.GetTipo() == "Simbolo_Menos") {
         PrincipalParea("Simbolo_Menos");
-        Traduccion_Total += " - ";
+        if (!EsFor) {
+            Traduccion_Total += " - ";
+        }
         ExprR();
         Recuperacion = true;
         SumaResta();
@@ -807,7 +1111,9 @@ function SumaResta() {
     }
     else if (TokenActual.GetTipo() == "Simbolo_Or") {
         PrincipalParea("Simbolo_Or");
-        Traduccion_Total += " || ";
+        if (!EsFor) {
+            Traduccion_Total += " || ";
+        }
         ExprR();
         Recuperacion = true;
         SumaResta();
@@ -815,7 +1121,9 @@ function SumaResta() {
     }
     else if (TokenActual.GetTipo() == "Simbolo_Xor") {
         PrincipalParea("Simbolo_Xor");
-        Traduccion_Total += " ^ ";
+        if (!EsFor) {
+            Traduccion_Total += " ^ ";
+        }
         ExprR();
         Recuperacion = true;
         SumaResta();
@@ -823,7 +1131,9 @@ function SumaResta() {
     }
     else if (TokenActual.GetTipo() == "Simbolo_MayorIgualQue") {
         PrincipalParea("Simbolo_MayorIgualQue");
-        Traduccion_Total += " >= ";
+        if (!EsFor) {
+            Traduccion_Total += " >= ";
+        }
         ExprR();
         Recuperacion = true;
         SumaResta();
@@ -831,7 +1141,9 @@ function SumaResta() {
     }
     else if (TokenActual.GetTipo() == "Simbolo_MenorIgualQue") {
         PrincipalParea("Simbolo_MenorIgualQue");
-        Traduccion_Total += " <= ";
+        if (!EsFor) {
+            Traduccion_Total += " <= ";
+        }
         ExprR();
         Recuperacion = true;
         SumaResta();
@@ -839,7 +1151,9 @@ function SumaResta() {
     }
     else if (TokenActual.GetTipo() == "Simbolo_MenorQue") {
         PrincipalParea("Simbolo_MenorQue");
-        Traduccion_Total += " < ";
+        if (!EsFor) {
+            Traduccion_Total += " < ";
+        }
         ExprR();
         Recuperacion = true;
         SumaResta();
@@ -847,7 +1161,9 @@ function SumaResta() {
     }
     else if (TokenActual.GetTipo() == "Simbolo_MayorQue") {
         PrincipalParea("Simbolo_MayorQue");
-        Traduccion_Total += " > ";
+        if (!EsFor) {
+            Traduccion_Total += " > ";
+        }
         ExprR();
         Recuperacion = true;
         SumaResta();
@@ -855,7 +1171,9 @@ function SumaResta() {
     }
     else if (TokenActual.GetTipo() == "Simbolo_DobleIgual") {
         PrincipalParea("Simbolo_DobleIgual");
-        Traduccion_Total += " == ";
+        if (!EsFor) {
+            Traduccion_Total += " == ";
+        }
         ExprR();
         Recuperacion = true;
         SumaResta();
@@ -863,7 +1181,9 @@ function SumaResta() {
     }
     else if (TokenActual.GetTipo() == "Simbolo_Diferente") {
         PrincipalParea("Simbolo_Diferente");
-        Traduccion_Total += " != ";
+        if (!EsFor) {
+            Traduccion_Total += " != ";
+        }
         ExprR();
         Recuperacion = true;
         SumaResta();
@@ -877,7 +1197,9 @@ function MultiplicacionDivision() {
     // Verficar Si Es Multiplicacion O Division
     if (TokenActual.GetTipo() == "Simbolo_Por") {
         PrincipalParea("Simbolo_Por");
-        Traduccion_Total += " * ";
+        if (!EsFor) {
+            Traduccion_Total += " * ";
+        }
         Valores();
         Recuperacion = true;
         MultiplicacionDivision();
@@ -885,7 +1207,9 @@ function MultiplicacionDivision() {
     }
     else if (TokenActual.GetTipo() == "Simbolo_Dividido") {
         PrincipalParea("Simbolo_Dividido");
-        Traduccion_Total += " / ";
+        if (!EsFor) {
+            Traduccion_Total += " / ";
+        }
         Valores();
         Recuperacion = true;
         MultiplicacionDivision();
@@ -893,7 +1217,9 @@ function MultiplicacionDivision() {
     }
     else if (TokenActual.GetTipo() == "Simbolo_And") {
         PrincipalParea("Simbolo_And");
-        Traduccion_Total += " && ";
+        if (!EsFor) {
+            Traduccion_Total += " && ";
+        }
         Valores();
         Recuperacion = true;
         MultiplicacionDivision();
@@ -906,42 +1232,60 @@ function MultiplicacionDivision() {
 function Valores() {
     // Verificar Tipo De Valor
     if (TokenActual.GetTipo() == "Numero") {
-        Traducir = true;
+        if (!EsFor) {
+            Traducir = true;
+        }
         PrincipalParea("Numero");
     }
     else if (TokenActual.GetTipo() == "Palabra_Reservada_true") {
         PrincipalParea("Palabra_Reservada_true");
-        Traduccion_Total += "True";
+        if (!EsFor) {
+            Traduccion_Total += "True";
+        }
     }
     else if (TokenActual.GetTipo() == "Palabra_Reservada_false") {
         PrincipalParea("Palabra_Reservada_false");
-        Traduccion_Total += "False";
+        if (!EsFor) {
+            Traduccion_Total += "False";
+        }
     }
     else if (TokenActual.GetTipo() == "Identificador") {
-        Traducir = true;
+        if (!EsFor) {
+            Traducir = true;
+        }
         PrincipalParea("Identificador");
         ValoresIdentificador();
         Recuperacion = true;
     }
     else if (TokenActual.GetTipo() == "Cadena_De_Texto") {
-        Traducir = true;
+        if (!EsFor) {
+            Traducir = true;
+        }
         PrincipalParea("Cadena_De_Texto");
     }
     else if (TokenActual.GetTipo() == "Simbolo_Parentesis_Apertura") {
         PrincipalParea("Simbolo_Parentesis_Apertura");
-        Traduccion_Total += "(";
+        if (!EsFor) {
+            Traduccion_Total += "(";
+        }
         Expr();
         PrincipalParea("Simbolo_Parentesis_Cierre");
-        Traduccion_Total += ")";
+        if (!EsFor) {
+            Traduccion_Total += ")";
+        }
     }
     else if (TokenActual.GetTipo() == "Simbolo_Menos") {
         PrincipalParea("Simbolo_Menos");
-        Traduccion_Total += "-";
+        if (!EsFor) {
+            Traduccion_Total += "-";
+        }
         Expr();
     }
     else if (TokenActual.GetTipo() == "Simbolo_Negacion") {
         PrincipalParea("Simbolo_Negacion");
-        Traduccion_Total += "not ";
+        if (!EsFor) {
+            Traduccion_Total += "not ";
+        }
         Expr();
     }
     else {
@@ -954,29 +1298,40 @@ function ValoresIdentificador() {
     // Verificar Tipo
     if (TokenActual.GetTipo() == "Simbolo_Punto") {
         PrincipalParea("Simbolo_Punto");
-        Traduccion_Total += ".";
-        Traducir = true;
+        if (!EsFor) {
+            Traduccion_Total += ".";
+            Traducir = true;
+        }
         PrincipalParea("Identificador");
         PrincipalParea("Simbolo_Parentesis_Apertura");
-        Traduccion_Total += "(";
+        if (!EsFor) {
+            Traduccion_Total += "(";
+        }
         ValorFuncion();
         PrincipalParea("Simbolo_Parentesis_Cierre");
-        Traduccion_Total += ")";
+        if (!EsFor) {
+            Traduccion_Total += ")";
+        }
     }
     else if (TokenActual.GetTipo() == "Simbolo_Parentesis_Apertura") {
         PrincipalParea("Simbolo_Parentesis_Apertura");
-        Traduccion_Total += "(";
+        if (!EsFor) {
+            Traduccion_Total += "(";
+        }
         ValorFuncion();
         PrincipalParea("Simbolo_Parentesis_Cierre");
-        Traduccion_Total += ")";
+        if (!EsFor) {
+            Traduccion_Total += ")";
+        }
     }
     else if (TokenActual.GetTipo() == "Simbolo_Mas") {
-        console.log("Entre Aqui");
         if (IndexToken < Variables_1.ArrayTokens.length - 1) {
             if (Variables_1.ArrayTokens[IndexToken + 1].GetTipo() == "Simbolo_Mas") {
                 PrincipalParea("Simbolo_Mas");
                 PrincipalParea("Simbolo_Mas");
-                Traduccion_Total += " += 1";
+                if (!EsFor) {
+                    Traduccion_Total += " += 1";
+                }
             }
         }
     }
@@ -985,7 +1340,9 @@ function ValoresIdentificador() {
             if (Variables_1.ArrayTokens[IndexToken + 1].GetTipo() == "Simbolo_Menos") {
                 PrincipalParea("Simbolo_Menos");
                 PrincipalParea("Simbolo_Menos");
-                Traduccion_Total += " -= 1";
+                if (!EsFor) {
+                    Traduccion_Total += " -= 1";
+                }
             }
         }
     }
@@ -1014,7 +1371,9 @@ function ListaDeValores() {
     // Verficar Si Hay Coma 
     if (TokenActual.GetTipo() == "Simbolo_Coma") {
         PrincipalParea("Simbolo_Coma");
-        Traduccion_Total += ", ";
+        if (!EsFor) {
+            Traduccion_Total += ", ";
+        }
         Expr();
         ListaDeValores();
     }
