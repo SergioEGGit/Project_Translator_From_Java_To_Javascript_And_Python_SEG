@@ -7,7 +7,7 @@ import { NuevoToken } from "./ObjetoToken";
 import { NuevoError } from "./ObjetoError";
 
 // Lista De Tokens
-import { ArrayTokens } from "./Variables";
+import { ArrayTokens, ArrayErrores } from "./Variables";
 
 // Declaraciones
 
@@ -44,11 +44,20 @@ var EsFor = false;
 // Contador Identificadores 
 var ContadorFor = 0;
 
+// Contador Seguro
+var SeguroContador = 0;
+
+// Estoy En Do While
+var EsDoWhile = false;
+
+// Contador Errores
+var ContadorErrores = 1;
+
 // Array De Identacion 
 var ArrayIdentacion: Array<String> = new Array();
 
 // Comienzo Analisis Sintactico 
-export function AnalizadorSintacticoParser() {
+export function AnalizadorSintacticoParser(): String {
 	
 	// Indicar Inicio Analizador
 	IndexToken = 0;
@@ -82,9 +91,21 @@ export function AnalizadorSintacticoParser() {
 
 	// Contador Identificadores 
 	ContadorFor = 0;
+	
+	// Contador Seguro
+	SeguroContador = 0;
+	
+	// Estoy En Do While
+	EsDoWhile = false;
+	
+	// Contador Errores
+	ContadorErrores = 1;
 		
 	// Pre Analisis Analizador
 	TokenActual = ArrayTokens[IndexToken];
+	
+	// Identacion 	 
+	ArrayIdentacion = new Array();
 	
 	// Inicio Analisis
 	if(ArrayTokens.length > 0) {
@@ -100,7 +121,7 @@ export function AnalizadorSintacticoParser() {
 	}
 	
 	// Fin Del Analisis
-	console.log(Traduccion_Total + " \n\n\n Termine Analisis");
+	return Traduccion_Total;
 	
 }
 
@@ -118,8 +139,9 @@ function InicioAnalisis() {
 // Lista De Instrucciones Iniciales
 function ListaInstruccionesIniciales() {
 	
-	// Verificar Si Hay Mas Instrucciones
+	// Verificar Si Hay Instruccioens 
 	if  (		
+	
 				TokenActual.GetTipo() == "Palabra_Reservada_public"  ||
 				TokenActual.GetTipo() == "Palabra_Reservada_int"     ||
 				TokenActual.GetTipo() == "Palabra_Reservada_boolean" ||
@@ -130,8 +152,8 @@ function ListaInstruccionesIniciales() {
 				TokenActual.GetTipo() == "Palabra_Reservada_char"    ||
 				TokenActual.GetTipo() == "Comentario_Unilinea"   	 || 
 				TokenActual.GetTipo() == "Comentario_Multilinea"
-		) 
-	{
+				
+		)  {
 		
 		// Instruccion
 		InstruccionInicial(); 
@@ -141,7 +163,19 @@ function ListaInstruccionesIniciales() {
 		
 	} else {
 		
-		// Vacios / Epsilon
+		if(TokenActual.GetTipo() == "Fin_De_Cadena" || TokenActual.GetTipo() == "Simbolo_Llave_Cierre") {
+			
+			// Vacios / Epsilon	
+			
+		} else {
+			
+			// Instruccion
+			InstruccionInicial(); 
+		
+			// Instrucciones Iniciales
+			ListaInstruccionesIniciales();	
+			
+		}	
 		
 	}
 	
@@ -157,13 +191,16 @@ function InstruccionInicial() {
 		DefinicionTipoClase();
 		Recuperacion = true; 
 				
-	} else if ( TokenActual.GetTipo() == "Palabra_Reservada_int"     ||
+	} else if ( 
+	
+				TokenActual.GetTipo() == "Palabra_Reservada_int"     ||
 				TokenActual.GetTipo() == "Palabra_Reservada_boolean" ||
 				TokenActual.GetTipo() == "Palabra_Reservada_Boolean" ||
 				TokenActual.GetTipo() == "Palabra_Reservada_double"  ||
 				TokenActual.GetTipo() == "Palabra_Reservada_string"  ||
 				TokenActual.GetTipo() == "Palabra_Reservada_String"  ||			
 				TokenActual.GetTipo() == "Palabra_Reservada_char"    
+			
 			) {	
 		
 		// Declaracion
@@ -176,10 +213,14 @@ function InstruccionInicial() {
 		Comentarios();
 		Recuperacion = true;
 		
+	} else if(TokenActual.GetTipo() == "Fin_De_Cadena") {  
+	
+		// Vacios / Epsilon	
+	
 	} else {
 		
 		// Errores Sintacticos
-		ErroresSintactico("public, Tipo De Dato O Comentario");
+		ErroresSintactico("Una Clase, Interfaz, Declaracion De Variables O Comentarios");
 		Recuperacion = true;
 	
 	}	
@@ -214,8 +255,8 @@ function TipoClase() {
 	} else {
 		
 		// Error Sintactico
-		ErroresSintactico("clase o interface");
-		Recuperacion = true;
+		ErroresSintactico("La Palabra class o interface");
+		//Recuperacion = true;
 
 	}
 	
@@ -227,7 +268,7 @@ function Clase() {
 	// Estructura Sintactica
 	PrincipalParea("Palabra_Reservada_class"); 	Traduccion_Total += AgregarIdentacion() + "class "; Traducir = true;
 	PrincipalParea("Identificador");				
-	PrincipalParea("Simbolo_Llave_Apertura"); 	Traduccion_Total += ": \n\n"; ArrayIdentacion.push(" ");
+	PrincipalParea("Simbolo_Llave_Apertura"); 	Traduccion_Total += ":\n\n"; ArrayIdentacion.push(" ");
 	ListaInstruccionesClase();	
 	PrincipalParea("Simbolo_Llave_Cierre");     Traduccion_Total += "\n"; ArrayIdentacion.pop(); 
 
@@ -236,10 +277,10 @@ function Clase() {
 // Interfaz
 function Interfaz() {
 	
-		// Estructura Sintactica
+	// Estructura Sintactica
 	PrincipalParea("Palabra_Reservada_interface"); 	Traduccion_Total += AgregarIdentacion() + "class "; Traducir = true;
 	PrincipalParea("Identificador");				
-	PrincipalParea("Simbolo_Llave_Apertura"); 		Traduccion_Total += ": \n\n"; ArrayIdentacion.push(" ");
+	PrincipalParea("Simbolo_Llave_Apertura"); 		Traduccion_Total += ":\n\n"; ArrayIdentacion.push(" ");
 	ListaInstruccionesInterfaz();					
 	PrincipalParea("Simbolo_Llave_Cierre");     	Traduccion_Total += "\n"; ArrayIdentacion.pop(); 
 	
@@ -252,7 +293,7 @@ function TipoDeDatos() {
 	if(TokenActual.GetTipo() == "Palabra_Reservada_int") {
 		
 		// Metodo Parea 
-		PrincipalParea("Palabra_Reservada_int");
+		PrincipalParea("Palabra_Reservada_int");		
 		
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_boolean") {
 		
@@ -287,7 +328,8 @@ function TipoDeDatos() {
 	} else {
 		
 		// Error Sintactico
-		ErroresSintactico("Tipo De Dato");
+		ErroresSintactico("Un Tipo De Dato");
+		// Recuperacion = true;
 		
 	}	
 	
@@ -297,11 +339,11 @@ function TipoDeDatos() {
 function DeclaracionVariables() {
 	
 	// Estructura Sintactica
-	TipoDeDatos();							Traduccion_Total += AgregarIdentacion(); Traducir = true;
+	TipoDeDatos();								Traduccion_Total += AgregarIdentacion() + "var "; Traducir = true;				
 	PrincipalParea("Identificador");		
 	AsignacionDeclaracion();
 	ListaDeDeclaraciones();
-	PrincipalParea("Simbolo_PuntoYComa");	Traduccion_Total += "\n\n";
+	PrincipalParea("Simbolo_PuntoYComa");		Traduccion_Total += "\n\n";
 	
 }
 
@@ -313,7 +355,6 @@ function ListaDeDeclaraciones() {
 		
 		// Lista De Declaraciones
 		ListaDeDeclaracionesSintaxis();
-		Recuperacion = true;
 		
 	} else {
 		
@@ -342,7 +383,6 @@ function AsignacionDeclaracion() {
 		
 		// Asignacion
 		AsignacionDeclaracionSintaxis();
-		Recuperacion = true;
 		
 	} else {
 		
@@ -386,13 +426,23 @@ function Comentarios() {
 		Comentario = TokenActual.GetLexema().replace("/*", "\"\"\"");
 		Comentario = Comentario.replace("*/", "\"\"\"");
 
+		let ArrayComentario = Comentario.split("\n");
+		
 		// Metodo Parea
-		PrincipalParea("Comentario_Multilinea");	Traduccion_Total += AgregarIdentacion() + Comentario + "\n\n";		
+		PrincipalParea("Comentario_Multilinea");	
+		
+		for(var Contador = 0; Contador < ArrayComentario.length; Contador++) {
+			
+			Traduccion_Total += AgregarIdentacion() + ArrayComentario[Contador] + "\n";	
+			
+		} 	
+		
+		Traduccion_Total += "\n\n";
 		
 	} else {
 		
-		ErroresSintactico("Comentario");
-		Recuperacion = true;
+		ErroresSintactico("Un Tipo De Comentario");
+		//Recuperacion = true;
 		
 	}
 	
@@ -425,8 +475,20 @@ function ListaInstruccionesClase() {
 		
 	} else {
 		
-		// Vacios / Epsilon
+		if(TokenActual.GetTipo() == "Fin_De_Cadena" || TokenActual.GetTipo() == "Simbolo_Llave_Cierre") {
+			
+			// Vacios / Epsilon	
+			
+		} else {
+			
+			// Instruccion
+			InstruccionClase(); 
 		
+			// Instrucciones Iniciales
+			ListaInstruccionesClase();	
+			
+		}	
+
 	}
 	
 }
@@ -437,9 +499,9 @@ function InstruccionClase() {
 	// Verificar Tipo Instruccion
 	if(TokenActual.GetTipo() == "Palabra_Reservada_public") {
 		
-		// Clase O Interfaz
-		DefinicionesClase();
-		Recuperacion = true; 
+		// Clase O Funcion
+		DefinicionesClase(); 
+		Recuperacion = true;
 				
 	} else if ( TokenActual.GetTipo() == "Palabra_Reservada_int"     ||
 				TokenActual.GetTipo() == "Palabra_Reservada_boolean" ||
@@ -466,10 +528,14 @@ function InstruccionClase() {
 		Comentarios();
 		Recuperacion = true;
 		
+	} else if(TokenActual.GetTipo() == "Fin_De_Cadena") {  
+	
+		// Vacios / Epsilon	
+	
 	} else {
 		
 		// Errores Sintacticos
-		ErroresSintactico("public, Tipo De Dato, Identificador O Comentario");
+		ErroresSintactico("Una Clase, Funcion, Declaracion De Variables, Comentarios O Asignacion De Variables");
 		Recuperacion = true;
 	
 	}	
@@ -499,23 +565,32 @@ function TipoAsignacion() {
 		
 	} else if (TokenActual.GetTipo() == "Simbolo_Mas") {
 		
+		// Incremento
 		PrincipalParea("Simbolo_Mas");			
 		PrincipalParea("Simbolo_Mas");			Traduccion_Total += " += 1";
 		PrincipalParea("Simbolo_PuntoYComa");	Traduccion_Total += "\n\n";
 		
 	} else if (TokenActual.GetTipo() == "Simbolo_Menos") {
 		
+		// Decremento
 		PrincipalParea("Simbolo_Menos");		
 		PrincipalParea("Simbolo_Menos");		Traduccion_Total += " -= 1";
 		PrincipalParea("Simbolo_PuntoYComa");	Traduccion_Total += "\n\n";
 		
 	} else if (TokenActual.GetTipo() == "Simbolo_Parentesis_Apertura") {
 		
+		// Funcion
 		PrincipalParea("Simbolo_Parentesis_Apertura");	Traduccion_Total += "(";
 		ValorFuncion();
 		PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ") \n\n";
 		PrincipalParea("Simbolo_PuntoYComa");
 		
+	} else {
+		
+		// Errores Sintacticos
+		ErroresSintactico("Una Asignacion, Incremento, Decremento O Llamada A Una Funcion");
+		//Recuperacion = true;
+	
 	}
 	
 }
@@ -539,7 +614,19 @@ function ListaInstruccionesInterfaz() {
 		
 	} else {
 		
-		// Vacios / Epsilon
+		if(TokenActual.GetTipo() == "Fin_De_Cadena" || TokenActual.GetTipo() == "Simbolo_Llave_Cierre") {
+			
+			// Vacios / Epsilon	
+			
+		} else {
+			
+			// Instruccion
+			InstruccionInterfaz(); 
+		
+			// Instrucciones Iniciales
+			ListaInstruccionesInterfaz();	
+			
+		}	
 		
 	}
 	
@@ -552,8 +639,8 @@ function InstruccionInterfaz() {
 	if(TokenActual.GetTipo() == "Palabra_Reservada_public") {
 		
 		// Clase O Interfaz
-		DefinicionFunciones();
-		Recuperacion = true; 
+		DefinicionFunciones(); 
+		Recuperacion = true;
 				
 	} else if(TokenActual.GetTipo() == "Comentario_Unilinea" || TokenActual.GetTipo() == "Comentario_Multilinea") {
 		
@@ -561,10 +648,14 @@ function InstruccionInterfaz() {
 		Comentarios();
 		Recuperacion = true;
 		
+	} else if(TokenActual.GetTipo() == "Fin_De_Cadena") {  
+	
+		// Vacios / Epsilon	
+	
 	} else {
 		
 		// Errores Sintacticos
-		ErroresSintactico("public O Comentario");
+		ErroresSintactico("Una Declaracion De Funcion O Comentarios");
 		Recuperacion = true;
 	
 	}	
@@ -606,8 +697,8 @@ function TipoFuncion() {
 	} else {
 		
 		// Errores Sintacticos
-		ErroresSintactico("Tipo De Dato O void");
-		Recuperacion = true;
+		ErroresSintactico("La Palabra void o Un Tipo De Dato");
+		//Recuperacion = true;
 		
 	}	 
 
@@ -621,7 +712,7 @@ function DeclaracionFuncionTipo() {
 	PrincipalParea("Identificador");
 	PrincipalParea("Simbolo_Parentesis_Apertura");	Traduccion_Total += "(";
 	Parametro();
-	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += "); \n\n";
+	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ") \n\n";
 	PrincipalParea("Simbolo_PuntoYComa");
 	
 }
@@ -634,7 +725,7 @@ function DeclaracionFuncionVoid() {
 	PrincipalParea("Identificador");
 	PrincipalParea("Simbolo_Parentesis_Apertura");	Traduccion_Total += "(";
 	Parametro();
-	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += "); \n\n";
+	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ") \n\n";
 	PrincipalParea("Simbolo_PuntoYComa");
 	
 }
@@ -674,8 +765,8 @@ function TipoDefinicionesClase() {
 	} else {
 		
 		// Errores Sintacticos
-		ErroresSintactico("class, Tipo De Dato void O static");
-		Recuperacion = true;
+		ErroresSintactico("Se Esperar La Palabra class, void, static O Un Tipo De Dato");
+		//Recuperacion = true;
 		
 	}
 	
@@ -701,19 +792,21 @@ function Funcion() {
 	
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_void") {
 		
+		// Funcion Void 
 		FuncionVoid();
 		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_static") {
 		
+		// Funcion Main
 		FuncionMain();
 		Recuperacion = true;
 		
 	} else {
 		
 		// Errores Sintacticos
-		ErroresSintactico("Tipo De Dato, void O static");
-		Recuperacion = true;
+		ErroresSintactico("La Palabra void, static O Un Tipo De Dato");
+		//Recuperacion = true;
 		
 	}	 
 	
@@ -728,7 +821,7 @@ function FuncionTipoDeDato() {
 	PrincipalParea("Simbolo_Parentesis_Apertura");	Traduccion_Total += "(";
 	Parametro();
 	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ")";
-	PrincipalParea("Simbolo_Llave_Apertura");		Traduccion_Total += ": \n\n";	ArrayIdentacion.push(" ");
+	PrincipalParea("Simbolo_Llave_Apertura");		Traduccion_Total += ":\n\n";	ArrayIdentacion.push(" ");
 	ListaInstruccionesFuncion();
 	PrincipalParea("Simbolo_Llave_Cierre");			Traduccion_Total += "\n\n";		ArrayIdentacion.pop();
 	
@@ -765,7 +858,6 @@ function Parametro() {
 			
 		// Parametro
 		ParametroSintaxis();
-		Recuperacion = true;
 	
 	} else  {
 		
@@ -793,7 +885,6 @@ function ListaParametros() {
 		
 		// Lista De Declaraciones
 		ListaParametrosSintaxis();
-		Recuperacion = true;
 		
 	} else {
 		
@@ -826,7 +917,7 @@ function FuncionMain() {
 	PrincipalParea("Simbolo_Corchete_Apertura");
 	PrincipalParea("Simbolo_Corchete_Cierre");
 	PrincipalParea("Palabra_Reservada_args");
-	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += AgregarIdentacion() + "def main(): \n\n"; Main = true;	
+	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += AgregarIdentacion() + "def main():\n\n"; Main = true;	
 	PrincipalParea("Simbolo_Llave_Apertura"); 		ArrayIdentacion.push(" ");
 	ListaInstruccionesFuncion();
 	PrincipalParea("Simbolo_Llave_Cierre");			ArrayIdentacion.pop();				
@@ -865,7 +956,19 @@ function ListaInstruccionesFuncion() {
 		
 	} else {
 		
-		// Vacios / Epsilon
+		if(TokenActual.GetTipo() == "Fin_De_Cadena" || TokenActual.GetTipo() == "Simbolo_Llave_Cierre") {
+			
+			// Vacios / Epsilon	
+			
+		} else {
+			
+			// Instruccion
+			InstruccionFuncion(); 
+			
+			// Instrucciones Iniciales
+			ListaInstruccionesFuncion();	
+			
+		}
 
 	}
 	
@@ -935,14 +1038,24 @@ function InstruccionFuncion() {
 		
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_return") {
 		
-		// Comentarios Unilinea O Multilinea
+		// Sentencia Return
 		Return();
 		Recuperacion = true;
 		
+	} else if(TokenActual.GetTipo() == "Palabra_Reservada_public") {
+		
+		// Funciones
+		FuncionAnidada();
+		Recuperacion = true;
+		
+	} else if(TokenActual.GetTipo() == "Fin_De_Cadena") {  
+	
+		// Vacios / Epsilon	
+	
 	} else {
 		
 		// Errores Sintacticos
-		ErroresSintactico("public O Comentario");
+		ErroresSintactico("Una Funcion, Tipo De Ciclo, Asignacion, Declaracion De Variables, Comentarios, If, Print O Un Retorno");
 		Recuperacion = true;
 	
 	}
@@ -984,6 +1097,11 @@ function TipoPrint() {
 		
 		PrincipalParea("Palabra_Reservada_print");		PrintEnd = true;
 		
+	} else {
+		
+		PrincipalParea("La Palabra print O println");
+		//Recuperacion = true;
+		
 	}
 	
 }
@@ -991,7 +1109,9 @@ function TipoPrint() {
 // If 
 function If() {
 	
-	// Estructura Sintactica
+	// Estructura Sintactica	
+	if(EsDoWhile && !Recuperacion) { Recuperacion = true; }
+	
 	PrincipalParea("Palabra_Reservada_if");			
 	
 	// Verficar Si Es If O Else If
@@ -1008,7 +1128,7 @@ function If() {
 	PrincipalParea("Simbolo_Parentesis_Apertura");
 	Expr();
 	PrincipalParea("Simbolo_Parentesis_Cierre");
-	PrincipalParea("Simbolo_Llave_Apertura");		Traduccion_Total += " : \n\n"; 	ArrayIdentacion.push(" ");
+	PrincipalParea("Simbolo_Llave_Apertura");		Traduccion_Total += " :\n\n"; 	ArrayIdentacion.push(" ");
 	ListaInstruccionesCiclosIf();	
 	PrincipalParea("Simbolo_Llave_Cierre");			Traduccion_Total += "\n\n";		ArrayIdentacion.pop();
 	ElseIf = false;
@@ -1024,7 +1144,6 @@ function Else() {
 		// Estructura Sintactica
 		PrincipalParea("Palabra_Reservada_else");
 		TipoElse();
-		Recuperacion = true;
 		
 	} else {
 		
@@ -1041,7 +1160,7 @@ function TipoElse() {
 	if(TokenActual.GetTipo() == "Simbolo_Llave_Apertura") {
 		
 		// Estructura Sintactica
-		PrincipalParea("Simbolo_Llave_Apertura");	Traduccion_Total += AgregarIdentacion() + "else: \n\n"; ArrayIdentacion.push(" ");	
+		PrincipalParea("Simbolo_Llave_Apertura");	Traduccion_Total += AgregarIdentacion() + "else:\n\n"; ArrayIdentacion.push(" ");	
 		ListaInstruccionesCiclosIf();
 		PrincipalParea("Simbolo_Llave_Cierre");		Traduccion_Total += "\n\n";	ArrayIdentacion.pop();
 		
@@ -1051,6 +1170,11 @@ function TipoElse() {
 		ElseIf = true;
 		If();		
 		
+	} else {
+		
+		PrincipalParea("La Palabra if O Llave De Apertura");
+		//Recuperacion = true;
+		
 	}
 	
 }
@@ -1059,12 +1183,14 @@ function TipoElse() {
 function For() {
 	
 	// Estructura Sintactica
+	if(EsDoWhile && !Recuperacion) { Recuperacion = true; }
+	
 	PrincipalParea("Palabra_Reservada_for");		Traduccion_Total += AgregarIdentacion() + "for ";
 	PrincipalParea("Simbolo_Parentesis_Apertura");	
 	DeclaracionFor();								Traduccion_Total += ", ";
 	Expr();												
 	PrincipalParea("Simbolo_PuntoYComa");			EsFor = true;
-	Expr();											Traduccion_Total += "): \n\n";	EsFor = false; ContadorFor = 0;			
+	Expr();											Traduccion_Total += "):\n\n";	EsFor = false; ContadorFor = 0;			
 	PrincipalParea("Simbolo_Parentesis_Cierre");	
 	PrincipalParea("Simbolo_Llave_Apertura");		ArrayIdentacion.push(" ");
 	ListaInstruccionesCiclosIf(); 
@@ -1092,7 +1218,6 @@ function ListaDeDeclaracionesFor() {
 		
 		// Lista De Declaraciones
 		ListaDeDeclaracionesSintaxisFor();
-		Recuperacion = true;
 		
 	} else {
 		
@@ -1121,7 +1246,6 @@ function AsignacionDeclaracionFor() {
 		
 		// Asignacion
 		AsignacionDeclaracionSintaxisFor();
-		Recuperacion = true;
 		
 	} else {
 		
@@ -1146,29 +1270,41 @@ function AsignacionDeclaracionSintaxisFor() {
 function DoWhile() {
 	
 	// Estructura Sintactica 
-	PrincipalParea("Palabra_Reservada_do");			Traduccion_Total += AgregarIdentacion() + "while True: \n\n";	
+	EsDoWhile = true;	
+	
+	if(EsDoWhile && !Recuperacion) { Recuperacion = true; }
+	
+	PrincipalParea("Palabra_Reservada_do");			Traduccion_Total += AgregarIdentacion() + "while True :\n\n";	
 	PrincipalParea("Simbolo_Llave_Apertura");		ArrayIdentacion.push(" ");
 	ListaInstruccionesCiclosIf();  
 	PrincipalParea("Simbolo_Llave_Cierre");			Traduccion_Total += AgregarIdentacion() + "if "; ArrayIdentacion.pop();
 	PrincipalParea("Palabra_Reservada_while");		
 	PrincipalParea("Simbolo_Parentesis_Apertura");  
 	Expr();
-	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ": \n\n"; ArrayIdentacion.push(" "); ArrayIdentacion.push(" "); 
-	PrincipalParea("Simbolo_PuntoYComa");			Traduccion_Total += AgregarIdentacion() + "break";  ArrayIdentacion.pop(); ArrayIdentacion.pop();	
+	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ":\n\n"; ArrayIdentacion.push(" "); ArrayIdentacion.push(" "); 
+	PrincipalParea("Simbolo_PuntoYComa");			Traduccion_Total += AgregarIdentacion() + "continue\n\n";  ArrayIdentacion.pop(); 
+	Traduccion_Total += AgregarIdentacion() + "else: \n\n"; 
+	ArrayIdentacion.push(" "); 
+	Traduccion_Total += AgregarIdentacion() + "break \n\n";
+	ArrayIdentacion.pop(); 
+	ArrayIdentacion.pop();
+	EsDoWhile = false;
 	
 }
 
 // While 
 function While() {
 	
-	// Estructura Sintactica 
+	// Estructura Sintactica
+	if(EsDoWhile && !Recuperacion) { Recuperacion = true; }
+	
 	PrincipalParea("Palabra_Reservada_while");		Traduccion_Total += AgregarIdentacion() + "while ";
-	PrincipalParea("Simbolo_Parentesis_Apertura");
+	PrincipalParea("Simbolo_Parentesis_Apertura");	
 	Expr();
-	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ": \n\n";
-	PrincipalParea("Simbolo_Llave_Apertura");
+	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ":\n\n";
+	PrincipalParea("Simbolo_Llave_Apertura");		ArrayIdentacion.push(" ");
 	ListaInstruccionesCiclosIf(); 
-	PrincipalParea("Simbolo_Llave_Cierre");
+	PrincipalParea("Simbolo_Llave_Cierre");			ArrayIdentacion.pop();
 	
 }
 
@@ -1193,8 +1329,51 @@ function TipoReturn() {
 		
 		Expr();
 		PrincipalParea("Simbolo_PuntoYComa");	Traduccion_Total += "\n\n";	
-		
+	
 	}
+	
+}
+
+// Funcion Anidada
+function FuncionAnidada() {
+	
+	// Estructura Sintactica
+	PrincipalParea("Palabra_Reservada_public");
+	TipoFuncionAnidada();
+	
+}
+
+// Tipo Funcion Anidada
+function TipoFuncionAnidada() {
+	
+	// Verificar Si Es Void O Tipo De Dato
+	if( 
+			TokenActual.GetTipo() == "Palabra_Reservada_int"     ||
+			TokenActual.GetTipo() == "Palabra_Reservada_boolean" ||
+			TokenActual.GetTipo() == "Palabra_Reservada_Boolean" ||
+			TokenActual.GetTipo() == "Palabra_Reservada_double"  ||
+			TokenActual.GetTipo() == "Palabra_Reservada_string"  ||
+			TokenActual.GetTipo() == "Palabra_Reservada_String"  ||			
+			TokenActual.GetTipo() == "Palabra_Reservada_char"    
+		) { 
+		
+		// Funcion Tipo De Dato
+		FuncionTipoDeDato();
+		Recuperacion = true;
+	
+	} else if(TokenActual.GetTipo() == "Palabra_Reservada_void") {
+		
+		// Funcion Void 
+		FuncionVoid();
+		Recuperacion = true;
+		
+	} else {
+		
+		// Errores Sintacticos
+		ErroresSintactico("La Palabra void O Un Tipo De Dato");
+		//Recuperacion = true;
+		
+	}	
 	
 }
 
@@ -1232,7 +1411,19 @@ function ListaInstruccionesCiclosIf() {
 		
 	} else {
 		
-		// Vacios / Epsilon
+		if(TokenActual.GetTipo() == "Fin_De_Cadena" || TokenActual.GetTipo() == "Simbolo_Llave_Cierre") {
+			
+			// Vacios / Epsilon	
+			
+		} else {
+			
+			// Instruccion
+			InstruccionCiclosIf(); 
+		
+			// Instrucciones Iniciales
+			ListaInstruccionesCiclosIf();	
+			
+		}
 
 	}
 	
@@ -1312,10 +1503,14 @@ function InstruccionCiclosIf() {
 		SenteciasCiclos();
 		Recuperacion = true;
 		
+	} else if(TokenActual.GetTipo() == "Fin_De_Cadena") {  
+	
+		// Vacios / Epsilon	
+	
 	} else {
 		
 		// Errores Sintacticos
-		ErroresSintactico("public O Comentario");
+		ErroresSintactico("Un Tipo De Ciclo, Asignacion, Declaracion De Variables, Comentarios, If, Print, Retorno O Una Sentencia De Ciclos");
 		Recuperacion = true;
 	
 	}
@@ -1348,7 +1543,6 @@ function Expr() {
 	// Estructura Sintactica 
 	ExprR();
 	SumaResta();
-	Recuperacion = true;
 	
 }
 
@@ -1356,9 +1550,7 @@ function ExprR() {
 	
 	// Estructura Sintactica
 	Valores();
-	Recuperacion = true;
 	MultiplicacionDivision();
-	Recuperacion = true;
 	
 }
 
@@ -1369,81 +1561,61 @@ function SumaResta() {
 		
 		PrincipalParea("Simbolo_Mas");				if(!EsFor) { Traduccion_Total += " + "; }
 		ExprR();
-		Recuperacion = true;
 		SumaResta();
-		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Simbolo_Menos") {
 		
 		PrincipalParea("Simbolo_Menos");			if(!EsFor) { Traduccion_Total += " - "; }
 		ExprR();
-		Recuperacion = true;
 		SumaResta();
-		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Simbolo_Or") { 
 
-		PrincipalParea("Simbolo_Or");				if(!EsFor) { Traduccion_Total += " || "; }
+		PrincipalParea("Simbolo_Or");				if(!EsFor) { Traduccion_Total += " or "; }
 		ExprR();
-		Recuperacion = true;
 		SumaResta();
-		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Simbolo_Xor") { 
 
-		PrincipalParea("Simbolo_Xor");				if(!EsFor) { Traduccion_Total += " ^ "; }
+		PrincipalParea("Simbolo_Xor");				if(!EsFor) { Traduccion_Total += " xor "; }
 		ExprR();
-		Recuperacion = true;
 		SumaResta();
-		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Simbolo_MayorIgualQue") { 
 
 		PrincipalParea("Simbolo_MayorIgualQue");	if(!EsFor) { Traduccion_Total += " >= "; }
 		ExprR();
-		Recuperacion = true;
 		SumaResta();
-		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Simbolo_MenorIgualQue") { 
 
 		PrincipalParea("Simbolo_MenorIgualQue");	if(!EsFor) { Traduccion_Total += " <= "; }
 		ExprR();
-		Recuperacion = true;
 		SumaResta();
-		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Simbolo_MenorQue") { 
 
 		PrincipalParea("Simbolo_MenorQue");			if(!EsFor) { Traduccion_Total += " < "; }
 		ExprR();
-		Recuperacion = true;
 		SumaResta();
-		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Simbolo_MayorQue") { 
 
 		PrincipalParea("Simbolo_MayorQue");			if(!EsFor) { Traduccion_Total += " > "; }
 		ExprR();
-		Recuperacion = true;
 		SumaResta();
-		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Simbolo_DobleIgual") { 
 
 		PrincipalParea("Simbolo_DobleIgual");		if(!EsFor) { Traduccion_Total += " == "; }
 		ExprR();
-		Recuperacion = true;
 		SumaResta();
-		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Simbolo_Diferente") { 
 
 		PrincipalParea("Simbolo_Diferente");		if(!EsFor) { Traduccion_Total += " != "; }
 		ExprR();
-		Recuperacion = true;
 		SumaResta();
-		Recuperacion = true;
 		
 	} else {
 		
@@ -1460,26 +1632,20 @@ function MultiplicacionDivision() {
 		
 		PrincipalParea("Simbolo_Por");			if(!EsFor) { Traduccion_Total += " * "; }
 		Valores();
-		Recuperacion = true;
 		MultiplicacionDivision();
-		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Simbolo_Dividido") {
 		
 		PrincipalParea("Simbolo_Dividido");		if(!EsFor) { Traduccion_Total += " / "; }
 		Valores();
-		Recuperacion = true;
 		MultiplicacionDivision();
-		Recuperacion = true;
-		
+			
 	} else if(TokenActual.GetTipo() == "Simbolo_And") {
 		
-		PrincipalParea("Simbolo_And");			if(!EsFor) { Traduccion_Total += " && "; }
+		PrincipalParea("Simbolo_And");			if(!EsFor) { Traduccion_Total += " and "; }
 		Valores();
-		Recuperacion = true;
 		MultiplicacionDivision();
-		Recuperacion = true;
-		
+			
 	} else {
 		
 		// Vacios / Epsilon
@@ -1509,7 +1675,6 @@ function Valores() {
 		if(!EsFor) { Traducir = true; }
 		PrincipalParea("Identificador");
 		ValoresIdentificador();
-		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Cadena_De_Texto") {
 		
@@ -1535,8 +1700,8 @@ function Valores() {
 	} else {
 		
 		// Erroers Sintacticos
-		ErroresSintactico("Valores");
-		Recuperacion = true;
+		ErroresSintactico("Algun Tipo De Valor");
+		//Recuperacion = true;
 		
 	}
 	
@@ -1610,7 +1775,6 @@ function ValorFuncion() {
 		// Lista De Valores 
 		Expr();
 		ListaDeValores();
-		Recuperacion = true;
 		
 	} else {
 		
@@ -1662,14 +1826,6 @@ function PrincipalParea(TipoToken: String) {
 				
 			}	
 
-			// Verificar Si Hay Un Comentario
-			if((TokenActual.GetTipo() == "Comentario_Unilinea" || TokenActual.GetTipo() == "Comentario_Multilinea") && IndexToken == ArrayTokens.length - 1) {
-				
-				// Cambio El Valor Del Token
-				TokenActual.SetTipo("Final");
-				
-			}	
-			
 			// Verificar Si Tengo Que Avanzar Token
 			if(IndexToken < ArrayTokens.length - 1) {
 				
@@ -1697,22 +1853,34 @@ function PrincipalParea(TipoToken: String) {
             }*/
 			
 			// Hay Un Error Sintactico
+			
 			// Agregar Error Sintactico	
-			console.log("Error Sintactico: Se Esperaba " + TipoToken + " Y Se Encontro: " + TokenActual.GetTipo() + "\n");
+			
+			ArrayErrores.push(new NuevoError(ContadorErrores, TokenActual.GetLinea(), TokenActual.GetColumna(), "Error_Sintactico", TokenActual.GetLexema(), "Se Esperaba " + TipoToken + " Y Se Encontro: " + TokenActual.GetTipo()));
+			
+			ContadorErrores++;			
 			ErrorSintactico = true;
             Recuperacion = false;
+					
 			
+			// Recuperacion De Error
 			if(ErrorSintactico) {
 				
 				// Recuperacion Del Error
 				while(ErrorSintactico && IndexToken < ArrayTokens.length - 1) {
 					
-					// Avanzo Indice Token
-					IndexToken++;
 					
-					// Recuperar Token Actual
-					TokenActual = ArrayTokens[IndexToken]
-					
+					// Verificar Si Ya Es ;
+					if(TokenActual.GetTipo() != "Simbolo_PuntoYComa" && TokenActual.GetTipo() != "Simbolo_Llave_Cierre") {
+						
+						// Avanzo Indice Token
+						IndexToken++;
+						
+						// Recuperar Token Actual
+						TokenActual = ArrayTokens[IndexToken]
+						
+					}
+							
 					// Verificar Si Es Punto Y Coma
 					if(					
 								(IndexToken < ArrayTokens.length - 1 && TokenActual.GetTipo() == "Simbolo_PuntoYComa") ||
@@ -1721,10 +1889,10 @@ function PrincipalParea(TipoToken: String) {
 						) {
 						
 						// Recuperado Con Exito
-				
+
 						// Aumentar Indice
 						IndexToken++;
-						
+
 						// Recuperar Token Actual
 						TokenActual = ArrayTokens[IndexToken];
 						
@@ -1741,7 +1909,18 @@ function PrincipalParea(TipoToken: String) {
 	} else {
 		
 		// Recuperacion Modo Panico Espero Token ;
-		console.log("Me Estoy Recuperando");
+		
+		// Seguro Anti Bucle
+		if(TokenActual.GetTipo() == "Fin_De_Cadena" || SeguroContador >= 50) {
+			
+			Recuperacion = true;
+			SeguroContador = -1;
+			
+		}		
+		
+		// Incremento
+		SeguroContador++;
+		
 	}	
 	
 }

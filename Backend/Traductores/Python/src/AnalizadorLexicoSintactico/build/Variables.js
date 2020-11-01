@@ -1,7 +1,14 @@
 "use strict";
 // Imports 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VaciarArrayErrores = exports.VaciarArrayTokens = exports.DiccionarioJava = exports.ArrayErrores = exports.ArrayTokens = void 0;
+exports.ListaDeErrores = exports.ListaDeTokens = exports.VaciarArrayErrores = exports.VaciarArrayTokens = exports.DiccionarioJava = exports.ArrayErrores = exports.ArrayTokens = void 0;
+// Crer PDF
+var jspdf_1 = require("jspdf");
+// Generar Tablas PDF
+var jspdf_autotable_1 = __importDefault(require("jspdf-autotable"));
 // Variables
 // Array De Tokens
 exports.ArrayTokens = new Array();
@@ -61,3 +68,86 @@ function VaciarArrayErrores() {
     }
 }
 exports.VaciarArrayErrores = VaciarArrayErrores;
+// Funcion Generar PDF Tokens
+function ListaDeTokens() {
+    // Filas Tabla
+    var Filas = [{}];
+    // Obtener Todos Los Tokens
+    for (var Contador = 0; Contador < exports.ArrayTokens.length; Contador++) {
+        // Agregar Token A Array
+        Filas.push([
+            exports.ArrayTokens[Contador].Identificador.toString(),
+            exports.ArrayTokens[Contador].Linea.toString(),
+            exports.ArrayTokens[Contador].Columna.toString(),
+            exports.ArrayTokens[Contador].Tipo,
+            exports.ArrayTokens[Contador].Lexema
+        ]);
+    }
+    // Documento PDF 
+    var DocumentoPDF = new jspdf_1.jsPDF();
+    // Generar Tabla
+    jspdf_autotable_1.default(DocumentoPDF, {
+        theme: 'striped',
+        headStyles: {
+            font: 'times',
+            fontStyle: 'bold',
+            fillColor: [127, 74, 241],
+            fontSize: 13
+        },
+        head: [['No.', 'Fila', 'Columna', 'Tipo', 'Descripcion']],
+        body: Filas
+    });
+    // Guardar PDF
+    DocumentoPDF.save('src/Reportes/TablaDeTokensPY.pdf');
+}
+exports.ListaDeTokens = ListaDeTokens;
+// Funcion Generar PDF Errores
+function ListaDeErrores() {
+    // Declaraciones
+    // Filas Tabla
+    var Filas = [{}];
+    var DescripcionError = "";
+    var ErroresLista = "";
+    var Error = false;
+    // Obtener Todos Los Tokens
+    for (var Contador = 0; Contador < exports.ArrayErrores.length; Contador++) {
+        // Agregar Token A Array
+        Filas.push([
+            exports.ArrayErrores[Contador].Identificador.toString(),
+            exports.ArrayErrores[Contador].Tipo,
+            exports.ArrayErrores[Contador].Linea.toString(),
+            exports.ArrayErrores[Contador].Columna.toString(),
+            exports.ArrayErrores[Contador].Descripcion
+        ]);
+        ErroresLista += "No: " + exports.ArrayErrores[Contador].Identificador.toString() +
+            " Tipo: " + exports.ArrayErrores[Contador].Tipo +
+            " Fila: " + exports.ArrayErrores[Contador].Linea.toString() +
+            " Columna: " + exports.ArrayErrores[Contador].Columna.toString() +
+            " Descripcion: " + exports.ArrayErrores[Contador].Descripcion + "\n";
+    }
+    // Hay Errores
+    if (exports.ArrayErrores.length > 0) {
+        Error = true;
+    }
+    else {
+        Error = false;
+    }
+    // Documento PDF 
+    var DocumentoPDF = new jspdf_1.jsPDF();
+    // Generar Tabla
+    jspdf_autotable_1.default(DocumentoPDF, {
+        theme: 'striped',
+        headStyles: {
+            font: 'times',
+            fontStyle: 'bold',
+            fillColor: [220, 20, 60],
+            fontSize: 13
+        },
+        head: [['No.', 'Tipo Error', 'Fila', 'Columna', 'Descripcion']],
+        body: Filas
+    });
+    // Guardar PDF
+    DocumentoPDF.save('src/Reportes/TablaDeErroresPY.pdf');
+    return [ErroresLista, Error];
+}
+exports.ListaDeErrores = ListaDeErrores;

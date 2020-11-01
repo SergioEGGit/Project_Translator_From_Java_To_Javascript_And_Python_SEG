@@ -256,7 +256,13 @@ export function AnalizadorLexicoScanner(CadenaTexto: String) {
 				
 				} else if(CaracterActual == "#" && Contador == CadenaTexto.length - 1) { 
 				
-					// Final De Cadena									
+					// Final De Cadena
+					AuxiliarLexico += CaracterActual;
+					ArrayTokens.push(new NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Fin_De_Cadena", AuxiliarLexico));
+					AuxiliarLexico = "";
+					ContadorTokens++;
+					ColumnaTokenError++;
+					EstadoActualLexer = 0;
 				
 				} else {
 					

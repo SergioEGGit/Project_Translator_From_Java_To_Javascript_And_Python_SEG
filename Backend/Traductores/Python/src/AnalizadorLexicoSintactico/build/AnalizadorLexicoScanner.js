@@ -210,7 +210,13 @@ function AnalizadorLexicoScanner(CadenaTexto) {
                     EstadoActualLexer = 28;
                 }
                 else if (CaracterActual == "#" && Contador == CadenaTexto.length - 1) {
-                    // Final De Cadena									
+                    // Final De Cadena
+                    AuxiliarLexico += CaracterActual;
+                    Variables_1.ArrayTokens.push(new ObjetoToken_1.NuevoToken(ContadorTokens, FilaTokenError, ColumnaTokenError, "Fin_De_Cadena", AuxiliarLexico));
+                    AuxiliarLexico = "";
+                    ContadorTokens++;
+                    ColumnaTokenError++;
+                    EstadoActualLexer = 0;
                 }
                 else {
                     // Aceptar Error   

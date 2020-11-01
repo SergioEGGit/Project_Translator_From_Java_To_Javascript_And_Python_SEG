@@ -39,8 +39,12 @@ function Analisis() {
 	// Obtener Consola JS
 	var ConsolaJS = document.getElementById("consolajs");
 	
+	// Obtener Consola Python
+	var ConsolaPY = document.getElementById("consolapy");
+	
 	// Vaciar Consola 
 	ConsolaJS.textContent = "";
+	ConsolaPY.textContent = "";	
 	
 	// Peticion Analisis Javascript Servidor
 	axios.post('http://192.168.1.4:7776/Analisis', Configuracion)
@@ -50,7 +54,8 @@ function Analisis() {
 			// Verificar Si Hay Error
 			if(response.data.Error == true) {
 				
-				ConsolaJS.textContent = response.data.Errores;				
+				ConsolaJS.textContent = response.data.Errores;	
+				TraduccionJS = response.data.Traduccion;				
 				
 			} else {
 				
@@ -68,6 +73,34 @@ function Analisis() {
 			console.log(error);
 		
 		});	
+		
+	// Peticion Analisis Python Servidor
+	axios.post('http://192.168.1.4:8887/Analisis', Configuracion)
+		
+		.then((response) => {
+			
+			// Verificar Si Hay Error
+			if(response.data.Error == true) {
+				
+				ConsolaPY.textContent = response.data.Errores;
+				TraduccionPY = response.data.Traduccion;				
+				
+			} else {
+				
+				ConsolaPY.textContent = response.data.Traduccion;
+				TraduccionPY = response.data.Traduccion;
+				
+			}			
+			
+		
+		})
+		.catch((error) => {
+			
+			// Error Al Realizar La Solicitud
+			alert("Error Al Solicitar El Analisis!");
+			console.log(error);
+		
+		});		
 	
 }
 
@@ -92,6 +125,23 @@ function ReporteDeTokens() {
 			console.log(error);
 		
 		});	
+		
+	// Peticion Reporte Python Servidor
+	axios.get('http://192.168.1.4:8887/Tokens')
+		
+		.then((response) => {
+			
+			// Verificar Si Hay Error
+			DescargarArchivo(response.data, "ReporteDeTokensPY.pdf", "text/pdf");
+			
+		})
+		.catch((error) => {
+			
+			// Error Al Realizar La Solicitud
+			alert("Error Al Solicitar El Reporte!");
+			console.log(error);
+		
+		});		
 	
 }
 
@@ -117,6 +167,23 @@ function ReporteDeErrores() {
 		
 		});	
 		
+	// Peticion Reporte Python Servidor
+	axios.get('http://192.168.1.4:8887/Errores')
+		
+		.then((response) => {
+			
+			// Verificar Si Hay Error
+			DescargarArchivo(response.data, "ReporteDeErroresPY.pdf", "text/pdf");
+			
+		})
+		.catch((error) => {
+			
+			// Error Al Realizar La Solicitud
+			alert("Error Al Solicitar El Reporte!");
+			console.log(error);
+		
+		});		
+		
 }
 
 // Boton Reporte De Arbol Sintactico
@@ -140,6 +207,23 @@ function ReporteArbolSintactico() {
 			console.log(error);
 		
 		});	
+		
+	// Peticion Reporte Python Servidor
+	axios.get('http://192.168.1.4:8887/AST')
+		
+		.then((response) => {
+			
+			// Verificar Si Hay Error
+			DescargarArchivo(response.data, "ReporteDeArbolPY.pdf", "text/pdf");
+			
+		})
+		.catch((error) => {
+			
+			// Error Al Realizar La Solicitud
+			alert("Error Al Solicitar El Reporte!");
+			console.log(error);
+		
+		});		
 	
 }
 
