@@ -1,15 +1,16 @@
-// Clase Error
-
+// Clase NodoArbol
 export class NodoArbol {
 	
 	// Declaraciones
+	public Identificador: number;
 	public NombreNodo: String;
 	public ArrayNodos: Array<NodoArbol>;
 		
 	// Constructor 	
-	constructor(NombreNodo: String) {
+	constructor(Identificador: number, NombreNodo: String) {
 		
 		// Asignacion
+		this.Identificador = Identificador;
 		this.NombreNodo = NombreNodo;
 		this.ArrayNodos = new Array();
 		
@@ -23,7 +24,7 @@ export class NodoArbol {
 		var Cadena = "";
 		
 		// Agregar Raiz
-		Cadena = "    A_" + this.NombreNodo + "[label=\"" + this.NombreNodo + "\"];\n\n";
+		Cadena = "    A_" + this.Identificador + "[label=\"" + this.NombreNodo + "\"];\n\n";
 		
 		// Verificar Si Hay Nodos Hijos
 		if(this.ArrayNodos.length  > 0) {
@@ -31,13 +32,14 @@ export class NodoArbol {
 			// Recorrer Lista De Nodos Hijos
 			while(Contador < this.ArrayNodos.length) {
 				
-				Cadena += "    A_" + this.NombreNodo + " -> " + "A_" + this.ArrayNodos[Contador].NombreNodo + "\n\n";
+				Cadena += "    A_" + this.Identificador + " -> " + "A_" + this.ArrayNodos[Contador].Identificador + "\n\n";
 				Cadena += this.ArrayNodos[Contador].GenerarTxtGrafica() + "\n\n";
 				Contador++;
-				
+	
 			}	
 			
-		}
+			
+		}		
 		
 		return Cadena;
 	}

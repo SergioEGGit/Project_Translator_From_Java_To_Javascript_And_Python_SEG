@@ -20,6 +20,13 @@ export let ArrayTokens: Array<NuevoToken> = new Array();
 // Array De Errores
 export let ArrayErrores: Array<NuevoError> = new Array();
 
+// Contador Nodos Arbol
+export class VariablesGlobales {
+	
+	// Contador De Nodo	
+	public static ContadorNodos: number = 0;
+
+}
 
 // Definicion De Estructura 
 type Diccionario = {

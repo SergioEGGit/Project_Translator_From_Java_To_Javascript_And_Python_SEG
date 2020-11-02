@@ -23,8 +23,8 @@ const RouterAuxiliar = ExpressAuxiliar.Router();
 // Pagina Principal
 RouterAuxiliar.get('/', (req, res) => {
 	
-	var Cadena = "public class hola {  } public class hola {  }";
-	
+	var Cadena = "int a = !nodo;  crear una array de nodos instrucciones clase ";
+
 	AnalizadorLexicoScanner(Cadena);
 	ArbolSintactico();
 	

@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListaDeErrores = exports.ListaDeTokens = exports.VaciarArrayErrores = exports.VaciarArrayTokens = exports.DiccionarioJava = exports.ArrayErrores = exports.ArrayTokens = void 0;
+exports.ListaDeErrores = exports.ListaDeTokens = exports.VaciarArrayErrores = exports.VaciarArrayTokens = exports.DiccionarioJava = exports.VariablesGlobales = exports.ArrayErrores = exports.ArrayTokens = void 0;
 // Crer PDF
 var jspdf_1 = require("jspdf");
 // Generar Tablas PDF
@@ -14,6 +14,15 @@ var jspdf_autotable_1 = __importDefault(require("jspdf-autotable"));
 exports.ArrayTokens = new Array();
 // Array De Errores
 exports.ArrayErrores = new Array();
+// Contador Nodos Arbol
+var VariablesGlobales = /** @class */ (function () {
+    function VariablesGlobales() {
+    }
+    // Contador De Nodo	
+    VariablesGlobales.ContadorNodos = 0;
+    return VariablesGlobales;
+}());
+exports.VariablesGlobales = VariablesGlobales;
 // Diccionario De Palabras Reservadas
 exports.DiccionarioJava = {
     1: "public",
