@@ -28,24 +28,21 @@ var Bloque = /** @class */ (function (_super) {
         // Super
         _super.call(this, Linea, Columna) || this;
         _this.Instrucciones = Instrucciones;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Método Traducir	
     Bloque.prototype.Traducir = function () {
         // Declaraciones
         var Traduccion = "";
-        var Ast = null;
         // Traducir Instrucciones
-        Variables_Metodos_1.Identacion.push(" "); //sube 1
+        Variables_Metodos_1.Identacion.push(" ");
         // Recorrer Elementos
         for (var _i = 0, _a = this.Instrucciones; _i < _a.length; _i++) {
             var Element_1 = _a[_i];
             var TraduccionElement = Element_1.Traducir();
             Traduccion += TraduccionElement;
         }
-        Variables_Metodos_1.Identacion.pop(); //cuando sale baja
+        Variables_Metodos_1.Identacion.pop();
         return Traduccion;
     };
     return Bloque;

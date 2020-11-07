@@ -1,7 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e6ab66d-3e7d-42af-812e-297a914af181" name="Default Changelist" comment="" />
+    <list default="true" id="8e6ab66d-3e7d-42af-812e-297a914af181" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Server.go" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/AnalizadorJison/AnalizadorGramatica.jison" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/AnalizadorJison/AnalizadorGramatica.jison" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/AnalizadorJison/AnalizadorGramatica.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/AnalizadorJison/AnalizadorGramatica.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Asignacion.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Asignacion.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Bloque.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Bloque.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Clase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Clase.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Comentarios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Comentarios.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Declaracion.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Declaracion.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/DeclaracionFor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/DeclaracionFor.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/DeclaracionFunciones.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/DeclaracionFunciones.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/DoWhile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/DoWhile.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Errores.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Errores.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/For.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/For.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Funciones.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Funciones.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/If.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/If.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/IncrementoDecremento.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/IncrementoDecremento.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Instruccion.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Instruccion.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Interfaz.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Interfaz.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Logicos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Logicos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Matematicos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Matematicos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/MetodoAsignacion.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/MetodoAsignacion.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/MetodoDeclaracion.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/MetodoDeclaracion.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Parametros.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Parametros.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Parentesis.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Parentesis.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Primitivo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Primitivo.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Print.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Print.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/SentenciasCiclos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/SentenciasCiclos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Subdeclaracion.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Subdeclaracion.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Variables_Metodos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Variables_Metodos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/While.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/While.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Asignacion.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Asignacion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Bloque.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Bloque.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Clase.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Clase.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Comentarios.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Comentarios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Declaracion.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Declaracion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/DeclaracionFor.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/DeclaracionFor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/DeclaracionFunciones.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/DeclaracionFunciones.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/DoWhile.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/DoWhile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Errores.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Errores.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/For.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/For.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Funciones.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Funciones.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/If.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/If.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/IncrementoDecremento.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/IncrementoDecremento.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Interfaz.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Interfaz.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Logicos.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Logicos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Matematicos.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Matematicos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/MetodoAsignacion.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/MetodoAsignacion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/MetodoDeclaracion.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/MetodoDeclaracion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Parametros.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Parametros.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Parentesis.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Parentesis.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Primitivo.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Primitivo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Print.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Print.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/SentenciasCiclos.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/SentenciasCiclos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Subdeclaracion.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Subdeclaracion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Variables_Metodos.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Variables_Metodos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/While.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/While.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/Reportes/TablaDeErroresJS.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/Reportes/TablaDeErroresJS.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/Reportes/TablaDeTokensJS.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/Reportes/TablaDeTokensJS.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/Routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/Routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Python/src/AnalizadorLexicoSintactico/ArbolSintactico.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Python/src/AnalizadorLexicoSintactico/ArbolSintactico.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Python/src/AnalizadorLexicoSintactico/ObjetoArbol.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Python/src/AnalizadorLexicoSintactico/ObjetoArbol.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Python/src/AnalizadorLexicoSintactico/build/AnalizadorSintacticoParser - copia.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Python/src/AnalizadorLexicoSintactico/build/ArbolSintactico.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Python/src/AnalizadorLexicoSintactico/build/ArbolSintactico.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Python/src/AnalizadorLexicoSintactico/build/ObjetoArbol.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Python/src/AnalizadorLexicoSintactico/build/ObjetoArbol.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Python/src/Reportes/TablaDeErroresPY.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Python/src/Reportes/TablaDeErroresPY.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Python/src/Reportes/TablaDeTokensPY.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Python/src/Reportes/TablaDeTokensPY.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Traductores/Python/src/Routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Traductores/Python/src/Routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/Scripts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/Scripts/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SEG_P2.exe" beforeDir="false" afterPath="$PROJECT_DIR$/SEG_P2.exe" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,7 +106,11 @@
     </option>
   </component>
   <component name="GOROOT" path="C:\Users\Sergio_EG\sdk\go1.15.2" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1iT2pEYgILBFKdhTixIpUrA2mh3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -23,6 +118,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
@@ -49,6 +145,17 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
     <state x="137" y="18" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601918292870">
       <screen x="0" y="0" width="1366" height="728" />
@@ -58,22 +165,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1601918287055" />
-    <state width="1323" height="172" key="GridCell.Tab.0.bottom" timestamp="1602094471893">
+    <state width="1323" height="172" key="GridCell.Tab.0.bottom" timestamp="1604700997924">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="172" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1602094471893" />
-    <state width="1323" height="172" key="GridCell.Tab.0.center" timestamp="1602094471893">
+    <state width="1323" height="172" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1604700997924" />
+    <state width="1323" height="172" key="GridCell.Tab.0.center" timestamp="1604700997924">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="172" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1602094471893" />
-    <state width="1323" height="172" key="GridCell.Tab.0.left" timestamp="1602094471893">
+    <state width="1323" height="172" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1604700997924" />
+    <state width="1323" height="172" key="GridCell.Tab.0.left" timestamp="1604700997924">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="172" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1602094471893" />
-    <state width="1323" height="172" key="GridCell.Tab.0.right" timestamp="1602094471893">
+    <state width="1323" height="172" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1604700997924" />
+    <state width="1323" height="172" key="GridCell.Tab.0.right" timestamp="1604700997924">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="172" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1602094471893" />
+    <state width="1323" height="172" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1604700997924" />
     <state x="184" y="8" key="SettingsEditor" timestamp="1601917489045">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

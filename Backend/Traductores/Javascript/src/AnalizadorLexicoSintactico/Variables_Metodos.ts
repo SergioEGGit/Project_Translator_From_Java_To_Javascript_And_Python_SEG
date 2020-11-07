@@ -6,6 +6,9 @@ import { Tokens } from "./Tokens";
 // Objeto Error
 import { Errores } from "./Errores";
 
+// Objeto Arbol
+import { Arbol } from "./Arbol";
+
 // Crer PDF
 import { jsPDF } from 'jspdf';
 
@@ -53,11 +56,19 @@ export function VaciarErrores() {
 	
 }
 
+// Vaciar Identacion
+export function VaciarIdentacion() {
+	
+	// Nueva Lista De Identacion
+	Identacion = new Array();
+	
+}
+
 // Funcion Generar PDF Tokens
 export function ListaDeTokens() {
 	
 	// Filas Tabla
-	var Filas = [];
+	var Filas = [{}];
 	
 	// Obtener Todos Los Tokens
 	for (var Contador = 0; Contador < ArrayTokens.length; Contador++) {
@@ -99,6 +110,7 @@ export function ListaDeTokens() {
 	
 	// Guardar PDF
 	DocumentoPDF.save('src/Reportes/TablaDeTokensJS.pdf');	
+	
 }
 
 // Funcion Generar PDF Errores

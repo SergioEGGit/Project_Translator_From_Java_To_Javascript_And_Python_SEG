@@ -30,8 +30,6 @@ var If = /** @class */ (function (_super) {
         _this.Condicion = Condicion;
         _this.BloqueIf = BloqueIf;
         _this.BloqueElse = BloqueElse;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Método Traducir	

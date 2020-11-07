@@ -9,10 +9,7 @@ import { ArrayErrores } from "./Variables_Metodos";
 // Clase Principal
 export class Errores extends Instruccion {
 
-    // Declaraciones
-	public AST = null;
-	
-	// Constructor
+  	// Constructor
     constructor(public Linea: number, public Columna: number, public Tipo: String, public Lexema: String) {
         
 		// Super
@@ -31,4 +28,5 @@ export class Errores extends Instruccion {
 		
 		return Traduccion;
     }	
+	
 }

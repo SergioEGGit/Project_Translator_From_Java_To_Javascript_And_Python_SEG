@@ -5,10 +5,7 @@ import { AgregarIdentacion } from "./Variables_Metodos";
 // Clase Principal
 export class Declaracion extends Instruccion {
 
-    // Declaraciones
-	public AST = null;
-	
-	// Constructor
+ 	// Constructor
     constructor(Linea: number, Columna: number, private Tipo: String, private Variables: Instruccion[]) { 
         
 		// Super
@@ -41,5 +38,7 @@ export class Declaracion extends Instruccion {
 		Traduccion = AgregarIdentacion() + "var " + Traduccion + "; \n\n";
 	
 		return Traduccion;
+		
     }
+	
 }

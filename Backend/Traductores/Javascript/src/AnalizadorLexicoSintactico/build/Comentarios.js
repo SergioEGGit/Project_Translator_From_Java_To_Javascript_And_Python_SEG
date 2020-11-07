@@ -28,8 +28,6 @@ var Comentarios = /** @class */ (function (_super) {
         // Super
         _super.call(this, Linea, Columna) || this;
         _this.Comentario = Comentario;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Método Traducir	

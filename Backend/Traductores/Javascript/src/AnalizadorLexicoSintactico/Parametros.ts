@@ -6,9 +6,6 @@ import { Instruccion } from "./Instruccion";
 // Clase Principal
 export class Parametros extends Instruccion {
 
-    // Declaraciones
-	public AST = null;
-	
 	// Constructor
     constructor(Linea: number, Columna: number, private Tipos: String, private Identificador: String) {
         
@@ -28,5 +25,7 @@ export class Parametros extends Instruccion {
 		let Traduccion = Identificador;		
 		
 		return Traduccion;
+		
     }
+	
 }

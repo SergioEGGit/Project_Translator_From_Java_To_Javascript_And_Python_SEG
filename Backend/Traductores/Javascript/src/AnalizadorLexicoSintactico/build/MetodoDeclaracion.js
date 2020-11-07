@@ -29,8 +29,6 @@ var MetodoDeclaracion = /** @class */ (function (_super) {
         _this.FuncionName = FuncionName;
         _this.ListaParametros = ListaParametros;
         _this.PTC = PTC;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Metodo Traducir

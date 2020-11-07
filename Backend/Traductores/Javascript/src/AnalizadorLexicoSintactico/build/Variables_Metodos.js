@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListaDeErrores = exports.ListaDeTokens = exports.VaciarErrores = exports.VaciarTokens = exports.AgregarIdentacion = exports.ArrayTokens = exports.ArrayErrores = exports.Identacion = void 0;
+exports.ListaDeErrores = exports.ListaDeTokens = exports.VaciarIdentacion = exports.VaciarErrores = exports.VaciarTokens = exports.AgregarIdentacion = exports.ArrayTokens = exports.ArrayErrores = exports.Identacion = void 0;
 // Crer PDF
 var jspdf_1 = require("jspdf");
 // Generar Tablas PDF
@@ -38,10 +38,16 @@ function VaciarErrores() {
     exports.ArrayErrores = new Array();
 }
 exports.VaciarErrores = VaciarErrores;
+// Vaciar Identacion
+function VaciarIdentacion() {
+    // Nueva Lista De Identacion
+    exports.Identacion = new Array();
+}
+exports.VaciarIdentacion = VaciarIdentacion;
 // Funcion Generar PDF Tokens
 function ListaDeTokens() {
     // Filas Tabla
-    var Filas = [];
+    var Filas = [{}];
     // Obtener Todos Los Tokens
     for (var Contador = 0; Contador < exports.ArrayTokens.length; Contador++) {
         // Agregar Token A Array

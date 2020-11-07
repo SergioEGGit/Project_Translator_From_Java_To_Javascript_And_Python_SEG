@@ -39,8 +39,6 @@ var Matematicos = /** @class */ (function (_super) {
         _this.Izq = Izq;
         _this.Der = Der;
         _this.Operacion = Operacion;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Metodo Traducir

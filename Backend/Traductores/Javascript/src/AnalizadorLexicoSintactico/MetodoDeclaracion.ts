@@ -8,9 +8,6 @@ import { AgregarIdentacion } from "./Variables_Metodos";
 
 // Clase Principal
 export class MetodoDeclaracion extends Instruccion {
-
-    // Declaraciones
-	public AST = null;
 	
 	// Constructor
     constructor(Linea: number, Columna: number, private Identificador: string, private FuncionName: string, private ListaParametros: Instruccion[], private PTC: Boolean) {
@@ -41,6 +38,7 @@ export class MetodoDeclaracion extends Instruccion {
 				Parametros += this.ListaParametros[Number(Key)].Traducir() + ", ";
 			
 			}
+			
 		}
 		
 		// Verificar Si Hay Identificador
@@ -55,5 +53,7 @@ export class MetodoDeclaracion extends Instruccion {
 		}
 		
 		return Traduccion;
+		
     }
+	
 }

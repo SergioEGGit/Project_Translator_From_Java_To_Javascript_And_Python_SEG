@@ -9,9 +9,6 @@ import { AgregarIdentacion } from "./Variables_Metodos";
 // Clase Principal
 export class DoWhile extends Instruccion {
 
-    // Declaraciones
-	public AST = null;
-	
 	// Constructor 
     constructor(Linea: number, Columna: number, private BloqueDoWhile: Instruccion, private Condicion: Instruccion) {
     
@@ -36,4 +33,5 @@ export class DoWhile extends Instruccion {
 		return Traduccion;		
 		 
     }
+	
 }

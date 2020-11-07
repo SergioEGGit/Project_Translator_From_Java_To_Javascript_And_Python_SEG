@@ -18,9 +18,6 @@ export enum Sentencias {
 // Clase Principal
 export class SentenciasCiclos extends Instruccion {
 
-	// Declaraciones
-	public AST = null;
-	
 	// Constructor
     constructor(Linea: number, Columna: number, private Valor: string, private Sentencia: Sentencias, private Expresion: Instruccion | null) {
 
@@ -65,6 +62,7 @@ export class SentenciasCiclos extends Instruccion {
 		}
 		
 		return ValRetornar;
+		
     }
     
 } 

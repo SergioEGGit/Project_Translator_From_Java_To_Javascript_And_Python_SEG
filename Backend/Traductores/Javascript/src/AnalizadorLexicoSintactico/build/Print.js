@@ -28,8 +28,6 @@ var Print = /** @class */ (function (_super) {
         // Super
         _super.call(this, Linea, Columna) || this;
         _this.Value = Value;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Metodo Traducir

@@ -31,8 +31,6 @@ var Funciones = /** @class */ (function (_super) {
         _this.Identificador = Identificador;
         _this.ListaParametros = ListaParametros;
         _this.BloqueFuncion = BloqueFuncion;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Metodo Traducir

@@ -29,8 +29,6 @@ var DoWhile = /** @class */ (function (_super) {
         _super.call(this, Linea, Columna) || this;
         _this.BloqueDoWhile = BloqueDoWhile;
         _this.Condicion = Condicion;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Método Traducir	

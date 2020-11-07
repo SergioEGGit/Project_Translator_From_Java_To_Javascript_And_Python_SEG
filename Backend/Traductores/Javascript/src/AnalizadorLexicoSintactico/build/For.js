@@ -31,8 +31,6 @@ var For = /** @class */ (function (_super) {
         _this.Condicion = Condicion;
         _this.Incremento = Incremento;
         _this.BloqueFor = BloqueFor;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Método Traducir	

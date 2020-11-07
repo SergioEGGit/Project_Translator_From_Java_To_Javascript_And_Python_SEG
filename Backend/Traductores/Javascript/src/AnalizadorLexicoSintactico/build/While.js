@@ -29,8 +29,6 @@ var While = /** @class */ (function (_super) {
         _super.call(this, Linea, Columna) || this;
         _this.Condicion = Condicion;
         _this.BloqueWhile = BloqueWhile;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Método Traducir	

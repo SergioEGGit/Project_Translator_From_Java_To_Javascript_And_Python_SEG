@@ -9,9 +9,6 @@ import { Identacion } from './Variables_Metodos';
 // Clase Principal
 export class Bloque extends Instruccion {
 	
-	// Declaraciones
-	public AST = null;
-	
 	// Constructor 
 	constructor(Linea: number, Columna: number, private Instrucciones: Instruccion[]) {
 		
@@ -25,10 +22,9 @@ export class Bloque extends Instruccion {
 		
 		// Declaraciones
 		let Traduccion: string = "";
-		let Ast: any = null
 		
 		// Traducir Instrucciones
-		Identacion.push(" "); //sube 1
+		Identacion.push(" ");
 		
 		// Recorrer Elementos
 		for(const Element of this.Instrucciones) {
@@ -39,8 +35,10 @@ export class Bloque extends Instruccion {
 	
 		}
 		
-		Identacion.pop(); //cuando sale baja
+		Identacion.pop();
 		
 		return Traduccion;
+		
 	}
+	
 }

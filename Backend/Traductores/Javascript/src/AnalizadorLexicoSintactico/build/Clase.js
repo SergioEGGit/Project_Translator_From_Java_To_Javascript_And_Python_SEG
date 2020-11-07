@@ -29,8 +29,6 @@ var Clase = /** @class */ (function (_super) {
         _super.call(this, Linea, Columna) || this;
         _this.Identificador = Identificador;
         _this.BloqueClase = BloqueClase;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Metodo Traducir

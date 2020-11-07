@@ -9,9 +9,6 @@ import { AgregarIdentacion } from './Variables_Metodos';
 // Clase Principal
 export class Print extends Instruccion{
 
-    // Declaraciones
-	public AST = null;
-	
 	// Constructor
     constructor(Linea: number, Columna: number, private Value: Instruccion) {
         
@@ -30,5 +27,7 @@ export class Print extends Instruccion{
 		let Traduccion = AgregarIdentacion() + "console.log(" + Value + "); \n\n";
 		
 		return Traduccion;
+		
     }
+	
 }

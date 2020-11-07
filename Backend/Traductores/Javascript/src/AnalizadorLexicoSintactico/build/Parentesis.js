@@ -26,8 +26,6 @@ var Parentesis = /** @class */ (function (_super) {
         // Super
         _super.call(this, Linea, Columna) || this;
         _this.Expresion = Expresion;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Método Traducir	

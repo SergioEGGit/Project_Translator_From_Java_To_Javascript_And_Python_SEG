@@ -9,9 +9,6 @@ import { AgregarIdentacion } from "./Variables_Metodos";
 // Clase Principal
 export class DeclaracionFor extends Instruccion {
 
-    // Declaraciones
-	public AST = null;
-	
 	// Constructor
     constructor(Linea: number, Columna: number, private Tipo: String, private Variables: Instruccion[]) { 
         
@@ -39,11 +36,14 @@ export class DeclaracionFor extends Instruccion {
 				Traduccion += this.Variables[Number(Key)].Traducir() + ", ";
 			
 			}
+			
 		}
 		
 		// Una Sola Variable
 		Traduccion = "var " + Traduccion + ";";
 	
 		return Traduccion;
+		
     }
+	
 }

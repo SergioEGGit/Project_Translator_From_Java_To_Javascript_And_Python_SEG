@@ -8,11 +8,26 @@ const ExpressAuxiliar = require('express');
 // Analizador Jison
 const Analizador = require('../AnalizadorLexicoSintactico/AnalizadorJison/AnalizadorGramatica.js');
 
+// Util
+const Utility = require('util');
+
+// Fs 
+const ModuloFs = require ('fs');
+
+// Child Process
+const ComandoExec = Utility.promisify(require('child_process').exec);
+
+// Identificador Global
+let IdentificadorGlobal = 1;
+
+// String Dot 
+let DotString = "";
+
 // Arreglo De Tokens Y Errores, Lista De Tokens Y Lista De Errores
 const { ArrayTokens, ArrayErrores, ListaDeTokens, ListaDeErrores } = require('../AnalizadorLexicoSintactico/build/Variables_Metodos.js');
 
-// Vaciar Tokens Y Errores
-const { VaciarTokens, VaciarErrores } = require('../AnalizadorLexicoSintactico/build/Variables_Metodos.js');
+// Vaciar Tokens, Errores Y Identacion
+const { VaciarTokens, VaciarErrores, VaciarIdentacion } = require('../AnalizadorLexicoSintactico/build/Variables_Metodos.js');
 
 // Inicializar Router
 const RouterAuxiliar = ExpressAuxiliar.Router();
@@ -20,7 +35,7 @@ const RouterAuxiliar = ExpressAuxiliar.Router();
 // Pagina Principal
 RouterAuxiliar.get('/', (req, res) => {
 	
-	// Enviar Response	
+	// Enviar Response		
 	res.send("Bienvenido Al Servidor De Javascript! Puerto: 7776");
 	
 });
@@ -53,39 +68,75 @@ RouterAuxiliar.post('/Analisis', (req, res) => {
 	// Limpiar La Lista De Errores
 	VaciarErrores();	
 	
+	// Limpiar Identacion
+	VaciarIdentacion();
+	
 	// Obtener Cadena De Texto
 	CadenaTexto = req.body.Cadena.toString();
 		
-	// Obtener Traduccion 
-	try {
+	if(CadenaTexto != "") { 
+	
+		// Obtener Traduccion 
+		try {
+				
+			// Solicitar Analisis
+			AnalizadorLexicoSintactico = Analizador.parse(CadenaTexto);
 			
-		// Solicitar Analisis
-		AnalizadorLexicoSintactico = Analizador.parse(CadenaTexto);
-		
-		// Obtener Tokens
-		ListaDeTokens();
-		
-		// Obtener Errores
-		[ErroresLista, BanderaError] = ListaDeErrores();		
-		
-		// Mostrar Errores
-		console.log(ErroresLista);
-		
-		// Obtener AST	
-		
-		// Obtener Traduccion	
-		for(const Traduccion of AnalizadorLexicoSintactico) {
+			// Obtener Tokens
+			ListaDeTokens();
 			
-			// Agregar Traduccion Individual
-			TraduccionTotal += Traduccion.Traducir() + "\n";				
+			// Obtener Errores
+			[ErroresLista, BanderaError] = ListaDeErrores();		
 			
-		}						
-		
-	} catch(Ex) {
-		
-		// Traduccion, Tokens, Errores Y Arbol
-		TraduccionTotal = "Error Al Analizar, No Se Logro Recuperar Del Analisis";
-		console.log(Ex);
+			// Mostrar Errores
+			console.log(ErroresLista);
+			
+			// Catch Traduccion
+			try {
+				
+				// Obtener Traduccion	
+				for(const Traduccion of AnalizadorLexicoSintactico[1]) {
+					
+					// Agregar Traduccion Individual
+					TraduccionTotal += Traduccion.Traducir() + "\n";				
+					
+				}
+				
+			} catch (Ex) {
+				
+				console.log(Ex);
+				
+			}		
+			
+			// Cath Arbol
+			try {
+				
+				// Limpiar Variables 
+				IdentificadorGlobal = 1;
+				
+				DotString = "digraph ArbolSintacticoJS { \n\n    node[color = navyblue] \n\n";
+				
+				RecorrerArbolSintactico(AnalizadorLexicoSintactico[0]);	
+				
+				DotString += "}";
+
+				// Generar Grafica 
+				GenerarDot(DotString);
+				
+			} catch(Ex) {
+				
+				console.log(Ex);		
+				
+			}
+			
+		} catch(Ex) {
+			
+			// Traduccion, Tokens, Errores Y Arbol
+			TraduccionTotal = "Error Al Analizar, No Se Logro Recuperar Del Analisis";
+			console.log(Ex);
+			
+		}
+	
 	}	
 
 	// Enviar Response
@@ -114,8 +165,77 @@ RouterAuxiliar.get('/AST', (req, res) => {
 
 	// Descargar Archivo
 	res.download("src/Reportes/ArbolAnalisisSintacticoJS.pdf");
+	//res.download("hola");
+
 
 });
+
+// Funcion Generar Dot 
+async function GenerarDot(Cadena) {
+	
+	// Comando 
+	var Comando = "dot -Tpdf -o src/Reportes/ArbolAnalisisSintacticoJS.pdf src/Reportes/ArbolAnalisisSintacticoJS.txt"	
+	
+	// Escribir Archivo 
+	ModuloFs.writeFile('src/Reportes/ArbolAnalisisSintacticoJS.txt', Cadena, function(Error) { 
+	
+		if(Error) {
+			
+			return console.log("Error Al Generar El Archivo!");
+			
+		}
+	
+	});	
+	
+	// Ejecutar Comando
+	const { Entrada, Salida } = await ComandoExec(Comando);
+	
+}
+
+// Recorrer Arbol Sintactico
+function RecorrerArbolSintactico(NodoArbol) {
+	
+	// Declaraciones
+	var Cadena = "";
+	
+	// Verificar 
+	if(NodoArbol.Identificador == 0) {
+		
+        // Asignar Contador
+		NodoArbol.Identificador = IdentificadorGlobal;
+        IdentificadorGlobal++;
+		
+    }
+		
+	var Nombre = NodoArbol.Valor;	
+		
+	var ValorLabel = Nombre.split("\"");
+
+	// Verificar Si Es Cadena De Texto
+	if(ValorLabel.length > 1) {
+		
+		ValorLabel = "\\\"" + ValorLabel[1] + "\\\"";
+		
+	} else {
+		
+		ValorLabel = NodoArbol.Valor;
+		
+	}	
+		
+	DotString += "    " + NodoArbol.Identificador + ' [label= "'+ ValorLabel +'"]; \n\n';
+	
+	// Verificar Si Hay Nodos Hijos 
+	NodoArbol.ArrayNodos.forEach(Nodo => {
+		
+        DotString += "    " + NodoArbol.Identificador + ' -> ' + IdentificadorGlobal + "; \n\n";
+        
+		Cadena += RecorrerArbolSintactico(Nodo);
+      
+	});
+    
+    return Cadena;
+	
+}
 
 // Exportar Modulo
 module.exports = RouterAuxiliar;

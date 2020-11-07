@@ -47,7 +47,7 @@ function Analisis() {
 	ConsolaPY.textContent = "";	
 	
 	// Peticion Analisis Javascript Servidor
-	axios.post('http://192.168.1.4:7776/Analisis', Configuracion)
+	axios.post('../AnalisisJS', Configuracion)
 		
 		.then((response) => {
 			
@@ -69,13 +69,13 @@ function Analisis() {
 		.catch((error) => {
 			
 			// Error Al Realizar La Solicitud
-			alert("Error Al Solicitar El Analisis!");
+			console.log("Error Al Realizar El Análisis");
 			console.log(error);
 		
 		});	
 		
 	// Peticion Analisis Python Servidor
-	axios.post('http://192.168.1.4:8887/Analisis', Configuracion)
+	axios.post('../AnalisisPY', Configuracion)
 		
 		.then((response) => {
 			
@@ -97,7 +97,7 @@ function Analisis() {
 		.catch((error) => {
 			
 			// Error Al Realizar La Solicitud
-			alert("Error Al Solicitar El Analisis!");
+			console.log("Error Al Realizar El Análisis");
 			console.log(error);
 		
 		});		
@@ -110,7 +110,7 @@ function ReporteDeTokens() {
 	// Solicitud Reporte
 	
 	// Peticion Reporte Javascript Servidor
-	axios.get('http://192.168.1.4:7776/Tokens')
+	axios.get('../TokensJS')
 		
 		.then((response) => {
 			
@@ -121,13 +121,13 @@ function ReporteDeTokens() {
 		.catch((error) => {
 			
 			// Error Al Realizar La Solicitud
-			alert("Error Al Solicitar El Reporte!");
+			console.log("Error Al Solicitar El Reporte!");
 			console.log(error);
 		
 		});	
 		
 	// Peticion Reporte Python Servidor
-	axios.get('http://192.168.1.4:8887/Tokens')
+	axios.get('../TokensPY')
 		
 		.then((response) => {
 			
@@ -138,7 +138,7 @@ function ReporteDeTokens() {
 		.catch((error) => {
 			
 			// Error Al Realizar La Solicitud
-			alert("Error Al Solicitar El Reporte!");
+			console.log("Error Al Solicitar El Reporte!");
 			console.log(error);
 		
 		});		
@@ -151,7 +151,7 @@ function ReporteDeErrores() {
 	// Solicitud Reporte
 	
 	// Peticion Reporte Javascript Servidor
-	axios.get('http://192.168.1.4:7776/Errores')
+	axios.get('../ErroresJS')
 		
 		.then((response) => {
 			
@@ -162,13 +162,13 @@ function ReporteDeErrores() {
 		.catch((error) => {
 			
 			// Error Al Realizar La Solicitud
-			alert("Error Al Solicitar El Reporte!");
+			console.log("Error Al Solicitar El Reporte!");
 			console.log(error);
 		
 		});	
 		
 	// Peticion Reporte Python Servidor
-	axios.get('http://192.168.1.4:8887/Errores')
+	axios.get('../ErroresPY')
 		
 		.then((response) => {
 			
@@ -179,7 +179,7 @@ function ReporteDeErrores() {
 		.catch((error) => {
 			
 			// Error Al Realizar La Solicitud
-			alert("Error Al Solicitar El Reporte!");
+			console.log("Error Al Solicitar El Reporte!");
 			console.log(error);
 		
 		});		
@@ -189,38 +189,56 @@ function ReporteDeErrores() {
 // Boton Reporte De Arbol Sintactico
 function ReporteArbolSintactico() {
 	
-	// Solicitud Reporte
-	
+	// Solicitar Analisis 
+
 	// Peticion Reporte Javascript Servidor
-	axios.get('http://192.168.1.4:7776/AST')
+	axios({
+			url: '../ArbolJS', 
+			method: 'GET',
+			responseType: 'blob',
+		})
 		
 		.then((response) => {
 			
-			// Verificar Si Hay Error
-			DescargarArchivo(response.data, "ReporteDeArbolJS.pdf", "text/pdf");
+			const url = window.URL.createObjectURL(new Blob([response.data]));
+			const link = document.createElement('a');
+			link.href = url;
+			link.setAttribute('download', 'ReporteDeArbolJS.pdf'); //or any other extension
+			document.body.appendChild(link);
+			link.click();
+			//DescargarArchivo(response.data, "ReporteDeArbolJS.pdf", "text/plain");
 			
 		})
 		.catch((error) => {
 			
 			// Error Al Realizar La Solicitud
-			alert("Error Al Solicitar El Reporte!");
+			console.log("Error Al Solicitar El Reporte!");
 			console.log(error);
 		
 		});	
 		
 	// Peticion Reporte Python Servidor
-	axios.get('http://192.168.1.4:8887/AST')
+	axios({
+			url: '../ArbolPY', 
+			method: 'GET',
+			responseType: 'blob',
+		})
 		
 		.then((response) => {
 			
-			// Verificar Si Hay Error
-			DescargarArchivo(response.data, "ReporteDeArbolPY.pdf", "text/pdf");
+			const url = window.URL.createObjectURL(new Blob([response.data]));
+			const link = document.createElement('a');
+			link.href = url;
+			link.setAttribute('download', 'ReporteDeArbolpPY.pdf');
+			document.body.appendChild(link);
+			link.click();
+			//DescargarArchivo(response.data, "ReporteDeArbolPY.pdf", "text/plain");
 			
 		})
 		.catch((error) => {
 			
 			// Error Al Realizar La Solicitud
-			alert("Error Al Solicitar El Reporte!");
+			console.log("Error Al Solicitar El Reporte!");
 			console.log(error);
 		
 		});		

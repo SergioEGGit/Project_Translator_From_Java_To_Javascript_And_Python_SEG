@@ -29,8 +29,6 @@ var Asignacion = /** @class */ (function (_super) {
         _super.call(this, Linea, Columna) || this;
         _this.Identificador = Identificador;
         _this.Expresion = Expresion;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Metodo Traducir

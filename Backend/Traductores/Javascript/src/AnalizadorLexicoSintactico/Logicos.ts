@@ -22,9 +22,6 @@ export enum Operadores{
 // Clase Principal
 export class Logicos extends Instruccion {
 
-	// Declaraciones
-	public AST = null; 
-
 	// Constructor
     constructor(Linea: number, Columna: number, private Izq: Instruccion, private Der: Instruccion, private Operacion: Operadores) {
 
@@ -84,11 +81,12 @@ export class Logicos extends Instruccion {
 		
 		} else {
 			
-			ValRetornar = undefined 
+			ValRetornar = undefined; 
 		
 		}
 
 		return ValRetornar;
+		
     }
     
 }

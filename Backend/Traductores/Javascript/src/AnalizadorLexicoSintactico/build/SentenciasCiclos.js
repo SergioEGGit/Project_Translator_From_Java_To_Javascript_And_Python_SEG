@@ -37,8 +37,6 @@ var SentenciasCiclos = /** @class */ (function (_super) {
         _this.Valor = Valor;
         _this.Sentencia = Sentencia;
         _this.Expresion = Expresion;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Metodo Traducir

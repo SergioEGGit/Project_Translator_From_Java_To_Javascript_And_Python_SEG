@@ -8,9 +8,6 @@ import { AgregarIdentacion } from "./Variables_Metodos";
 
 // Clase Principal
 export class Subdeclaracion extends Instruccion {
-
-    // Declaraciones
-	public AST = null;
 	
 	// Constructor
     constructor(Linea: number, Columna: number, private Identificador: String, private Expresion: Instruccion | null) {
@@ -40,5 +37,7 @@ export class Subdeclaracion extends Instruccion {
 		}
 	
 		return Identificador;
+		
     }
+	
 }

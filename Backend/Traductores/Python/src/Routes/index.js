@@ -5,6 +5,15 @@
 // Express 
 const ExpressAuxiliar = require('express');
 
+// Util
+const Utility = require('util');
+
+// Fs 
+const ModuloFs = require ('fs');
+
+// Child Process
+const ComandoExec = Utility.promisify(require('child_process').exec);
+
 // Analizador Lexico 
 const { AnalizadorLexicoScanner } = require('../AnalizadorLexicoSintactico/build/AnalizadorLexicoScanner.js');
 
@@ -22,12 +31,7 @@ const RouterAuxiliar = ExpressAuxiliar.Router();
 
 // Pagina Principal
 RouterAuxiliar.get('/', (req, res) => {
-	
-	var Cadena = "int a = !nodo;  crear una array de nodos instrucciones clase ";
 
-	AnalizadorLexicoScanner(Cadena);
-	ArbolSintactico();
-	
 	// Enviar Response
 	res.send("Bienvenido Al Servidor De Python! Puerto: 8887");	
 	
@@ -69,7 +73,18 @@ RouterAuxiliar.post('/Analisis', (req, res) => {
 		// Mostrar Errores
 		console.log(ErroresLista);
 		
-		// Obtener AST						
+		// Obtener AST		
+		try {
+			
+			var CadenaDot = ArbolSintactico();
+		
+			GenerarDot(CadenaDot);	
+			
+		} catch(Ex) {
+			
+			// Nada
+			
+		}
 		
 	} catch(Ex) {
 		
@@ -100,11 +115,33 @@ RouterAuxiliar.get('/Errores', (req, res) => {
 
 });
 
+// Funcion Generar Dot 
+async function GenerarDot(Cadena) {
+	
+	// Comando 
+	var Comando = "dot -Tpdf -o src/Reportes/ArbolSintacticoPY.pdf src/Reportes/ArbolSintacticoPY.txt"	
+	
+	// Escribir Archivo 
+	ModuloFs.writeFile('src/Reportes/ArbolSintacticoPY.txt', Cadena, function(Error) { 
+	
+		if(Error) {
+			
+			return console.log("Error Al Generar El Archivo!");
+			
+		}
+	
+	});	
+	
+	// Ejecutar Comando
+	const { Entrada, Salida } = await ComandoExec(Comando);
+	
+}
+
 // Solicitar Reporte De AST
-RouterAuxiliar.get('/AST', (req, res) => {
+RouterAuxiliar.get('/AST', (req, res) => { 
 
 	// Descargar Archivo
-	res.download("src/Reportes/ArbolAnalisisSintacticoPY.pdf");
+	res.download("src/Reportes/ArbolSintacticoPY.pdf");	
 
 });
 

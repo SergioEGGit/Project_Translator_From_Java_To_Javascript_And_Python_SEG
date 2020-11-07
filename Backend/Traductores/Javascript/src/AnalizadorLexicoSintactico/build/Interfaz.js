@@ -27,8 +27,6 @@ var Interfaz = /** @class */ (function (_super) {
         _super.call(this, Linea, Columna) || this;
         _this.Identificador = Identificador;
         _this.BloqueInterfaz = BloqueInterfaz;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Metodo Traducir

@@ -74,19 +74,52 @@ VariablesGlobales.ContadorNodos++;
 var NodoListaDeDeclaracionesSintaxis = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_De_Declaraciones");
 VariablesGlobales.ContadorNodos++;
 
+// Lista De Declaraciones For 
+var NodoListaDeDeclaracionesFor = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_De_Declaraciones_For");
+VariablesGlobales.ContadorNodos++;
+
 // Expresion
 var NodoExpresion = new NodoArbol(VariablesGlobales.ContadorNodos, "Expresion");
+VariablesGlobales.ContadorNodos++;
+
+// Lista De Parametros
+var NodoListaParametros = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_De_Parametros");
 VariablesGlobales.ContadorNodos++;
 
 // Instrucciones Clase 
 var NodoInstruccionesClase = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_Clase");
 VariablesGlobales.ContadorNodos++;
 
-// Arreglo De Instrucciones Clase 
 var ArregloInstruccionesClase: Array<NodoArbol> = new Array();
+ 
+var ContadorArrayClase = 0;
+
+// Instrucciones Interfaz
+var NodoInstruccionesInterfaz= new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_Interfaz");
+VariablesGlobales.ContadorNodos++;
+
+var ArregloInstruccionesInterfaz: Array<NodoArbol> = new Array();
+ 
+var ContadorArrayInterfaz = 0;
+
+// Instrucciones Funcion
+var NodoInstruccionesFuncion = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_Funcion");
+VariablesGlobales.ContadorNodos++;
+
+var ArregloInstruccionesFuncion: Array<NodoArbol> = new Array();
+ 
+var ContadorArrayFuncion = 0;
+
+// Instrucciones CiclosIf
+var NodoInstruccionesCiclosIf = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_CiclosIf");
+VariablesGlobales.ContadorNodos++;
+
+var ArregloInstruccionesCiclosIf: Array<NodoArbol> = new Array();
+ 
+var ContadorArrayCiclosIf = 0;
 
 // Comienzo Analisis Sintactico 
-export function ArbolSintactico() {
+export function ArbolSintactico(): any {
 	
 	// Indicar Inicio Analizador
 	IndexToken = 0;
@@ -148,10 +181,54 @@ export function ArbolSintactico() {
 	// Nodo Raiz Arbol
 	Raiz = new NodoArbol(VariablesGlobales.ContadorNodos, "Raiz");
 	VariablesGlobales.ContadorNodos++;
+		
+	// Lista De Declaraciones For 
+	NodoListaDeDeclaracionesFor = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_De_Declaraciones_For");
+	VariablesGlobales.ContadorNodos++;	
+		
+	// Lista De Parametros
+	NodoListaParametros = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_De_Parametros");
+	VariablesGlobales.ContadorNodos++;
 	
+	// Expresion
+	NodoExpresion = new NodoArbol(VariablesGlobales.ContadorNodos, "Expresion");
+	VariablesGlobales.ContadorNodos++;
+
 	// Nodo LIsta De Instruccioens
 	NodoListaDeInstruccionesIniciales = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_Iniciales");
 	VariablesGlobales.ContadorNodos++;
+ 
+	// Nodo Lista De Instruccioens Clase 
+	NodoInstruccionesClase = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_Clase");
+	VariablesGlobales.ContadorNodos++; 
+ 
+	ArregloInstruccionesClase = new Array();
+ 
+	ContadorArrayClase = 0;
+	
+	// Nodo LIsta De Instruccioens Interfaz
+	NodoInstruccionesInterfaz = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_Interfaz");
+	VariablesGlobales.ContadorNodos++;
+ 
+	ArregloInstruccionesInterfaz = new Array();
+ 
+	ContadorArrayInterfaz = 0;
+	
+	// Nodo LIsta De Funcion
+	NodoInstruccionesFuncion = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_Funcion");
+	VariablesGlobales.ContadorNodos++;
+ 
+	ArregloInstruccionesFuncion = new Array();
+ 
+	ContadorArrayFuncion = 0;
+	
+	// Instrucciones CiclosIf
+	NodoInstruccionesCiclosIf = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_CiclosIf");
+	VariablesGlobales.ContadorNodos++;
+
+	ArregloInstruccionesCiclosIf = new Array();
+	 
+	ContadorArrayCiclosIf = 0;
 
 	// Inicio Analisis
 	if(ArrayTokens.length > 0) {
@@ -163,7 +240,7 @@ export function ArbolSintactico() {
 	// Formar Grafica 
 	var TxtGrafica = "digraph ArbolSintaticoPY { \n\n    node[color = crimson] \n\n" + Raiz.GenerarTxtGrafica() + "\n\n}";
 	
-	console.log(TxtGrafica);
+	return TxtGrafica;
 	
 }
 
@@ -274,7 +351,13 @@ function InstruccionInicial() {
 	} else {
 		
 		// Errores Sintacticos
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("Una Clase, Interfaz, Declaracion De Variables O Comentarios");
+		
+		NodoListaDeInstruccionesIniciales.ArrayNodos.push(NodoError);
+		
 		Recuperacion = true;
 	
 	}	
@@ -336,8 +419,13 @@ function TipoClase(): any {
 	} else {
 		
 		// Error Sintactico
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("La Palabra class o interface");
 		//Recuperacion = true;
+		
+		return NodoError;
 
 	}
 		
@@ -351,7 +439,7 @@ function Clase(): any {
 	PrincipalParea("Identificador");				
 	PrincipalParea("Simbolo_Llave_Apertura"); 	
 	
-	var NodoClase = new NodoArbol(VariablesGlobales.ContadorNodos, "Clase");
+	var NodoClase = new NodoArbol(VariablesGlobales.ContadorNodos, "Tipo_Clase");
 	VariablesGlobales.ContadorNodos++;
 	
 	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "class");
@@ -370,14 +458,21 @@ function Clase(): any {
 	NodoInstruccionesClase = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_Clase");
 	VariablesGlobales.ContadorNodos++;
 	
+	// Arreglo De Instrucciones Clase 
+	ContadorArrayClase++;
+	
+	ArregloInstruccionesClase[ContadorArrayClase] = NodoInstruccionesClase;
+	
 	ListaInstruccionesClase();	
 	
 	var Sintaxis4 = new NodoArbol(VariablesGlobales.ContadorNodos, "}");
 	VariablesGlobales.ContadorNodos++;
 	
-	NodoClase.ArrayNodos.push(NodoInstruccionesClase);
+	NodoClase.ArrayNodos.push(ArregloInstruccionesClase[ContadorArrayClase]);
 	
 	NodoClase.ArrayNodos.push(Sintaxis4);
+	
+	ContadorArrayClase--;
 	
 	PrincipalParea("Simbolo_Llave_Cierre");  
 
@@ -409,12 +504,24 @@ function Interfaz(): any {
 	NodoInterfaz.ArrayNodos.push(Sintaxis2);
 	NodoInterfaz.ArrayNodos.push(Sintaxis3);
 	
+	NodoInstruccionesInterfaz = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_Interfaz");
+	VariablesGlobales.ContadorNodos++;
+	
+	// Arreglo De Instrucciones Clase 
+	ContadorArrayInterfaz++;
+	
+	ArregloInstruccionesInterfaz[ContadorArrayInterfaz] = NodoInstruccionesInterfaz;	
+	
 	ListaInstruccionesInterfaz();	
 
 	var Sintaxis4 = new NodoArbol(VariablesGlobales.ContadorNodos, "}");
 	VariablesGlobales.ContadorNodos++;
 	
+	NodoInterfaz.ArrayNodos.push(ArregloInstruccionesInterfaz[ContadorArrayInterfaz]);
+	
 	NodoInterfaz.ArrayNodos.push(Sintaxis4);
+	
+	ContadorArrayInterfaz--;
 	
 	PrincipalParea("Simbolo_Llave_Cierre");  
 
@@ -499,8 +606,13 @@ function TipoDeDatos(): any {
 	} else {
 		
 		// Error Sintactico
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("Un Tipo De Dato");
 		// Recuperacion = true;
+		
+		return NodoError;
 		
 	}	
 	
@@ -672,8 +784,13 @@ function Comentarios(): any {
 		
 	} else {
 		
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("Un Tipo De Comentario");
 		//Recuperacion = true;
+		
+		return NodoError;
 		
 	}
 	
@@ -733,7 +850,7 @@ function InstruccionClase() {
 		// Clase O Funcion
 		var NodoDefinicionesClase = DefinicionesClase();
 
-		NodoInstruccionesClase.ArrayNodos.push(NodoDefinicionesClase);
+		ArregloInstruccionesClase[ContadorArrayClase].ArrayNodos.push(NodoDefinicionesClase);
 		
 		Recuperacion = true;
 				
@@ -749,14 +866,17 @@ function InstruccionClase() {
 		// Declaracion
 		var NodoDeclaracionVariables = DeclaracionVariables();
 		
-		NodoInstruccionesClase.ArrayNodos.push(NodoDeclaracionVariables);
+		ArregloInstruccionesClase[ContadorArrayClase].ArrayNodos.push(NodoDeclaracionVariables);
 		
 		Recuperacion = true;
 		
 	} else if (TokenActual.GetTipo() == "Identificador") {	
 		
 		// Declaracion
-		Asignacion();
+		var NodoAsignacion = Asignacion();
+		
+		ArregloInstruccionesClase[ContadorArrayClase].ArrayNodos.push(NodoAsignacion);
+		
 		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Comentario_Unilinea" || TokenActual.GetTipo() == "Comentario_Multilinea") {
@@ -764,7 +884,7 @@ function InstruccionClase() {
 		// Comentarios Unilinea O Multilinea
 		var NodoComentarios = Comentarios();
 		
-		NodoInstruccionesClase.ArrayNodos.push(NodoComentarios);
+		ArregloInstruccionesClase[ContadorArrayClase].ArrayNodos.push(NodoComentarios);
 		
 		Recuperacion = true;
 		
@@ -775,61 +895,171 @@ function InstruccionClase() {
 	} else {
 		
 		// Errores Sintacticos
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("Una Clase, Funcion, Declaracion De Variables, Comentarios O Asignacion De Variables");
-		Recuperacion = true;
+		
+		ArregloInstruccionesClase[ContadorArrayClase].ArrayNodos.push(NodoError);
+		
+		Recuperacion = true;		
 	
 	}	
 	
 }
 
 // Asignacion
-function Asignacion() {
+function Asignacion(): any {
 	
 	// Estructura Sintactica
-	Traducir = true;
-	Traduccion_Total += AgregarIdentacion();
+	AgregarValor = true;	
+	
+	var NodoAsignacion = new NodoArbol(VariablesGlobales.ContadorNodos, "Asignacion");
+	VariablesGlobales.ContadorNodos++;
+	
 	PrincipalParea("Identificador");
-	TipoAsignacion();
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, ValorString);
+	VariablesGlobales.ContadorNodos++;
+	
+	var Sintaxis2 = TipoAsignacion();
+	
+	Sintaxis2.ArrayNodos.unshift(Sintaxis1);
+	
+	NodoAsignacion.ArrayNodos.push(Sintaxis2);
+
+	return NodoAsignacion;
+	
 }
 
 // Tipo Asigancion
-function TipoAsignacion() {
+function TipoAsignacion(): any {
 	
 	// Verificar Si Es Asignacion Normal O ++ O --
 	if(TokenActual.GetTipo() == "Simbolo_Igual") {
 		
 		// Asignacion
-		PrincipalParea("Simbolo_Igual");		Traduccion_Total += " = ";
+		var NodoTipoAsignacion = new NodoArbol(VariablesGlobales.ContadorNodos, "Asignacion_Simple");
+		VariablesGlobales.ContadorNodos++;	
+		
+		PrincipalParea("Simbolo_Igual");	
+		
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "=");
+		VariablesGlobales.ContadorNodos++;
+		
+		NodoExpresion = new NodoArbol(VariablesGlobales.ContadorNodos, "Expresion");
+		VariablesGlobales.ContadorNodos++;	
+		
 		Expr();
-		PrincipalParea("Simbolo_PuntoYComa");	Traduccion_Total += "\n\n";
+		
+		PrincipalParea("Simbolo_PuntoYComa");	
+		
+		var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+		VariablesGlobales.ContadorNodos++;	
+		
+		NodoTipoAsignacion.ArrayNodos.push(Sintaxis1);
+		NodoTipoAsignacion.ArrayNodos.push(NodoExpresion);		
+		NodoTipoAsignacion.ArrayNodos.push(Sintaxis2);
+		
+		return NodoTipoAsignacion;
 		
 	} else if (TokenActual.GetTipo() == "Simbolo_Mas") {
 		
+		var NodoTipoAsignacion = new NodoArbol(VariablesGlobales.ContadorNodos, "Incremento");
+		VariablesGlobales.ContadorNodos++;	
+		
 		// Incremento
-		PrincipalParea("Simbolo_Mas");			
-		PrincipalParea("Simbolo_Mas");			Traduccion_Total += " += 1";
-		PrincipalParea("Simbolo_PuntoYComa");	Traduccion_Total += "\n\n";
+		PrincipalParea("Simbolo_Mas");
+
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "+");
+		VariablesGlobales.ContadorNodos++;
+		
+		PrincipalParea("Simbolo_Mas");		
+
+		var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, "+");
+		VariablesGlobales.ContadorNodos++;
+		
+		PrincipalParea("Simbolo_PuntoYComa");
+		
+		var Sintaxis3 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+		VariablesGlobales.ContadorNodos++;
+		
+		NodoTipoAsignacion.ArrayNodos.push(Sintaxis1);
+		NodoTipoAsignacion.ArrayNodos.push(Sintaxis2);		
+		NodoTipoAsignacion.ArrayNodos.push(Sintaxis3);
+		
+		return NodoTipoAsignacion;		
 		
 	} else if (TokenActual.GetTipo() == "Simbolo_Menos") {
 		
+		var NodoTipoAsignacion = new NodoArbol(VariablesGlobales.ContadorNodos, "Decremento");
+		VariablesGlobales.ContadorNodos++;	
+		
 		// Decremento
+		PrincipalParea("Simbolo_Menos");
+
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "-");
+		VariablesGlobales.ContadorNodos++;
+		
 		PrincipalParea("Simbolo_Menos");		
-		PrincipalParea("Simbolo_Menos");		Traduccion_Total += " -= 1";
-		PrincipalParea("Simbolo_PuntoYComa");	Traduccion_Total += "\n\n";
+
+		var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, "-");
+		VariablesGlobales.ContadorNodos++;
+		
+		PrincipalParea("Simbolo_PuntoYComa");
+		
+		var Sintaxis3 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+		VariablesGlobales.ContadorNodos++;
+		
+		NodoTipoAsignacion.ArrayNodos.push(Sintaxis1);
+		NodoTipoAsignacion.ArrayNodos.push(Sintaxis2);		
+		NodoTipoAsignacion.ArrayNodos.push(Sintaxis3);
+		
+		return NodoTipoAsignacion;		
 		
 	} else if (TokenActual.GetTipo() == "Simbolo_Parentesis_Apertura") {
 		
+		var NodoTipoAsignacion = new NodoArbol(VariablesGlobales.ContadorNodos, "Llamada_Método");
+		VariablesGlobales.ContadorNodos++;	
+		
 		// Funcion
-		PrincipalParea("Simbolo_Parentesis_Apertura");	Traduccion_Total += "(";
+		PrincipalParea("Simbolo_Parentesis_Apertura");	
+		
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "(");
+		VariablesGlobales.ContadorNodos++;
+		
+		NodoExpresion = new NodoArbol(VariablesGlobales.ContadorNodos, "Expresion");
+		VariablesGlobales.ContadorNodos++;	
+		
 		ValorFuncion();
-		PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ") \n\n";
+		
+		PrincipalParea("Simbolo_Parentesis_Cierre");
+		
+		var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, ")");
+		VariablesGlobales.ContadorNodos++;
+		
 		PrincipalParea("Simbolo_PuntoYComa");
+		
+		var Sintaxis3 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+		VariablesGlobales.ContadorNodos++;
+		
+		NodoTipoAsignacion.ArrayNodos.push(Sintaxis1);
+		NodoTipoAsignacion.ArrayNodos.push(NodoExpresion);		
+		NodoTipoAsignacion.ArrayNodos.push(Sintaxis2);
+		NodoTipoAsignacion.ArrayNodos.push(Sintaxis3);
+		
+		return NodoTipoAsignacion;
 		
 	} else {
 		
 		// Errores Sintacticos
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("Una Asignacion, Incremento, Decremento O Llamada A Una Funcion");
 		//Recuperacion = true;
+		
+		return NodoError;
 	
 	}
 	
@@ -879,13 +1109,19 @@ function InstruccionInterfaz() {
 	if(TokenActual.GetTipo() == "Palabra_Reservada_public") {
 		
 		// Clase O Interfaz
-		DefinicionFunciones(); 
-		Recuperacion = true;
+		var NodoDefinicionFunciones = DefinicionFunciones(); 
+		
+		ArregloInstruccionesInterfaz[ContadorArrayInterfaz].ArrayNodos.push(NodoDefinicionFunciones);
+		
+		Recuperacion = true;		
 				
 	} else if(TokenActual.GetTipo() == "Comentario_Unilinea" || TokenActual.GetTipo() == "Comentario_Multilinea") {
 		
 		// Comentarios Unilinea O Multilinea
-		Comentarios();
+		var NodoComentarios = Comentarios();
+		
+		ArregloInstruccionesInterfaz[ContadorArrayInterfaz].ArrayNodos.push(NodoComentarios);
+		
 		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Fin_De_Cadena") {  
@@ -895,7 +1131,13 @@ function InstruccionInterfaz() {
 	} else {
 		
 		// Errores Sintacticos
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("Una Declaracion De Funcion O Comentarios");
+		
+		ArregloInstruccionesInterfaz[ContadorArrayInterfaz].ArrayNodos.push(NodoError);
+		
 		Recuperacion = true;
 	
 	}	
@@ -903,16 +1145,24 @@ function InstruccionInterfaz() {
 }
 
 // Definicio Funciones
-function DefinicionFunciones() {
+function DefinicionFunciones(): any {
 	
 	// Estructura Lexica
 	PrincipalParea("Palabra_Reservada_public");
-	TipoFuncion();
+	
+	var NodoDeclaracionFuncion = new NodoArbol(VariablesGlobales.ContadorNodos, "Declaracion_De_Funcion");
+	VariablesGlobales.ContadorNodos++;
+	
+	var Sintaxis1 = TipoFuncion();
+	
+	NodoDeclaracionFuncion.ArrayNodos.push(Sintaxis1);
+	
+	return NodoDeclaracionFuncion;
 	
 }
 
 // Definicion Funciones
-function TipoFuncion() { 
+function TipoFuncion(): any { 
 
 	// Verificar Si Es Void O Tipo De Dato
 	if( 
@@ -926,19 +1176,31 @@ function TipoFuncion() {
 		) { 
 		
 		// Funcion Tipo De Dato
-		DeclaracionFuncionTipo();
+		var NodoFuncionTipo = DeclaracionFuncionTipo();
+		
 		Recuperacion = true;
+		
+		return NodoFuncionTipo;
 	
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_void") {
 		
-		DeclaracionFuncionVoid();
+		// Funcion Void
+		var NodoFuncionVoid = DeclaracionFuncionVoid();
+		
 		Recuperacion = true;
+		
+		return NodoFuncionVoid;
 		
 	} else {
 		
 		// Errores Sintacticos
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("La Palabra void o Un Tipo De Dato");
 		//Recuperacion = true;
+		
+		return NodoError;
 		
 	}	 
 
@@ -948,12 +1210,51 @@ function TipoFuncion() {
 function DeclaracionFuncionTipo() {
 	
 	// Estructura Sintactica
-	TipoDeDatos();									Traduccion_Total += AgregarIdentacion() + "def "; Traducir = true;
+	var NodoTipoFuncion = new NodoArbol(VariablesGlobales.ContadorNodos, "Funcion_Tipo_De_Dato");
+	VariablesGlobales.ContadorNodos++;
+	
+	var NodoTipoDeDato = new NodoArbol(VariablesGlobales.ContadorNodos, "Tipo_De_Dato");
+	VariablesGlobales.ContadorNodos++;
+	
+	var Tipo = TipoDeDatos();
+
+	NodoTipoDeDato.ArrayNodos.push(Tipo);
+	
+	AgregarValor = true;	
 	PrincipalParea("Identificador");
-	PrincipalParea("Simbolo_Parentesis_Apertura");	Traduccion_Total += "(";
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, ValorString);
+	VariablesGlobales.ContadorNodos++;		
+	
+	PrincipalParea("Simbolo_Parentesis_Apertura");
+
+	var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, "(");
+	VariablesGlobales.ContadorNodos++;	
+	
+	// Expresion
+	NodoListaParametros = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_De_Parametros");
+	VariablesGlobales.ContadorNodos++;
+	
 	Parametro();
-	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ") \n\n";
+	
+	PrincipalParea("Simbolo_Parentesis_Cierre");	
+	
+	var Sintaxis4 = new NodoArbol(VariablesGlobales.ContadorNodos, ")");
+	VariablesGlobales.ContadorNodos++;		
+	
 	PrincipalParea("Simbolo_PuntoYComa");
+	
+	var Sintaxis5 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+	VariablesGlobales.ContadorNodos++;	
+	
+	NodoTipoFuncion.ArrayNodos.push(NodoTipoDeDato);
+	NodoTipoFuncion.ArrayNodos.push(Sintaxis1);
+	NodoTipoFuncion.ArrayNodos.push(Sintaxis2);
+	NodoTipoFuncion.ArrayNodos.push(NodoListaParametros);
+	NodoTipoFuncion.ArrayNodos.push(Sintaxis4);
+	NodoTipoFuncion.ArrayNodos.push(Sintaxis5);
+	
+	return NodoTipoFuncion;
 	
 }
 
@@ -961,12 +1262,49 @@ function DeclaracionFuncionTipo() {
 function DeclaracionFuncionVoid() {
 	
 	// Estructura Sintactica
-	PrincipalParea("Palabra_Reservada_void");		Traduccion_Total += AgregarIdentacion() + "def "; Traducir = true;
+	var NodoTipoFuncion = new NodoArbol(VariablesGlobales.ContadorNodos, "Funcion_Void");
+	VariablesGlobales.ContadorNodos++;
+	
+	PrincipalParea("Palabra_Reservada_void");
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "void");
+	VariablesGlobales.ContadorNodos++;
+	
+	AgregarValor = true;
 	PrincipalParea("Identificador");
-	PrincipalParea("Simbolo_Parentesis_Apertura");	Traduccion_Total += "(";
+	
+	var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, ValorString);
+	VariablesGlobales.ContadorNodos++;
+	
+	PrincipalParea("Simbolo_Parentesis_Apertura");
+	
+	var Sintaxis3 = new NodoArbol(VariablesGlobales.ContadorNodos, "(");
+	VariablesGlobales.ContadorNodos++;
+	
+	// Expresion
+	NodoListaParametros = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_De_Parametros");
+	VariablesGlobales.ContadorNodos++;
+	
 	Parametro();
-	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ") \n\n";
+	
+	PrincipalParea("Simbolo_Parentesis_Cierre");
+	
+	var Sintaxis5 = new NodoArbol(VariablesGlobales.ContadorNodos, ")");
+	VariablesGlobales.ContadorNodos++;
+	
 	PrincipalParea("Simbolo_PuntoYComa");
+	
+	var Sintaxis6 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoTipoFuncion.ArrayNodos.push(Sintaxis1);
+	NodoTipoFuncion.ArrayNodos.push(Sintaxis2);
+	NodoTipoFuncion.ArrayNodos.push(Sintaxis3);
+	NodoTipoFuncion.ArrayNodos.push(NodoListaParametros);
+	NodoTipoFuncion.ArrayNodos.push(Sintaxis5);
+	NodoTipoFuncion.ArrayNodos.push(Sintaxis6);
+	
+	return NodoTipoFuncion;
 	
 }
 
@@ -988,12 +1326,21 @@ function TipoDefinicionesClase(): any {
 	// Verificar Palabra
 	if(TokenActual.GetTipo() == "Palabra_Reservada_class") {
 		
-		// Clase 		
+		// Clase 
+		var NodoPalabraPublic = new NodoArbol(VariablesGlobales.ContadorNodos, "public");
+		VariablesGlobales.ContadorNodos++;
+		
+		var NodoTipoClase = new NodoArbol(VariablesGlobales.ContadorNodos, "Clase");
+		VariablesGlobales.ContadorNodos++;
+		
 		var NodoClase = Clase();
+		
+		NodoTipoClase.ArrayNodos.push(NodoPalabraPublic);
+		NodoTipoClase.ArrayNodos.push(NodoClase);
 		
 		Recuperacion = true;
 		
-		return NodoClase;
+		return NodoTipoClase;
 		
 	} else if ( TokenActual.GetTipo() == "Palabra_Reservada_int"     ||
 				TokenActual.GetTipo() == "Palabra_Reservada_boolean" ||
@@ -1006,21 +1353,39 @@ function TipoDefinicionesClase(): any {
 				TokenActual.GetTipo() == "Palabra_Reservada_static"
 			) {	
 		
-		// Funcion
-		Funcion();
+		// Funcion 
+		var NodoPalabraPublic = new NodoArbol(VariablesGlobales.ContadorNodos, "public");
+		VariablesGlobales.ContadorNodos++;
+		
+		var NodoTipoClase = new NodoArbol(VariablesGlobales.ContadorNodos, "Funcion");
+		VariablesGlobales.ContadorNodos++;
+		
+		var NodoFuncion = Funcion();
+		
+		NodoTipoClase.ArrayNodos.push(NodoPalabraPublic);
+		NodoTipoClase.ArrayNodos.push(NodoFuncion);
+		
+		Recuperacion = true;
+		
+		return NodoTipoClase;
 		
 	} else {
 		
 		// Errores Sintacticos
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("Se Esperar La Palabra class, void, static O Un Tipo De Dato");
 		//Recuperacion = true;
+		
+		return NodoError;
 		
 	}
 	
 }
 
 // Funcion
-function Funcion() {
+function Funcion(): any {
 	
 	// Verificar Si Es Void O Tipo De Dato
 	if( 
@@ -1034,43 +1399,114 @@ function Funcion() {
 		) { 
 		
 		// Funcion Tipo De Dato
-		FuncionTipoDeDato();
+		var NodoFuncionTipoDeDato = FuncionTipoDeDato();
+			
 		Recuperacion = true;
+	
+		return NodoFuncionTipoDeDato;
 	
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_void") {
 		
 		// Funcion Void 
-		FuncionVoid();
+		var NodoFuncionVoid = FuncionVoid();
+		
 		Recuperacion = true;
+	
+		return NodoFuncionVoid;
 		
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_static") {
 		
 		// Funcion Main
-		FuncionMain();
+		var NodoFuncionMain = FuncionMain();
+		
 		Recuperacion = true;
+	
+		return NodoFuncionMain;
 		
 	} else {
 		
 		// Errores Sintacticos
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("La Palabra void, static O Un Tipo De Dato");
 		//Recuperacion = true;
+		
+		return NodoError;
 		
 	}	 
 	
 }
 
 // Funcion Tipo De Dato
-function FuncionTipoDeDato() {
+function FuncionTipoDeDato(): any {
 	
 	// Estructura Sintactica
-	TipoDeDatos();									Traduccion_Total += AgregarIdentacion() + "def "; Traducir = true;
+	var NodoFuncionTipoDeDato = new NodoArbol(VariablesGlobales.ContadorNodos, "Funcion_Tipo_De_Dato");
+	VariablesGlobales.ContadorNodos++;			
+	
+	var NodoTipoDeDato = new NodoArbol(VariablesGlobales.ContadorNodos, "Tipo_De_Dato");
+	VariablesGlobales.ContadorNodos++;
+	
+	var Tipo = TipoDeDatos();
+
+	NodoTipoDeDato.ArrayNodos.push(Tipo);
+		
+	AgregarValor = true;
 	PrincipalParea("Identificador");
-	PrincipalParea("Simbolo_Parentesis_Apertura");	Traduccion_Total += "(";
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, ValorString);
+	VariablesGlobales.ContadorNodos++;	
+	
+	PrincipalParea("Simbolo_Parentesis_Apertura");
+	
+	var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, "(");
+	VariablesGlobales.ContadorNodos++;
+		
+	// Expresion
+	NodoListaParametros = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_De_Parametros");
+	VariablesGlobales.ContadorNodos++;
+	
 	Parametro();
-	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ")";
-	PrincipalParea("Simbolo_Llave_Apertura");		Traduccion_Total += ":\n\n";	ArrayIdentacion.push(" ");
+		
+	PrincipalParea("Simbolo_Parentesis_Cierre");
+	
+	NodoFuncionTipoDeDato.ArrayNodos.push(NodoTipoDeDato);
+	NodoFuncionTipoDeDato.ArrayNodos.push(Sintaxis1);
+	NodoFuncionTipoDeDato.ArrayNodos.push(Sintaxis2);
+	NodoFuncionTipoDeDato.ArrayNodos.push(NodoListaParametros);
+	
+	var Sintaxis3 = new NodoArbol(VariablesGlobales.ContadorNodos, ")");
+	VariablesGlobales.ContadorNodos++;
+	
+	PrincipalParea("Simbolo_Llave_Apertura");
+	
+	var Sintaxis4 = new NodoArbol(VariablesGlobales.ContadorNodos, "{");
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoInstruccionesFuncion = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_Funcion");
+	VariablesGlobales.ContadorNodos++;
+	
+	// Arreglo De Instrucciones Clase
+	ContadorArrayFuncion++;
+	
+	ArregloInstruccionesFuncion[ContadorArrayFuncion] = NodoInstruccionesFuncion;	
+	
 	ListaInstruccionesFuncion();
-	PrincipalParea("Simbolo_Llave_Cierre");			Traduccion_Total += "\n\n";		ArrayIdentacion.pop();
+	
+	PrincipalParea("Simbolo_Llave_Cierre");			
+	
+	var Sintaxis5 = new NodoArbol(VariablesGlobales.ContadorNodos, "}");
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoFuncionTipoDeDato.ArrayNodos.push(Sintaxis3);
+	NodoFuncionTipoDeDato.ArrayNodos.push(Sintaxis4);
+	NodoFuncionTipoDeDato.ArrayNodos.push(ArregloInstruccionesFuncion[ContadorArrayFuncion]);
+	NodoFuncionTipoDeDato.ArrayNodos.push(Sintaxis5);	
+	
+	ContadorArrayFuncion--;
+	
+	return NodoFuncionTipoDeDato;
 	
 }
 
@@ -1078,14 +1514,69 @@ function FuncionTipoDeDato() {
 function FuncionVoid() {
 	
 	// Estructura Sintactica
-	PrincipalParea("Palabra_Reservada_void");		Traduccion_Total += AgregarIdentacion() + "def "; Traducir = true;
+	var NodoFuncionVoid = new NodoArbol(VariablesGlobales.ContadorNodos, "Funcion_Void");
+	VariablesGlobales.ContadorNodos++;	
+	
+	PrincipalParea("Palabra_Reservada_void");	
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "void");
+	VariablesGlobales.ContadorNodos++;
+	
+	AgregarValor = true;
 	PrincipalParea("Identificador");
-	PrincipalParea("Simbolo_Parentesis_Apertura");	Traduccion_Total += "(";
+	
+	var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, ValorString);
+	VariablesGlobales.ContadorNodos++;
+	
+	PrincipalParea("Simbolo_Parentesis_Apertura");	
+	
+	var Sintaxis3 = new NodoArbol(VariablesGlobales.ContadorNodos, "(");
+	VariablesGlobales.ContadorNodos++;
+	
+	// Expresion
+	NodoListaParametros = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_De_Parametros");
+	VariablesGlobales.ContadorNodos++;
+	
 	Parametro();
-	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ")";
-	PrincipalParea("Simbolo_Llave_Apertura");		Traduccion_Total += ":\n\n ";	ArrayIdentacion.push(" ");
-	ListaInstruccionesFuncion();
-	PrincipalParea("Simbolo_Llave_Cierre");			Traduccion_Total += "\n\n";		ArrayIdentacion.pop();
+	
+	PrincipalParea("Simbolo_Parentesis_Cierre");	
+	
+	NodoFuncionVoid.ArrayNodos.push(Sintaxis1);	
+	NodoFuncionVoid.ArrayNodos.push(Sintaxis2);	
+	NodoFuncionVoid.ArrayNodos.push(Sintaxis3);	
+	NodoFuncionVoid.ArrayNodos.push(NodoListaParametros);
+	
+	var Sintaxis4 = new NodoArbol(VariablesGlobales.ContadorNodos, ")");
+	VariablesGlobales.ContadorNodos++;
+	
+	PrincipalParea("Simbolo_Llave_Apertura");
+	
+	var Sintaxis5 = new NodoArbol(VariablesGlobales.ContadorNodos, "{");
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoInstruccionesFuncion = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_Funcion");
+	VariablesGlobales.ContadorNodos++;
+	
+	// Arreglo De Instrucciones Clase 
+	ContadorArrayFuncion++;
+	
+	ArregloInstruccionesFuncion[ContadorArrayFuncion] = NodoInstruccionesFuncion;	
+	
+	ListaInstruccionesFuncion();	
+	
+	PrincipalParea("Simbolo_Llave_Cierre");
+	
+	var Sintaxis6 = new NodoArbol(VariablesGlobales.ContadorNodos, "}");
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoFuncionVoid.ArrayNodos.push(Sintaxis4);	
+	NodoFuncionVoid.ArrayNodos.push(Sintaxis5);
+	NodoFuncionVoid.ArrayNodos.push(ArregloInstruccionesFuncion[ContadorArrayFuncion]);
+	NodoFuncionVoid.ArrayNodos.push(Sintaxis6);	
+	
+	ContadorArrayFuncion--;
+	
+	return NodoFuncionVoid;
 	
 }
 
@@ -1118,8 +1609,23 @@ function Parametro() {
 function ParametroSintaxis() {
 	
 	// Estructura Sintatica
-	TipoDeDatos();						Traducir = true;
+	var NodoTipoDeDato = new NodoArbol(VariablesGlobales.ContadorNodos, "Tipo_De_Dato");
+	VariablesGlobales.ContadorNodos++;
+	
+	var Tipo = TipoDeDatos();
+
+	NodoTipoDeDato.ArrayNodos.push(Tipo);
+	
+	NodoListaParametros.ArrayNodos.push(NodoTipoDeDato);
+
+	AgregarValor = true;
 	PrincipalParea("Identificador");
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, ValorString);
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoListaParametros.ArrayNodos.push(Sintaxis1);
+	
 	ListaParametros();
 	
 }
@@ -1145,9 +1651,30 @@ function ListaParametros() {
 function ListaParametrosSintaxis() {
 	
 	// Estructura Sintactica
-	PrincipalParea("Simbolo_Coma");		Traduccion_Total += ", "; 
-	TipoDeDatos();						Traducir = true;
+	PrincipalParea("Simbolo_Coma");
+
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, ",");
+	VariablesGlobales.ContadorNodos++;
+
+	NodoListaParametros.ArrayNodos.push(Sintaxis1);	
+	
+	var NodoTipoDeDato = new NodoArbol(VariablesGlobales.ContadorNodos, "Tipo_De_Dato");
+	VariablesGlobales.ContadorNodos++;
+	
+	var Tipo = TipoDeDatos();
+
+	NodoTipoDeDato.ArrayNodos.push(Tipo);
+	
+	NodoListaParametros.ArrayNodos.push(NodoTipoDeDato);
+
+	AgregarValor  = true;
 	PrincipalParea("Identificador");
+	
+	var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, ValorString);
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoListaParametros.ArrayNodos.push(Sintaxis2);
+	
 	ListaParametros();	
 	
 }
@@ -1156,18 +1683,90 @@ function ListaParametrosSintaxis() {
 function FuncionMain() {
 	
 	// Estructura Sintactica
+	var NodoFuncionMain = new NodoArbol(VariablesGlobales.ContadorNodos, "Funcion_Main");
+	VariablesGlobales.ContadorNodos++;	
+		
 	PrincipalParea("Palabra_Reservada_static");
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "static");
+	VariablesGlobales.ContadorNodos++;
+	
 	PrincipalParea("Palabra_Reservada_void");
-	PrincipalParea("Palabra_Reservada_main");		
+	
+	var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, "void");
+	VariablesGlobales.ContadorNodos++;
+	
+	PrincipalParea("Palabra_Reservada_main");
+
+	var Sintaxis3 = new NodoArbol(VariablesGlobales.ContadorNodos, "main");
+	VariablesGlobales.ContadorNodos++;
+	
 	PrincipalParea("Simbolo_Parentesis_Apertura");
+	
+	var Sintaxis4 = new NodoArbol(VariablesGlobales.ContadorNodos, "(");
+	VariablesGlobales.ContadorNodos++;
+	
 	PrincipalParea("Palabra_Reservada_String");
+	
+	var Sintaxis5 = new NodoArbol(VariablesGlobales.ContadorNodos, "String");
+	VariablesGlobales.ContadorNodos++;
+	
 	PrincipalParea("Simbolo_Corchete_Apertura");
+	
+	var Sintaxis6 = new NodoArbol(VariablesGlobales.ContadorNodos, "[");
+	VariablesGlobales.ContadorNodos++;
+	
 	PrincipalParea("Simbolo_Corchete_Cierre");
+	
+	var Sintaxis7 = new NodoArbol(VariablesGlobales.ContadorNodos, "]");
+	VariablesGlobales.ContadorNodos++;
+	
 	PrincipalParea("Palabra_Reservada_args");
-	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += AgregarIdentacion() + "def main():\n\n"; Main = true;	
-	PrincipalParea("Simbolo_Llave_Apertura"); 		ArrayIdentacion.push(" ");
-	ListaInstruccionesFuncion();
-	PrincipalParea("Simbolo_Llave_Cierre");			ArrayIdentacion.pop();				
+	
+	var Sintaxis8 = new NodoArbol(VariablesGlobales.ContadorNodos, "args");
+	VariablesGlobales.ContadorNodos++;
+	
+	PrincipalParea("Simbolo_Parentesis_Cierre");
+
+	var Sintaxis9 = new NodoArbol(VariablesGlobales.ContadorNodos, ")");
+	VariablesGlobales.ContadorNodos++;
+	
+	PrincipalParea("Simbolo_Llave_Apertura"); 
+	
+	var Sintaxis10 = new NodoArbol(VariablesGlobales.ContadorNodos, "{");
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoInstruccionesFuncion = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_Funcion");
+	VariablesGlobales.ContadorNodos++;
+	
+	// Arreglo De Instrucciones Clase 
+	ContadorArrayFuncion++;
+	
+	ArregloInstruccionesFuncion[ContadorArrayFuncion] = NodoInstruccionesFuncion;	
+	
+	ListaInstruccionesFuncion();	
+	
+	PrincipalParea("Simbolo_Llave_Cierre");	
+	
+	var Sintaxis11 = new NodoArbol(VariablesGlobales.ContadorNodos, "}");
+	VariablesGlobales.ContadorNodos++;	
+
+	NodoFuncionMain.ArrayNodos.push(Sintaxis1);	
+	NodoFuncionMain.ArrayNodos.push(Sintaxis2);	
+	NodoFuncionMain.ArrayNodos.push(Sintaxis3);	
+	NodoFuncionMain.ArrayNodos.push(Sintaxis4);	
+	NodoFuncionMain.ArrayNodos.push(Sintaxis5);	
+	NodoFuncionMain.ArrayNodos.push(Sintaxis6);	
+	NodoFuncionMain.ArrayNodos.push(Sintaxis7);	
+	NodoFuncionMain.ArrayNodos.push(Sintaxis8);	
+	NodoFuncionMain.ArrayNodos.push(Sintaxis9);	
+	NodoFuncionMain.ArrayNodos.push(Sintaxis10);	
+	NodoFuncionMain.ArrayNodos.push(ArregloInstruccionesFuncion[ContadorArrayFuncion]);	
+	NodoFuncionMain.ArrayNodos.push(Sintaxis11);	
+	
+	ContadorArrayFuncion--;	
+	
+	return NodoFuncionMain;
 	
 }
 
@@ -1228,31 +1827,46 @@ function InstruccionFuncion() {
 	if(TokenActual.GetTipo() == "Palabra_Reservada_System") {
 		
 		// Print
-		Print();
+		var NodoPrint = Print();
+		
+		ArregloInstruccionesFuncion[ContadorArrayFuncion].ArrayNodos.push(NodoPrint);
+		
 		Recuperacion = true; 
 				
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_if") {
 		
 		// If
-		If();
+		var NodoIf = If();
+		
+		ArregloInstruccionesFuncion[ContadorArrayFuncion].ArrayNodos.push(NodoIf);
+		
 		Recuperacion = true; 
 				
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_for") {
 		
 		// For
-		For();
+		var NodoFor = For();
+		
+		ArregloInstruccionesFuncion[ContadorArrayFuncion].ArrayNodos.push(NodoFor);
+		
 		Recuperacion = true; 
 				
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_do") {
 		
 		// Do While
-		DoWhile();
+		var NodoDoWhile = DoWhile();
+		
+		ArregloInstruccionesFuncion[ContadorArrayFuncion].ArrayNodos.push(NodoDoWhile);
+		
 		Recuperacion = true; 
 				
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_while") {
 		
 		// While
-		While();
+		var NodoWhile = While();
+		
+		ArregloInstruccionesFuncion[ContadorArrayFuncion].ArrayNodos.push(NodoWhile);
+		
 		Recuperacion = true; 
 				
 	} else if(
@@ -1268,31 +1882,46 @@ function InstruccionFuncion() {
 		) {
 		
 		// While
-		DeclaracionVariables();
+		var NodoDeclaracionDeVaraibles = DeclaracionVariables();
+		
+		ArregloInstruccionesFuncion[ContadorArrayFuncion].ArrayNodos.push(NodoDeclaracionDeVaraibles);
+		
 		Recuperacion = true; 
 				
 	} else if(TokenActual.GetTipo() == "Comentario_Unilinea" || TokenActual.GetTipo() == "Comentario_Multilinea") {
 		
 		// Comentarios Unilinea O Multilinea
-		Comentarios();
+		var NodoComentario = Comentarios();
+		
+		ArregloInstruccionesFuncion[ContadorArrayFuncion].ArrayNodos.push(NodoComentario);
+		
 		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Identificador") {
 		
 		// Asignacion
-		Asignacion();
+		var NodoAsignacion = Asignacion();
+		
+		ArregloInstruccionesFuncion[ContadorArrayFuncion].ArrayNodos.push(NodoAsignacion);
+		
 		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_return") {
 		
 		// Sentencia Return
-		Return();
+		var NodoReturn = Return();
+		
+		ArregloInstruccionesFuncion[ContadorArrayFuncion].ArrayNodos.push(NodoReturn);
+		
 		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_public") {
 		
 		// Funciones
-		FuncionAnidada();
+		var NodoFuncionAnidada = FuncionAnidada(); 
+		
+		ArregloInstruccionesFuncion[ContadorArrayFuncion].ArrayNodos.push(NodoFuncionAnidada);
+		
 		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Fin_De_Cadena") {  
@@ -1302,7 +1931,13 @@ function InstruccionFuncion() {
 	} else {
 		
 		// Errores Sintacticos
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("Una Funcion, Tipo De Ciclo, Asignacion, Declaracion De Variables, Comentarios, If, Print O Un Retorno");
+		
+		ArregloInstruccionesFuncion[ContadorArrayFuncion].ArrayNodos.push(NodoError);
+		
 		Recuperacion = true;
 	
 	}
@@ -1310,150 +1945,397 @@ function InstruccionFuncion() {
 }
 
 // Print
-function Print() {
+function Print(): any {
+	
+	// Estructura Sintactica
+	var NodoPrint = new NodoArbol(VariablesGlobales.ContadorNodos, "Print");
+	VariablesGlobales.ContadorNodos++;	
 	
 	PrincipalParea("Palabra_Reservada_System");
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "System");
+	VariablesGlobales.ContadorNodos++; 
+	
 	PrincipalParea("Simbolo_Punto");
+	
+	var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, ".");
+	VariablesGlobales.ContadorNodos++; 
+	
 	PrincipalParea("Palabra_Reservada_out");
+	
+	var Sintaxis3 = new NodoArbol(VariablesGlobales.ContadorNodos, "out");
+	VariablesGlobales.ContadorNodos++; 
+	
 	PrincipalParea("Simbolo_Punto");
-	TipoPrint();
-	PrincipalParea("Simbolo_Parentesis_Apertura");	Traduccion_Total += AgregarIdentacion() + "print(";
+	
+	var Sintaxis4 = new NodoArbol(VariablesGlobales.ContadorNodos, ".");
+	VariablesGlobales.ContadorNodos++; 
+	
+	var NodoTipoPrint = TipoPrint();
+	
+	PrincipalParea("Simbolo_Parentesis_Apertura");
+	
+	var Sintaxis5 = new NodoArbol(VariablesGlobales.ContadorNodos, "(");
+	VariablesGlobales.ContadorNodos++; 
+	
+	NodoExpresion = new NodoArbol(VariablesGlobales.ContadorNodos, "Expresion");
+	VariablesGlobales.ContadorNodos++;		
+	
 	Expr();
 	
-	// Tipo De Print
-	if(PrintEnd) {
-			
-		Traduccion_Total += " , end=\"\"";	
-		
-	}
+	PrincipalParea("Simbolo_Parentesis_Cierre");
 	
-	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ") \n\n";
+	var Sintaxis6 = new NodoArbol(VariablesGlobales.ContadorNodos, ")");
+	VariablesGlobales.ContadorNodos++; 
+	
 	PrincipalParea("Simbolo_PuntoYComa");
+	
+	var Sintaxis7 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+	VariablesGlobales.ContadorNodos++; 
+	
+	NodoPrint.ArrayNodos.push(Sintaxis1);
+	NodoPrint.ArrayNodos.push(Sintaxis2);
+	NodoPrint.ArrayNodos.push(Sintaxis3);
+	NodoPrint.ArrayNodos.push(Sintaxis4);
+	NodoPrint.ArrayNodos.push(NodoTipoPrint);
+	NodoPrint.ArrayNodos.push(Sintaxis5);
+	NodoPrint.ArrayNodos.push(NodoExpresion);
+	NodoPrint.ArrayNodos.push(Sintaxis6);
+	NodoPrint.ArrayNodos.push(Sintaxis7);
+	
+	return NodoPrint;
 	
 }
 
 // Tipo Print
-function TipoPrint() {
+function TipoPrint(): any {
 	
 	// Verificar Tipo De Print
 	if(TokenActual.GetTipo() == "Palabra_Reservada_println") {
 		
-		PrincipalParea("Palabra_Reservada_println");	PrintEnd = false;	
+		PrincipalParea("Palabra_Reservada_println");
+		
+		var NodoTipoPrint = new NodoArbol(VariablesGlobales.ContadorNodos, "Tipo_Print");
+		VariablesGlobales.ContadorNodos++; 
+		
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "println");
+		VariablesGlobales.ContadorNodos++; 
+		
+		NodoTipoPrint.ArrayNodos.push(Sintaxis1);
+		
+		return NodoTipoPrint;
 		
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_print") {
 		
-		PrincipalParea("Palabra_Reservada_print");		PrintEnd = true;
+		PrincipalParea("Palabra_Reservada_print");	
+		
+		var NodoTipoPrint = new NodoArbol(VariablesGlobales.ContadorNodos, "Tipo_Print");
+		VariablesGlobales.ContadorNodos++; 
+		
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "print");
+		VariablesGlobales.ContadorNodos++; 
+		
+		NodoTipoPrint.ArrayNodos.push(Sintaxis1);
+		
+		return NodoTipoPrint;
 		
 	} else {
 		
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		PrincipalParea("La Palabra print O println");
 		//Recuperacion = true;
+		
+		return NodoError;
 		
 	}
 	
 }
 
 // If 
-function If() {
+function If(): any {
 	
 	// Estructura Sintactica	
 	if(EsDoWhile && !Recuperacion) { Recuperacion = true; }
 	
-	PrincipalParea("Palabra_Reservada_if");			
+	var NodoIf = new NodoArbol(VariablesGlobales.ContadorNodos, "Sentencia_If");
+	VariablesGlobales.ContadorNodos++;	
 	
-	// Verficar Si Es If O Else If
-	if(ElseIf) {
-		
-		Traduccion_Total += AgregarIdentacion() + "elif ";
-		
-	} else {
-		
-		Traduccion_Total += AgregarIdentacion() + "if ";
-		
-	}
+	PrincipalParea("Palabra_Reservada_if");	
+
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "if");
+	VariablesGlobales.ContadorNodos++;		
 	
 	PrincipalParea("Simbolo_Parentesis_Apertura");
+	
+	var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, "(");
+	VariablesGlobales.ContadorNodos++;	
+	
+	NodoExpresion = new NodoArbol(VariablesGlobales.ContadorNodos, "Expresion");
+	VariablesGlobales.ContadorNodos++;
+	
 	Expr();
+	
+	NodoIf.ArrayNodos.push(Sintaxis1);
+	NodoIf.ArrayNodos.push(Sintaxis2);
+	NodoIf.ArrayNodos.push(NodoExpresion);
+	
 	PrincipalParea("Simbolo_Parentesis_Cierre");
-	PrincipalParea("Simbolo_Llave_Apertura");		Traduccion_Total += " :\n\n"; 	ArrayIdentacion.push(" ");
-	ListaInstruccionesCiclosIf();	
-	PrincipalParea("Simbolo_Llave_Cierre");			Traduccion_Total += "\n\n";		ArrayIdentacion.pop();
+	
+	var Sintaxis3 = new NodoArbol(VariablesGlobales.ContadorNodos, ")");
+	VariablesGlobales.ContadorNodos++;
+	
+	PrincipalParea("Simbolo_Llave_Apertura");	
+	
+	var Sintaxis4 = new NodoArbol(VariablesGlobales.ContadorNodos, "{");
+	VariablesGlobales.ContadorNodos++;
+	
+	// Lista De Instruciones CiclosIf
+	NodoInstruccionesCiclosIf = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_CiclosIf");
+	VariablesGlobales.ContadorNodos++;
+	
+	ContadorArrayCiclosIf++;
+	
+	ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf] = NodoInstruccionesCiclosIf;
+	
+	ListaInstruccionesCiclosIf();
+	
+	PrincipalParea("Simbolo_Llave_Cierre");	
+	
+	var Sintaxis5 = new NodoArbol(VariablesGlobales.ContadorNodos, "}");
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoIf.ArrayNodos.push(Sintaxis3);
+	NodoIf.ArrayNodos.push(Sintaxis4);
+	NodoIf.ArrayNodos.push(ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf]);
+	
+	ContadorArrayCiclosIf--;
+	
 	ElseIf = false;
-	Else();
+	var NodoElse = Else();		
+	
+	NodoIf.ArrayNodos.push(Sintaxis5);
+	
+	if(NodoElse != null) {
+		
+		NodoIf.ArrayNodos.push(NodoElse);
+		
+	}	
+		
+	return NodoIf;
 
 }
 
 // Else 
-function Else() {
+function Else(): any {
 	
 	if(TokenActual.GetTipo() == "Palabra_Reservada_else") {
 		
 		// Estructura Sintactica
 		PrincipalParea("Palabra_Reservada_else");
-		TipoElse();
+		
+		var NodoTipoElse = TipoElse();
+		
+		return NodoTipoElse;
 		
 	} else {
 		
 		// Vacios / Epsilon
+		return null;
 		
 	}
 	
 }
 
 // Tipo De Else 
-function TipoElse() {
+function TipoElse(): any {
 	
 	// Verificar Si Es Else If O Else
 	if(TokenActual.GetTipo() == "Simbolo_Llave_Apertura") {
 		
 		// Estructura Sintactica
-		PrincipalParea("Simbolo_Llave_Apertura");	Traduccion_Total += AgregarIdentacion() + "else:\n\n"; ArrayIdentacion.push(" ");	
+		var NodoTipoElse = new NodoArbol(VariablesGlobales.ContadorNodos, "Tipo_Else");
+		VariablesGlobales.ContadorNodos++;
+		
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "else");
+		VariablesGlobales.ContadorNodos++;
+		
+		PrincipalParea("Simbolo_Llave_Apertura");
+
+		var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, "{");
+		VariablesGlobales.ContadorNodos++;	
+
+		// Lista De Instruciones CiclosIf
+		NodoInstruccionesCiclosIf = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_CiclosIf");
+		VariablesGlobales.ContadorNodos++;
+		
+		ContadorArrayCiclosIf++;
+		
+		ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf] = NodoInstruccionesCiclosIf;
+		
 		ListaInstruccionesCiclosIf();
-		PrincipalParea("Simbolo_Llave_Cierre");		Traduccion_Total += "\n\n";	ArrayIdentacion.pop();
+		
+		PrincipalParea("Simbolo_Llave_Cierre");
+		
+		var Sintaxis3 = new NodoArbol(VariablesGlobales.ContadorNodos, "}");
+		VariablesGlobales.ContadorNodos++;
+		
+		NodoTipoElse.ArrayNodos.push(Sintaxis1);
+		NodoTipoElse.ArrayNodos.push(Sintaxis2);
+		NodoTipoElse.ArrayNodos.push(ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf]);
+		NodoTipoElse.ArrayNodos.push(Sintaxis3);
+		
+		ContadorArrayCiclosIf--;
+		
+		return NodoTipoElse;
 		
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_if") {
 		
 		// Estructura Sintactica
 		ElseIf = true;
-		If();		
+		
+		var NodoTipoElse = new NodoArbol(VariablesGlobales.ContadorNodos, "Tipo_Else");
+		VariablesGlobales.ContadorNodos++;
+		
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "else");
+		VariablesGlobales.ContadorNodos++;
+		
+		var NodoElseIf = If();	
+
+		NodoTipoElse.ArrayNodos.push(Sintaxis1);
+		NodoTipoElse.ArrayNodos.push(NodoElseIf);
+		
+		return NodoTipoElse;		
 		
 	} else {
 		
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		PrincipalParea("La Palabra if O Llave De Apertura");
 		//Recuperacion = true;
+		
+		return NodoError;
 		
 	}
 	
 }
 
 // For 
-function For() {
+function For(): any {
 	
 	// Estructura Sintactica
 	if(EsDoWhile && !Recuperacion) { Recuperacion = true; }
 	
-	PrincipalParea("Palabra_Reservada_for");		Traduccion_Total += AgregarIdentacion() + "for ";
+	var NodoFor = new NodoArbol(VariablesGlobales.ContadorNodos, "Sentencia_For");
+	VariablesGlobales.ContadorNodos++;	
+	
+	PrincipalParea("Palabra_Reservada_for");
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "for");
+	VariablesGlobales.ContadorNodos++;	
+	
 	PrincipalParea("Simbolo_Parentesis_Apertura");	
-	DeclaracionFor();								Traduccion_Total += ", ";
-	Expr();												
-	PrincipalParea("Simbolo_PuntoYComa");			EsFor = true;
-	Expr();											Traduccion_Total += "):\n\n";	EsFor = false; ContadorFor = 0;			
+	
+	var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, "(");
+	VariablesGlobales.ContadorNodos++;	
+	
+	var NodoDeclaracion = DeclaracionFor();
+	
+	NodoExpresion = new NodoArbol(VariablesGlobales.ContadorNodos, "Expresion");
+	VariablesGlobales.ContadorNodos++;
+	
+	Expr();
+	
+	NodoFor.ArrayNodos.push(Sintaxis1);
+	NodoFor.ArrayNodos.push(Sintaxis2);
+	NodoFor.ArrayNodos.push(NodoDeclaracion);
+	NodoFor.ArrayNodos.push(NodoExpresion);
+	
+	PrincipalParea("Simbolo_PuntoYComa");	
+	
+	var Sintaxis3 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+	VariablesGlobales.ContadorNodos++;	
+	
+	NodoExpresion = new NodoArbol(VariablesGlobales.ContadorNodos, "Expresion");
+	VariablesGlobales.ContadorNodos++;
+	
+	Expr();
+	
+	NodoFor.ArrayNodos.push(Sintaxis3);
+	NodoFor.ArrayNodos.push(NodoExpresion);
+	
 	PrincipalParea("Simbolo_Parentesis_Cierre");	
-	PrincipalParea("Simbolo_Llave_Apertura");		ArrayIdentacion.push(" ");
-	ListaInstruccionesCiclosIf(); 
-	PrincipalParea("Simbolo_Llave_Cierre");			ArrayIdentacion.pop();
+	
+	var Sintaxis4 = new NodoArbol(VariablesGlobales.ContadorNodos, ")");
+	VariablesGlobales.ContadorNodos++;	
+	
+	PrincipalParea("Simbolo_Llave_Apertura");	
+	
+	var Sintaxis5 = new NodoArbol(VariablesGlobales.ContadorNodos, "{");
+	VariablesGlobales.ContadorNodos++;	
+	
+	NodoFor.ArrayNodos.push(Sintaxis4);
+	NodoFor.ArrayNodos.push(Sintaxis5);
+	
+	// Lista De Instruciones CiclosIf
+	NodoInstruccionesCiclosIf = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_CiclosIf");
+	VariablesGlobales.ContadorNodos++;
+	
+	ContadorArrayCiclosIf++;
+	
+	ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf] = NodoInstruccionesCiclosIf;
+	
+	ListaInstruccionesCiclosIf();
+	
+	PrincipalParea("Simbolo_Llave_Cierre");		
+	
+	var Sintaxis6 = new NodoArbol(VariablesGlobales.ContadorNodos, "}");
+	VariablesGlobales.ContadorNodos++;	
+	
+	NodoFor.ArrayNodos.push(ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf]);
+	NodoFor.ArrayNodos.push(Sintaxis6);
+	
+	ContadorArrayCiclosIf--;
+	
+	return NodoFor;
 	
 }
 
 // Declaracion For
-function DeclaracionFor() {
+function DeclaracionFor(): any {
 	
 	// Estructura Sintactica
-	TipoDeDatos();							Traducir = true;
-	PrincipalParea("Identificador");		Traduccion_Total += " in range(";
+	var NodoDeclaracionFor = new NodoArbol(VariablesGlobales.ContadorNodos, "Declaracion_For");
+	VariablesGlobales.ContadorNodos++;
+	
+	var NodoTipoDeDato = TipoDeDatos();	
+	
+	AgregarValor = true;
+	PrincipalParea("Identificador");	
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, ValorString);
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoListaDeDeclaracionesFor = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_De_Declaraciones_For");
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoListaDeDeclaracionesFor.ArrayNodos.push(Sintaxis1);
+	
 	AsignacionDeclaracionFor();
 	ListaDeDeclaracionesFor();
-	PrincipalParea("Simbolo_PuntoYComa");	
+	
+	PrincipalParea("Simbolo_PuntoYComa");
+
+	var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+	VariablesGlobales.ContadorNodos++;	
+	
+	NodoDeclaracionFor.ArrayNodos.push(NodoTipoDeDato);
+	NodoDeclaracionFor.ArrayNodos.push(NodoListaDeDeclaracionesFor);
+	NodoDeclaracionFor.ArrayNodos.push(Sintaxis2);
+	
+	return NodoDeclaracionFor;
 	
 }
 
@@ -1478,8 +2360,21 @@ function ListaDeDeclaracionesFor() {
 function ListaDeDeclaracionesSintaxisFor() {
 	
 	// Estructura Sintactica
-	PrincipalParea("Simbolo_Coma");		
+	PrincipalParea("Simbolo_Coma");
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, ",");
+	VariablesGlobales.ContadorNodos++;
+
+	NodoListaDeDeclaracionesFor.ArrayNodos.push(Sintaxis1);
+	
+	AgregarValor = true;
 	PrincipalParea("Identificador");	
+	
+	var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, ValorString);
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoListaDeDeclaracionesFor.ArrayNodos.push(Sintaxis2);
+	
 	AsignacionDeclaracionFor();
 	ListaDeDeclaracionesFor();
 	
@@ -1506,92 +2401,240 @@ function AsignacionDeclaracionFor() {
 function AsignacionDeclaracionSintaxisFor() {
 	
 	// Estructura Sintactica
-	PrincipalParea("Simbolo_Igual"); if(ContadorFor >= 1) {  EsFor = true;  }	
+	PrincipalParea("Simbolo_Igual"); 
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "=");
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoExpresion = new NodoArbol(VariablesGlobales.ContadorNodos, "Expresion");
+	VariablesGlobales.ContadorNodos++;
+	
 	Expr();
-	ContadorFor++; 
-	EsFor = false;
+	
+	NodoListaDeDeclaracionesFor.ArrayNodos.push(Sintaxis1);
+	NodoListaDeDeclaracionesFor.ArrayNodos.push(NodoExpresion);
 	
 }
 
 // Do While 
-function DoWhile() {
+function DoWhile(): any {
 	
 	// Estructura Sintactica 
 	EsDoWhile = true;	
 	
 	if(EsDoWhile && !Recuperacion) { Recuperacion = true; }
 	
-	PrincipalParea("Palabra_Reservada_do");			Traduccion_Total += AgregarIdentacion() + "while True :\n\n";	
-	PrincipalParea("Simbolo_Llave_Apertura");		ArrayIdentacion.push(" ");
-	ListaInstruccionesCiclosIf();  
-	PrincipalParea("Simbolo_Llave_Cierre");			Traduccion_Total += AgregarIdentacion() + "if "; ArrayIdentacion.pop();
-	PrincipalParea("Palabra_Reservada_while");		
+	var NodoDoWhile = new NodoArbol(VariablesGlobales.ContadorNodos, "Sentencia_DoWhile");
+	VariablesGlobales.ContadorNodos++;	
+	
+	PrincipalParea("Palabra_Reservada_do");	
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "do");
+	VariablesGlobales.ContadorNodos++;
+	
+	PrincipalParea("Simbolo_Llave_Apertura");	
+	
+	var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, "{");
+	VariablesGlobales.ContadorNodos++;
+	
+	// Lista De Instruciones CiclosIf
+	NodoInstruccionesCiclosIf = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_CiclosIf");
+	VariablesGlobales.ContadorNodos++;
+	
+	ContadorArrayCiclosIf++;
+	
+	ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf] = NodoInstruccionesCiclosIf;
+	
+	ListaInstruccionesCiclosIf(); 
+	
+	PrincipalParea("Simbolo_Llave_Cierre");
+	
+	NodoDoWhile.ArrayNodos.push(Sintaxis1);
+	NodoDoWhile.ArrayNodos.push(Sintaxis2);
+	NodoDoWhile.ArrayNodos.push(ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf]);
+	
+	ContadorArrayCiclosIf--;	
+	
+	var Sintaxis3 = new NodoArbol(VariablesGlobales.ContadorNodos, "}");
+	VariablesGlobales.ContadorNodos++;
+	
+	PrincipalParea("Palabra_Reservada_while");	
+
+	var Sintaxis4 = new NodoArbol(VariablesGlobales.ContadorNodos, "while");
+	VariablesGlobales.ContadorNodos++;
+	
 	PrincipalParea("Simbolo_Parentesis_Apertura");  
+	
+	var Sintaxis5 = new NodoArbol(VariablesGlobales.ContadorNodos, "(");
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoExpresion = new NodoArbol(VariablesGlobales.ContadorNodos, "Expresion");
+	VariablesGlobales.ContadorNodos++;
+	
 	Expr();
-	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ":\n\n"; ArrayIdentacion.push(" "); ArrayIdentacion.push(" "); 
-	PrincipalParea("Simbolo_PuntoYComa");			Traduccion_Total += AgregarIdentacion() + "continue\n\n";  ArrayIdentacion.pop(); 
-	Traduccion_Total += AgregarIdentacion() + "else: \n\n"; 
-	ArrayIdentacion.push(" "); 
-	Traduccion_Total += AgregarIdentacion() + "break \n\n";
-	ArrayIdentacion.pop(); 
-	ArrayIdentacion.pop();
-	EsDoWhile = false;
+	
+	NodoDoWhile.ArrayNodos.push(Sintaxis3);
+	NodoDoWhile.ArrayNodos.push(Sintaxis4);
+	NodoDoWhile.ArrayNodos.push(Sintaxis5);
+	NodoDoWhile.ArrayNodos.push(NodoExpresion);
+	
+	PrincipalParea("Simbolo_Parentesis_Cierre");	
+	
+	var Sintaxis6 = new NodoArbol(VariablesGlobales.ContadorNodos, ")");
+	VariablesGlobales.ContadorNodos++;
+	
+	PrincipalParea("Simbolo_PuntoYComa");	
+	
+	var Sintaxis7 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoDoWhile.ArrayNodos.push(Sintaxis6);
+	NodoDoWhile.ArrayNodos.push(Sintaxis7);
+	
+	return NodoDoWhile;
 	
 }
 
 // While 
-function While() {
+function While(): any {
 	
 	// Estructura Sintactica
 	if(EsDoWhile && !Recuperacion) { Recuperacion = true; }
 	
-	PrincipalParea("Palabra_Reservada_while");		Traduccion_Total += AgregarIdentacion() + "while ";
+	var NodoWhile = new NodoArbol(VariablesGlobales.ContadorNodos, "Sentencia_While");
+	VariablesGlobales.ContadorNodos++;	
+	
+	PrincipalParea("Palabra_Reservada_while");
+	
+	var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "while");
+	VariablesGlobales.ContadorNodos++;
+	
 	PrincipalParea("Simbolo_Parentesis_Apertura");	
+	
+	var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, "(");
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoExpresion = new NodoArbol(VariablesGlobales.ContadorNodos, "Expresion");
+	VariablesGlobales.ContadorNodos++;
+	
 	Expr();
-	PrincipalParea("Simbolo_Parentesis_Cierre");	Traduccion_Total += ":\n\n";
-	PrincipalParea("Simbolo_Llave_Apertura");		ArrayIdentacion.push(" ");
-	ListaInstruccionesCiclosIf(); 
-	PrincipalParea("Simbolo_Llave_Cierre");			ArrayIdentacion.pop();
+	
+	NodoWhile.ArrayNodos.push(Sintaxis1);
+	NodoWhile.ArrayNodos.push(Sintaxis2);
+	NodoWhile.ArrayNodos.push(NodoExpresion);
+	
+	PrincipalParea("Simbolo_Parentesis_Cierre");	
+	
+	var Sintaxis3 = new NodoArbol(VariablesGlobales.ContadorNodos, ")");
+	VariablesGlobales.ContadorNodos++;
+	
+	PrincipalParea("Simbolo_Llave_Apertura");
+	
+	var Sintaxis4 = new NodoArbol(VariablesGlobales.ContadorNodos, "{");
+	VariablesGlobales.ContadorNodos++;	
+	
+	// Lista De Instruciones CiclosIf
+	NodoInstruccionesCiclosIf = new NodoArbol(VariablesGlobales.ContadorNodos, "Lista_Instrucciones_CiclosIf");
+	VariablesGlobales.ContadorNodos++;
+	
+	ContadorArrayCiclosIf++;
+	
+	ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf] = NodoInstruccionesCiclosIf;
+	
+	ListaInstruccionesCiclosIf();
+	
+	PrincipalParea("Simbolo_Llave_Cierre");		
+	
+	var Sintaxis5 = new NodoArbol(VariablesGlobales.ContadorNodos, "}");
+	VariablesGlobales.ContadorNodos++;
+	
+	NodoWhile.ArrayNodos.push(Sintaxis3);
+	NodoWhile.ArrayNodos.push(Sintaxis4);
+	NodoWhile.ArrayNodos.push(ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf]);
+	NodoWhile.ArrayNodos.push(Sintaxis5);
+	
+	ContadorArrayCiclosIf--;
+	
+	return NodoWhile;
 	
 }
 
 // Return 
-function Return() {
+function Return(): any {
 	
 	// Estructura Sintactica
-	PrincipalParea("Palabra_Reservada_return");		Traduccion_Total += AgregarIdentacion() + "return ";
-	TipoReturn();
+	PrincipalParea("Palabra_Reservada_return");	
+	
+	var NodoReturn = TipoReturn();
+	
+	return NodoReturn;
 	
 }
 
 // Tipo Return 
-function TipoReturn() {
+function TipoReturn(): any {
 	
 	// Estructura Sintactica 
 	if(TokenActual.GetTipo() == "Simbolo_PuntoYComa") {
 		
-		PrincipalParea("Simbolo_PuntoYComa");	Traduccion_Total += "\n\n";	
+		var NodoReturn = new NodoArbol(VariablesGlobales.ContadorNodos, "Sentencia_Return");
+		VariablesGlobales.ContadorNodos++;	
+		
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "return");
+		VariablesGlobales.ContadorNodos++;
+		
+		PrincipalParea("Simbolo_PuntoYComa");
+		
+		var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+		VariablesGlobales.ContadorNodos++;	
+		
+		NodoReturn.ArrayNodos.push(Sintaxis1);
+		NodoReturn.ArrayNodos.push(Sintaxis2);
+		
+		return NodoReturn;		
 		
 	} else {
 		
+		var NodoReturn = new NodoArbol(VariablesGlobales.ContadorNodos, "Sentencia_Return");
+		VariablesGlobales.ContadorNodos++;	
+		
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "return");
+		VariablesGlobales.ContadorNodos++;	
+		
+		NodoExpresion = new NodoArbol(VariablesGlobales.ContadorNodos, "Expresion");
+		VariablesGlobales.ContadorNodos++;
+		
 		Expr();
-		PrincipalParea("Simbolo_PuntoYComa");	Traduccion_Total += "\n\n";	
+		
+		PrincipalParea("Simbolo_PuntoYComa");
+		
+		var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+		VariablesGlobales.ContadorNodos++;	
+	
+		NodoReturn.ArrayNodos.push(Sintaxis1);
+		NodoReturn.ArrayNodos.push(NodoExpresion);		
+		NodoReturn.ArrayNodos.push(Sintaxis2);
+
+		return NodoReturn;
 	
 	}
 	
 }
 
 // Funcion Anidada
-function FuncionAnidada() {
+function FuncionAnidada(): any {
 	
 	// Estructura Sintactica
 	PrincipalParea("Palabra_Reservada_public");
-	TipoFuncionAnidada();
+	
+	var NodoTipoFuncionAnidada = TipoFuncionAnidada();
+	
+	return NodoTipoFuncionAnidada
 	
 }
 
 // Tipo Funcion Anidada
-function TipoFuncionAnidada() {
+function TipoFuncionAnidada(): any {
 	
 	// Verificar Si Es Void O Tipo De Dato
 	if( 
@@ -1605,20 +2648,49 @@ function TipoFuncionAnidada() {
 		) { 
 		
 		// Funcion Tipo De Dato
-		FuncionTipoDeDato();
+		var NodoFuncion = new NodoArbol(VariablesGlobales.ContadorNodos, "Funcion");
+		VariablesGlobales.ContadorNodos++;
+
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "public");
+		VariablesGlobales.ContadorNodos++;			
+		
+		var Sintaxis3 = FuncionTipoDeDato();
+		
 		Recuperacion = true;
+	
+		NodoFuncion.ArrayNodos.push(Sintaxis1);
+		NodoFuncion.ArrayNodos.push(Sintaxis3);
+			
+		return NodoFuncion;
 	
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_void") {
 		
 		// Funcion Void 
-		FuncionVoid();
+		var NodoFuncion = new NodoArbol(VariablesGlobales.ContadorNodos, "Funcion");
+		VariablesGlobales.ContadorNodos++;
+
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "public");
+		VariablesGlobales.ContadorNodos++;			
+		
+		var Sintaxis2 = FuncionVoid();
+		
 		Recuperacion = true;
+	
+		NodoFuncion.ArrayNodos.push(Sintaxis1);
+		NodoFuncion.ArrayNodos.push(Sintaxis2);
+			
+		return NodoFuncion;
 		
 	} else {
 		
 		// Errores Sintacticos
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("La Palabra void O Un Tipo De Dato");
 		//Recuperacion = true;
+		
+		return NodoError;
 		
 	}	
 	
@@ -1683,31 +2755,46 @@ function InstruccionCiclosIf() {
 	if(TokenActual.GetTipo() == "Palabra_Reservada_System") {
 		
 		// Print
-		Print();
+		var NodoPrint = Print();
+		
+		ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf].ArrayNodos.push(NodoPrint);
+		
 		Recuperacion = true; 
 				
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_if") {
 		
 		// If
-		If();
+		var NodoIf = If();
+		
+		ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf].ArrayNodos.push(NodoIf);
+		
 		Recuperacion = true; 
 				
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_for") {
 		
 		// For
-		For();
+		var NodoFor = For();
+		
+		ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf].ArrayNodos.push(NodoFor);
+		
 		Recuperacion = true; 
 				
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_do") {
 		
 		// Do While
-		DoWhile();
+		var NodoDoWhile = DoWhile();
+		
+		ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf].ArrayNodos.push(NodoDoWhile);
+		
 		Recuperacion = true; 
 				
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_while") {
 		
 		// While
-		While();
+		var NodoWhile = While();
+		
+		ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf].ArrayNodos.push(NodoWhile);
+		
 		Recuperacion = true; 
 				
 	} else if(
@@ -1723,31 +2810,46 @@ function InstruccionCiclosIf() {
 		) {
 		
 		// While
-		DeclaracionVariables();
+		var NodoDeclaracionDeVaraibles = DeclaracionVariables();
+		
+		ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf].ArrayNodos.push(NodoDeclaracionDeVaraibles);
+		
 		Recuperacion = true; 
 				
 	} else if(TokenActual.GetTipo() == "Comentario_Unilinea" || TokenActual.GetTipo() == "Comentario_Multilinea") {
 		
 		// Comentarios Unilinea O Multilinea
-		Comentarios();
+		var NodoComentarios = Comentarios();
+		
+		ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf].ArrayNodos.push(NodoComentarios);
+		
 		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Identificador") {
 		
 		// Asignacion
-		Asignacion();
+		var NodoAsignacion = Asignacion();
+		
+		ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf].ArrayNodos.push(NodoAsignacion);
+		
 		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_return") {
 		
 		// Return
-		Return();
+		var NodoReturn = Return();
+		
+		ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf].ArrayNodos.push(NodoReturn);
+		
 		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_break" || TokenActual.GetTipo() == "Palabra_Reservada_continue") {
 		
 		// Sentencias Ciclos
-		SenteciasCiclos();
+		var NodoSenteciasCiclos = SenteciasCiclos();
+		
+		ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf].ArrayNodos.push(NodoSenteciasCiclos);
+		
 		Recuperacion = true;
 		
 	} else if(TokenActual.GetTipo() == "Fin_De_Cadena") {  
@@ -1757,7 +2859,13 @@ function InstruccionCiclosIf() {
 	} else {
 		
 		// Errores Sintacticos
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("Un Tipo De Ciclo, Asignacion, Declaracion De Variables, Comentarios, If, Print, Retorno O Una Sentencia De Ciclos");
+		
+		ArregloInstruccionesCiclosIf[ContadorArrayCiclosIf].ArrayNodos.push(NodoError);
+		
 		Recuperacion = true;
 	
 	}
@@ -1765,20 +2873,61 @@ function InstruccionCiclosIf() {
 }
 
 // Sentencias Ciclos
-function SenteciasCiclos() {
+function SenteciasCiclos(): any {
 	
 	// Estructura Sintactica 
 	if(TokenActual.GetTipo() == "Palabra_Reservada_break") {
 		
 		// Estructura Sintactica
-		PrincipalParea("Palabra_Reservada_break");		Traduccion_Total += AgregarIdentacion() + "break \n\n";
+		var NodoBreak = new NodoArbol(VariablesGlobales.ContadorNodos, "Sentencia_Break");
+		VariablesGlobales.ContadorNodos++;	
+		
+		PrincipalParea("Palabra_Reservada_break");
+
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "break");
+		VariablesGlobales.ContadorNodos++;	
+		
 		PrincipalParea("Simbolo_PuntoYComa");
 		
+		var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+		VariablesGlobales.ContadorNodos++;
+
+		NodoBreak.ArrayNodos.push(Sintaxis1);
+		NodoBreak.ArrayNodos.push(Sintaxis2);
+
+		return NodoBreak;
+				
 	} else if(TokenActual.GetTipo() == "Palabra_Reservada_continue") {
 		
 		// Estructura Sintactica
-		PrincipalParea("Palabra_Reservada_continue");		Traduccion_Total += AgregarIdentacion() + "continue \n\n";
+		var NodoContinue = new NodoArbol(VariablesGlobales.ContadorNodos, "Sentencia_Continue");
+		VariablesGlobales.ContadorNodos++;
+		
+		PrincipalParea("Palabra_Reservada_continue");
+		
+		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, "continue");
+		VariablesGlobales.ContadorNodos++;
+		
 		PrincipalParea("Simbolo_PuntoYComa");
+		
+		var Sintaxis2 = new NodoArbol(VariablesGlobales.ContadorNodos, ";");
+		VariablesGlobales.ContadorNodos++;
+		
+		NodoContinue.ArrayNodos.push(Sintaxis1);
+		NodoContinue.ArrayNodos.push(Sintaxis2);
+				
+		return NodoContinue;
+		
+	} else {
+		
+		// Estructura Sintactica 
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
+		PrincipalParea("Palabra break O continue");
+		// Recuperacion = true;
+		
+		return NodoError;
 		
 	}
 	
@@ -2015,7 +3164,7 @@ function Valores() {
 		
 		AgregarValor = true;
 		PrincipalParea("Identificador");
-		
+			
 		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, ValorString);
 		VariablesGlobales.ContadorNodos++;
 		
@@ -2026,7 +3175,11 @@ function Valores() {
 	} else if(TokenActual.GetTipo() == "Cadena_De_Texto") {
 		
 		AgregarValor = true;
-		PrincipalParea("Cadena_De_Texto");
+		PrincipalParea("Cadena_De_Texto");		
+			
+		var ArrayValores = ValorString.split("\"");
+		
+		ValorString = "\\\"" + ArrayValores[1] + "\\\"";
 		
 		var Sintaxis1 = new NodoArbol(VariablesGlobales.ContadorNodos, ValorString);
 		VariablesGlobales.ContadorNodos++;
@@ -2077,8 +3230,13 @@ function Valores() {
 	} else {
 		
 		// Erroers Sintacticos
+		var NodoError = new NodoArbol(VariablesGlobales.ContadorNodos, "Error_Sintactico");
+		VariablesGlobales.ContadorNodos++;
+		
 		ErroresSintactico("Algun Tipo De Valor");
 		//Recuperacion = true;
+		
+		return NodoError;
 		
 	}
 	

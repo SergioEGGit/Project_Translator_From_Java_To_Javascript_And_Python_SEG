@@ -30,8 +30,6 @@ var DeclaracionFunciones = /** @class */ (function (_super) {
         _this.Tipos = Tipos;
         _this.Identificador = Identificador;
         _this.ListaParametros = ListaParametros;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Metodo Traducir

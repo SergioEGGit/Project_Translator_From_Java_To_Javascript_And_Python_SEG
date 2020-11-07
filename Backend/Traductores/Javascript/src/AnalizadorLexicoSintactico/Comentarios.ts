@@ -9,9 +9,6 @@ import { AgregarIdentacion } from "./Variables_Metodos";
 // Clase Principal
 export class Comentarios extends Instruccion {
 
-    // Declaraciones
-	public AST = null;
-	
 	// Constructor 
     constructor(Linea: number, Columna: number,private Comentario: string) {
     
@@ -29,4 +26,5 @@ export class Comentarios extends Instruccion {
 		return Traduccion;		
 		 
     }
+	
 }

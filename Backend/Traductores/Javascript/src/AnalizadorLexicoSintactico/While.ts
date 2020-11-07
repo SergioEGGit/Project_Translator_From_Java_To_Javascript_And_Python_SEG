@@ -9,9 +9,6 @@ import { AgregarIdentacion } from "./Variables_Metodos";
 // Clase Principal
 export class While extends Instruccion {
 
-    // Declaraciones
-	public AST = null;
-	
 	// Constructor 
     constructor(Linea: number, Columna: number, private Condicion: Instruccion, private BloqueWhile: Instruccion) {
     
@@ -37,4 +34,5 @@ export class While extends Instruccion {
 		return Traduccion;		
 		 
     }
+	
 }

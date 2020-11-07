@@ -21,8 +21,8 @@ var NodoArbol = /** @class */ (function () {
         if (this.ArrayNodos.length > 0) {
             // Recorrer Lista De Nodos Hijos
             while (Contador < this.ArrayNodos.length) {
-                Cadena += "    A_" + this.Identificador + " -> " + "A_" + this.ArrayNodos[Contador].Identificador + "\n\n";
-                Cadena += this.ArrayNodos[Contador].GenerarTxtGrafica() + "\n\n";
+                Cadena += "    A_" + this.Identificador + " -> " + "A_" + this.ArrayNodos[Contador].Identificador + "\n";
+                Cadena += this.ArrayNodos[Contador].GenerarTxtGrafica();
                 Contador++;
             }
         }

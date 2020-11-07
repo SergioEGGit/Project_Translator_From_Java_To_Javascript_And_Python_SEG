@@ -9,9 +9,6 @@ import { AgregarIdentacion } from "./Variables_Metodos";
 // Clase Principal
 export class If extends Instruccion {
 
-    // Declaraciones
-	public AST = null;
-	
 	// Constructor 
     constructor(Linea: number, Columna: number, private Condicion: Instruccion, private BloqueIf: Instruccion, private BloqueElse: Instruccion | null) {
     
@@ -68,4 +65,5 @@ export class If extends Instruccion {
 		return Traduccion_If; 
 		
     }
+	
 }

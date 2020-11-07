@@ -31,8 +31,6 @@ var Errores = /** @class */ (function (_super) {
         _this.Columna = Columna;
         _this.Tipo = Tipo;
         _this.Lexema = Lexema;
-        // Declaraciones
-        _this.AST = null;
         // Agregar Error Al Arreglo
         Variables_Metodos_1.ArrayErrores.push(_this);
         return _this;

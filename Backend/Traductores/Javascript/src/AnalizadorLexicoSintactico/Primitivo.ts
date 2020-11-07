@@ -7,7 +7,6 @@ import { Instruccion } from "./Instruccion";
 export class Primitivo extends Instruccion {
 
     // Declaraciones
-	public AST = null;
 	private Value: any;
 	
 	// Constructor

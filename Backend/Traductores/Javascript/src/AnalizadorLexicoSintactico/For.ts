@@ -9,9 +9,6 @@ import { AgregarIdentacion } from "./Variables_Metodos";
 // Clase Principal
 export class For extends Instruccion {
 
-    // Declaraciones
-	public AST = null;
-	
 	// Constructor 
     constructor(Linea: number, Columna: number, private Declaracion: Instruccion, private Condicion: Instruccion, private Incremento: Instruccion, private BloqueFor: Instruccion) {
     
@@ -38,4 +35,5 @@ export class For extends Instruccion {
 		return Traduccion;		
 		 
     }
+	
 }

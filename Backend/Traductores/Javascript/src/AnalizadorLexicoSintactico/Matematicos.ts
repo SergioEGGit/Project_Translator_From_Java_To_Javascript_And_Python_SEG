@@ -19,9 +19,6 @@ export enum Operaciones {
 // Clase Principal
 export class Matematicos extends Instruccion {
 
-	// Declaraciones
-	public AST=null;
-	
 	// Constructor
     constructor(Linea: number, Columna: number, private Izq: Instruccion, private Der: Instruccion, private Operacion: Operaciones) {
 
@@ -69,10 +66,11 @@ export class Matematicos extends Instruccion {
 		
 		} else {
 			
-			ValRetornar = undefined
+			ValRetornar = undefined;
 		}
 		
 		return ValRetornar;
+		
     }
     
 } 

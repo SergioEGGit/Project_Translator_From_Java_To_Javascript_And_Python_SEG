@@ -27,8 +27,6 @@ var Parametros = /** @class */ (function (_super) {
         _super.call(this, Linea, Columna) || this;
         _this.Tipos = Tipos;
         _this.Identificador = Identificador;
-        // Declaraciones
-        _this.AST = null;
         return _this;
     }
     // Metodo Traducir

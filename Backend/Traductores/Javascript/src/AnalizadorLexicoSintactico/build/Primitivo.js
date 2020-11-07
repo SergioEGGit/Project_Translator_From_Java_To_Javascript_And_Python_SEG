@@ -25,8 +25,6 @@ var Primitivo = /** @class */ (function (_super) {
         var _this = 
         // Super Llamar Constructor Clase Abstracta
         _super.call(this, Linea, Columna) || this;
-        // Declaraciones
-        _this.AST = null;
         // Retornar Valor
         _this.Value = Value;
         return _this;
