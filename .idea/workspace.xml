@@ -21,6 +21,33 @@
   <component name="ChangeListManager">
     <list default="true" id="8e6ab66d-3e7d-42af-812e-297a914af181" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/Arbol.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/AnalizadorLexicoSintactico/build/Arbol.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/Reportes/ArbolAnalisisSintacticoJS.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/Traductores/Javascript/src/Reportes/ArbolAnalisisSintacticoJS.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/Traductores/Python/src/Reportes/ArbolSintacticoPY.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/Traductores/Python/src/Reportes/ArbolSintacticoPY.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/10.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/11.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/12.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/13.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/14.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/15.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/16.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/17.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/18.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/19.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/3.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/4.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/5.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/6.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/7.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/8.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/Imagenes/9.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/ManualTécnico.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manuales/ManualUsuario.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/Server.go" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Server.go" afterDir="false" />
@@ -165,22 +192,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1601918287055" />
-    <state width="1323" height="172" key="GridCell.Tab.0.bottom" timestamp="1604700997924">
+    <state width="1323" height="172" key="GridCell.Tab.0.bottom" timestamp="1604709310711">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="172" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1604700997924" />
-    <state width="1323" height="172" key="GridCell.Tab.0.center" timestamp="1604700997924">
+    <state width="1323" height="172" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1604709310711" />
+    <state width="1323" height="172" key="GridCell.Tab.0.center" timestamp="1604709310709">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="172" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1604700997924" />
-    <state width="1323" height="172" key="GridCell.Tab.0.left" timestamp="1604700997924">
+    <state width="1323" height="172" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1604709310709" />
+    <state width="1323" height="172" key="GridCell.Tab.0.left" timestamp="1604709310547">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="172" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1604700997924" />
-    <state width="1323" height="172" key="GridCell.Tab.0.right" timestamp="1604700997924">
+    <state width="1323" height="172" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1604709310547" />
+    <state width="1323" height="172" key="GridCell.Tab.0.right" timestamp="1604709310710">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="172" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1604700997924" />
+    <state width="1323" height="172" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1604709310710" />
     <state x="184" y="8" key="SettingsEditor" timestamp="1601917489045">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
