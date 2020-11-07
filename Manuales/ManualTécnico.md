@@ -158,17 +158,17 @@ Acontinuación se muestra un poco del codigo de la implementación de ambos anal
 
 #### Analizador De Python
 
-![](Imagenes/3.png)
+![Codigo1](Imagenes/3.png)
 
-![](Imagenes/4.png)
+![Codigo2](Imagenes/4.png)
 
-![](Imagenes/5.png)
+![Codigo3](Imagenes/5.png)
 
 #### Analizador De  JavaScript
 
-![](Imagenes/6.png)
+![Codigo4](Imagenes/6.png)
 
-![](Imagenes/7.png)
+![Codigo5](Imagenes/7.png)
 
-![](Imagenes/8.png)
+![Codigo6](Imagenes/8.png)
 
