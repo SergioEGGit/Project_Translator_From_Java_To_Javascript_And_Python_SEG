@@ -1495,6 +1495,678 @@ digraph ArbolSintaticoPY {
     A_368 -> A_500
     A_500[label="}"];
 
+    A_4 -> A_502
+    A_502[label="Tipo_Clase"];
+
+    A_502 -> A_501
+    A_501[label="public"];
+
+    A_502 -> A_503
+    A_503[label="Tipo_Clase"];
+
+    A_503 -> A_504
+    A_504[label="class"];
+
+    A_503 -> A_505
+    A_505[label="error"];
+
+    A_503 -> A_506
+    A_506[label="{"];
+
+    A_503 -> A_507
+    A_507[label="Lista_Instrucciones_Clase"];
+
+    A_507 -> A_508
+    A_508[label="Comentario"];
+
+    A_508 -> A_509
+    A_509[label="/*
+    * Recuperacion mediante
+    * modo panico
+    */"];
+
+    A_507 -> A_511
+    A_511[label="Funcion"];
+
+    A_511 -> A_510
+    A_510[label="public"];
+
+    A_511 -> A_512
+    A_512[label="Funcion_Void"];
+
+    A_512 -> A_513
+    A_513[label="void"];
+
+    A_512 -> A_514
+    A_514[label="recuperarse"];
+
+    A_512 -> A_515
+    A_515[label="("];
+
+    A_512 -> A_516
+    A_516[label="Lista_De_Parametros"];
+
+    A_512 -> A_517
+    A_517[label=")"];
+
+    A_512 -> A_518
+    A_518[label="{"];
+
+    A_512 -> A_519
+    A_519[label="Lista_Instrucciones_Funcion"];
+
+    A_519 -> A_520
+    A_520[label="Declaracion_De_Variables"];
+
+    A_520 -> A_521
+    A_521[label="Tipo_De_Dato"];
+
+    A_521 -> A_522
+    A_522[label="double"];
+
+    A_520 -> A_523
+    A_523[label="Lista_De_Declaraciones"];
+
+    A_523 -> A_524
+    A_524[label="x"];
+
+    A_523 -> A_525
+    A_525[label="="];
+
+    A_523 -> A_526
+    A_526[label="Expresion"];
+
+    A_526 -> A_527
+    A_527[label="5"];
+
+    A_526 -> A_528
+    A_528[label="-"];
+
+    A_526 -> A_529
+    A_529[label="3"];
+
+    A_526 -> A_530
+    A_530[label="*"];
+
+    A_526 -> A_531
+    A_531[label="2"];
+
+    A_526 -> A_532
+    A_532[label="-"];
+
+    A_526 -> A_533
+    A_533[label="4"];
+
+    A_520 -> A_534
+    A_534[label=";"];
+
+    A_519 -> A_535
+    A_535[label="Declaracion_De_Variables"];
+
+    A_535 -> A_536
+    A_536[label="Tipo_De_Dato"];
+
+    A_536 -> A_537
+    A_537[label="String"];
+
+    A_535 -> A_538
+    A_538[label="Lista_De_Declaraciones"];
+
+    A_538 -> A_539
+    A_539[label="s"];
+
+    A_538 -> A_540
+    A_540[label="="];
+
+    A_538 -> A_541
+    A_541[label="Expresion"];
+
+    A_541 -> A_542
+    A_542[label="\"Texto cadena\""];
+
+    A_535 -> A_543
+    A_543[label=";"];
+
+    A_519 -> A_544
+    A_544[label="Declaracion_De_Variables"];
+
+    A_544 -> A_545
+    A_545[label="Tipo_De_Dato"];
+
+    A_545 -> A_546
+    A_546[label="char"];
+
+    A_544 -> A_547
+    A_547[label="Lista_De_Declaraciones"];
+
+    A_547 -> A_548
+    A_548[label="y"];
+
+    A_547 -> A_549
+    A_549[label="="];
+
+    A_547 -> A_550
+    A_550[label="Expresion"];
+
+    A_550 -> A_551
+    A_551[label="\"undefined\""];
+
+    A_544 -> A_552
+    A_552[label=";"];
+
+    A_519 -> A_553
+    A_553[label="Declaracion_De_Variables"];
+
+    A_553 -> A_554
+    A_554[label="Tipo_De_Dato"];
+
+    A_554 -> A_555
+    A_555[label="int"];
+
+    A_553 -> A_556
+    A_556[label="Lista_De_Declaraciones"];
+
+    A_556 -> A_557
+    A_557[label="x"];
+
+    A_556 -> A_558
+    A_558[label="="];
+
+    A_556 -> A_559
+    A_559[label="Expresion"];
+
+    A_559 -> A_560
+    A_560[label="8"];
+
+    A_553 -> A_561
+    A_561[label=";"];
+
+    A_519 -> A_562
+    A_562[label="Declaracion_De_Variables"];
+
+    A_562 -> A_563
+    A_563[label="Tipo_De_Dato"];
+
+    A_563 -> A_564
+    A_564[label="boolean"];
+
+    A_562 -> A_565
+    A_565[label="Lista_De_Declaraciones"];
+
+    A_565 -> A_566
+    A_566[label="True"];
+
+    A_565 -> A_567
+    A_567[label="="];
+
+    A_565 -> A_568
+    A_568[label="Expresion"];
+
+    A_568 -> A_569
+    A_569[label="true"];
+
+    A_568 -> A_570
+    A_570[label="&&"];
+
+    A_568 -> A_571
+    A_571[label="false"];
+
+    A_568 -> A_572
+    A_572[label="||"];
+
+    A_568 -> A_573
+    A_573[label="true"];
+
+    A_568 -> A_574
+    A_574[label="&&"];
+
+    A_568 -> A_575
+    A_575[label="true"];
+
+    A_562 -> A_576
+    A_576[label=";"];
+
+    A_512 -> A_577
+    A_577[label="}"];
+
+    A_507 -> A_579
+    A_579[label="Funcion"];
+
+    A_579 -> A_578
+    A_578[label="public"];
+
+    A_579 -> A_580
+    A_580[label="Funcion_Void"];
+
+    A_580 -> A_581
+    A_581[label="void"];
+
+    A_580 -> A_582
+    A_582[label="declaraciones"];
+
+    A_580 -> A_583
+    A_583[label="("];
+
+    A_580 -> A_584
+    A_584[label="Lista_De_Parametros"];
+
+    A_580 -> A_585
+    A_585[label=")"];
+
+    A_580 -> A_586
+    A_586[label="{"];
+
+    A_580 -> A_587
+    A_587[label="Lista_Instrucciones_Funcion"];
+
+    A_587 -> A_588
+    A_588[label="Declaracion_De_Variables"];
+
+    A_588 -> A_589
+    A_589[label="Tipo_De_Dato"];
+
+    A_589 -> A_590
+    A_590[label="String"];
+
+    A_588 -> A_591
+    A_591[label="Lista_De_Declaraciones"];
+
+    A_591 -> A_592
+    A_592[label="s"];
+
+    A_591 -> A_593
+    A_593[label="="];
+
+    A_591 -> A_594
+    A_594[label="Expresion"];
+
+    A_594 -> A_595
+    A_595[label="\"\""];
+
+    A_591 -> A_596
+    A_596[label=","];
+
+    A_591 -> A_597
+    A_597[label="t"];
+
+    A_591 -> A_598
+    A_598[label=","];
+
+    A_591 -> A_599
+    A_599[label="r"];
+
+    A_591 -> A_600
+    A_600[label=","];
+
+    A_591 -> A_601
+    A_601[label="i"];
+
+    A_591 -> A_602
+    A_602[label="="];
+
+    A_591 -> A_603
+    A_603[label="Expresion"];
+
+    A_603 -> A_604
+    A_604[label="\"Compi\""];
+
+    A_591 -> A_605
+    A_605[label=","];
+
+    A_591 -> A_606
+    A_606[label="n"];
+
+    A_591 -> A_607
+    A_607[label="="];
+
+    A_591 -> A_608
+    A_608[label="Expresion"];
+
+    A_608 -> A_609
+    A_609[label="\"1\""];
+
+    A_591 -> A_610
+    A_610[label=","];
+
+    A_591 -> A_611
+    A_611[label="g"];
+
+    A_591 -> A_612
+    A_612[label="="];
+
+    A_591 -> A_613
+    A_613[label="Expresion"];
+
+    A_613 -> A_614
+    A_614[label="\"2020\""];
+
+    A_588 -> A_615
+    A_615[label=";"];
+
+    A_587 -> A_616
+    A_616[label="Declaracion_De_Variables"];
+
+    A_616 -> A_617
+    A_617[label="Tipo_De_Dato"];
+
+    A_617 -> A_618
+    A_618[label="int"];
+
+    A_616 -> A_619
+    A_619[label="Lista_De_Declaraciones"];
+
+    A_619 -> A_620
+    A_620[label="pi"];
+
+    A_619 -> A_621
+    A_621[label="="];
+
+    A_619 -> A_622
+    A_622[label="Expresion"];
+
+    A_622 -> A_623
+    A_623[label="3.14159265358979323846"];
+
+    A_616 -> A_624
+    A_624[label=";"];
+
+    A_580 -> A_625
+    A_625[label="}"];
+
+    A_507 -> A_627
+    A_627[label="Funcion"];
+
+    A_627 -> A_626
+    A_626[label="public"];
+
+    A_627 -> A_628
+    A_628[label="Funcion_Main"];
+
+    A_628 -> A_629
+    A_629[label="static"];
+
+    A_628 -> A_630
+    A_630[label="void"];
+
+    A_628 -> A_631
+    A_631[label="main"];
+
+    A_628 -> A_632
+    A_632[label="("];
+
+    A_628 -> A_633
+    A_633[label="String"];
+
+    A_628 -> A_634
+    A_634[label="["];
+
+    A_628 -> A_635
+    A_635[label="]"];
+
+    A_628 -> A_636
+    A_636[label="args"];
+
+    A_628 -> A_637
+    A_637[label=")"];
+
+    A_628 -> A_638
+    A_638[label="{"];
+
+    A_628 -> A_639
+    A_639[label="Lista_Instrucciones_Funcion"];
+
+    A_639 -> A_640
+    A_640[label="Declaracion_De_Variables"];
+
+    A_640 -> A_641
+    A_641[label="Tipo_De_Dato"];
+
+    A_641 -> A_642
+    A_642[label="int"];
+
+    A_640 -> A_643
+    A_643[label="Lista_De_Declaraciones"];
+
+    A_643 -> A_644
+    A_644[label="x"];
+
+    A_643 -> A_645
+    A_645[label="="];
+
+    A_643 -> A_646
+    A_646[label="Expresion"];
+
+    A_646 -> A_647
+    A_647[label="1"];
+
+    A_640 -> A_648
+    A_648[label=";"];
+
+    A_639 -> A_649
+    A_649[label="Comentario"];
+
+    A_649 -> A_650
+    A_650[label="// Salir cuando x llega a ser mayor que 4"];
+
+    A_639 -> A_651
+    A_651[label="Sentencia_While"];
+
+    A_651 -> A_652
+    A_652[label="while"];
+
+    A_651 -> A_653
+    A_653[label="("];
+
+    A_651 -> A_654
+    A_654[label="Expresion"];
+
+    A_654 -> A_655
+    A_655[label="x"];
+
+    A_654 -> A_656
+    A_656[label="<="];
+
+    A_654 -> A_657
+    A_657[label="4"];
+
+    A_651 -> A_658
+    A_658[label=")"];
+
+    A_651 -> A_659
+    A_659[label="{"];
+
+    A_651 -> A_660
+    A_660[label="Lista_Instrucciones_CiclosIf"];
+
+    A_660 -> A_661
+    A_661[label="Print"];
+
+    A_661 -> A_662
+    A_662[label="System"];
+
+    A_661 -> A_663
+    A_663[label="."];
+
+    A_661 -> A_664
+    A_664[label="out"];
+
+    A_661 -> A_665
+    A_665[label="."];
+
+    A_661 -> A_666
+    A_666[label="Tipo_Print"];
+
+    A_666 -> A_667
+    A_667[label="println"];
+
+    A_661 -> A_668
+    A_668[label="("];
+
+    A_661 -> A_669
+    A_669[label="Expresion"];
+
+    A_669 -> A_670
+    A_670[label="\"Valor de x: \""];
+
+    A_669 -> A_671
+    A_671[label="+"];
+
+    A_669 -> A_672
+    A_672[label="x"];
+
+    A_661 -> A_673
+    A_673[label=")"];
+
+    A_661 -> A_674
+    A_674[label=";"];
+
+    A_660 -> A_675
+    A_675[label="Comentario"];
+
+    A_675 -> A_676
+    A_676[label="//incrementa el valor de x para la siguiente iteración"];
+
+    A_660 -> A_677
+    A_677[label="Asignacion"];
+
+    A_677 -> A_679
+    A_679[label="Incremento"];
+
+    A_679 -> A_678
+    A_678[label="x"];
+
+    A_679 -> A_680
+    A_680[label="+"];
+
+    A_679 -> A_681
+    A_681[label="+"];
+
+    A_679 -> A_682
+    A_682[label=";"];
+
+    A_651 -> A_683
+    A_683[label="}"];
+
+    A_639 -> A_684
+    A_684[label="Sentencia_DoWhile"];
+
+    A_684 -> A_685
+    A_685[label="do"];
+
+    A_684 -> A_686
+    A_686[label="{"];
+
+    A_684 -> A_687
+    A_687[label="Lista_Instrucciones_CiclosIf"];
+
+    A_687 -> A_688
+    A_688[label="Print"];
+
+    A_688 -> A_689
+    A_689[label="System"];
+
+    A_688 -> A_690
+    A_690[label="."];
+
+    A_688 -> A_691
+    A_691[label="out"];
+
+    A_688 -> A_692
+    A_692[label="."];
+
+    A_688 -> A_693
+    A_693[label="Tipo_Print"];
+
+    A_693 -> A_694
+    A_694[label="print"];
+
+    A_688 -> A_695
+    A_695[label="("];
+
+    A_688 -> A_696
+    A_696[label="Expresion"];
+
+    A_696 -> A_697
+    A_697[label="\"Contando... \""];
+
+    A_696 -> A_698
+    A_698[label="+"];
+
+    A_696 -> A_699
+    A_699[label="("];
+
+    A_696 -> A_700
+    A_700[label="contador"];
+
+    A_696 -> A_701
+    A_701[label="+"];
+
+    A_696 -> A_702
+    A_702[label="1"];
+
+    A_696 -> A_703
+    A_703[label=")"];
+
+    A_688 -> A_704
+    A_704[label=")"];
+
+    A_688 -> A_705
+    A_705[label=";"];
+
+    A_687 -> A_706
+    A_706[label="Asignacion"];
+
+    A_706 -> A_708
+    A_708[label="Asignacion_Simple"];
+
+    A_708 -> A_707
+    A_707[label="contador"];
+
+    A_708 -> A_709
+    A_709[label="="];
+
+    A_708 -> A_710
+    A_710[label="Expresion"];
+
+    A_710 -> A_711
+    A_711[label="1"];
+
+    A_708 -> A_712
+    A_712[label=";"];
+
+    A_684 -> A_713
+    A_713[label="}"];
+
+    A_684 -> A_714
+    A_714[label="while"];
+
+    A_684 -> A_715
+    A_715[label="("];
+
+    A_684 -> A_716
+    A_716[label="Expresion"];
+
+    A_716 -> A_717
+    A_717[label="contador"];
+
+    A_716 -> A_718
+    A_718[label="<"];
+
+    A_716 -> A_719
+    A_719[label="10"];
+
+    A_684 -> A_720
+    A_720[label=")"];
+
+    A_684 -> A_721
+    A_721[label=";"];
+
+    A_628 -> A_722
+    A_722[label="}"];
+
+    A_503 -> A_723
+    A_723[label="}"];
+
 
 
 }
