@@ -7,7 +7,7 @@
 
 ##### Interfaz Gráfica:
 
-![Intefaz](Imagenes/9.png)
+![Intefaz](Imagenes/9.PNG)
 
 ### Menú Archivo:
 
@@ -15,7 +15,7 @@
 ------------
 
 
-![Menu1](Imagenes/10.png)
+![Menu1](Imagenes/10.PNG)
 
 Este menú permite realizar operaciones basicas para su funcionamiento en nuestra interfaz
 
@@ -32,7 +32,7 @@ Este menú permite realizar operaciones basicas para su funcionamiento en nuestr
 
 
 
-![Menu2](Imagenes/11.png)
+![Menu2](Imagenes/11.PNG)
 
 Este menú se encarga de realizar todas las operaciones de los analizadores
 
@@ -44,11 +44,11 @@ Este menú se encarga de realizar todas las operaciones de los analizadores
 
 1. **Árbol De Análisis Sintactico:** Esta opción realiza una petición a ambos servidores solicitando un reporte en el cual se muestra la grafica del arbol sintactico.
 
-![Tokens](Imagenes/12.png)
+![Tokens](Imagenes/12.PNG)
 
-![Errores](Imagenes/13.png)
+![Errores](Imagenes/13.PNG)
 
-![Arbol](Imagenes/14.png)
+![Arbol](Imagenes/14.PNG)
 
 ### Menú Descarga:
 
@@ -57,7 +57,7 @@ Este menú se encarga de realizar todas las operaciones de los analizadores
 
 
 
-![Descargas](Imagenes/15.png)
+![Descargas](Imagenes/15.PNG)
 
 Este menú se encarga de descargar las traducciones que los analizadores dieron como respuesta.
 
@@ -67,7 +67,7 @@ Este menú se encarga de descargar las traducciones que los analizadores dieron 
 
 1. **Ambos Archivos:** Esta opción permite descargar ambos archivos con las traducciones.
 
-![Traduccion](Imagenes/16.png)
+![Traduccion](Imagenes/16.PNG)
 
 ### Menú Acerca De:
 
@@ -76,11 +76,11 @@ Este menú se encarga de descargar las traducciones que los analizadores dieron 
 
 
 
-![Informacion](Imagenes/17.png)
+![Informacion](Imagenes/17.PNG)
 
 Esta opción muestra un mensaje con los datos del programador de esta aplicación.
 
-![Informacion](Imagenes/18.png)
+![Informacion](Imagenes/18.PNG)
 
 
 ------------
@@ -89,4 +89,4 @@ Esta opción muestra un mensaje con los datos del programador de esta aplicació
 
 De Esta manera se veria al realizar un análisis
 
-![Informacion](Imagenes/19.png)
+![Informacion](Imagenes/19.PNG)
